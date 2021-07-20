@@ -1,5 +1,5 @@
 # Template for Fast API
-[![codecov](https://codecov.io/gh/Maua-Dev/back_fastAPI_template/branch/main/graph/badge.svg?token=M16VBNGBR3)](https://codecov.io/gh/Maua-Dev/back_fastAPI_template)
+[![codecov](https://codecov.io/gh/Maua-Dev/mss-gerenciamento-usuarios/branch/main/graph/badge.svg?token=SZ815UNBXK)](https://codecov.io/gh/Maua-Dev/mss-gerenciamento-usuarios)
 
 
 This is a template to create Fast API based repositories 
