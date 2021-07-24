@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+from devmaua.src import models
 
 from src.main import app
 
