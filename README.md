@@ -19,6 +19,16 @@ Comece ao clonar o repositório do modo que achar mais adequado.
 
 # Uso:
 
+### Desenvolvimento com Docker Composer
+
+Para construir a imagem:
+
+    docker-compose build
+
+Para subir o container:
+
+    docker-compose up
+
 ### Iniciar server
     uvicorn src.main:app --reload
 
