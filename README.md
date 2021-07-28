@@ -14,8 +14,9 @@ Comece ao clonar o repositório do modo que achar mais adequado.
 ### Ativar ambiente virtual (*windows*)
     venv\Scripts\activate
 
-### Instalar pacotes necessários
-    pip install -r requirements.txt
+### Criar Conda Env:
+    conda env create -f environment.yml
+    conda activate maua-dev-env
 
 # Uso:
 
