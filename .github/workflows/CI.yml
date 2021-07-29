@@ -19,7 +19,7 @@ jobs:
       with:
         python-version: 3.9
     - name: Install Conda and Activate enviroment
-    - uses: conda-incubator/setup-miniconda@v2
+      uses: conda-incubator/setup-miniconda@v2
       with:
           activate-environment: environment.yml
     - name: Runs tests
