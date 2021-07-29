@@ -18,11 +18,14 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
-    - name: Install Conda and Activate enviroment
+    - name: Instala Conda e cria o env
       uses: conda-incubator/setup-miniconda@v2
       with:
           activate-environment: environment.yml
           auto-activate-base: true
+    - name: Ativa o enviroment
+      run: conda activate environment.yml
+
     - name: Runs tests
       run: pytest
     - name: Create coverage report
