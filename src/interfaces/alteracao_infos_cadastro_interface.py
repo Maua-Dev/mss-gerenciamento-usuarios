@@ -3,7 +3,9 @@ from devmaua.src.models.email import Email
 from devmaua.src.models.endereco import Endereco
 
 from devmaua.src.enum.roles import Roles                
-from devmaua.src.enum.tipo_telefone import TipoTelefone 
+from devmaua.src.enum.tipo_telefone import TipoTelefone
+from devmaua.src.enum.tipo_endereco import TipoEndereco
+from devmaua.src.enum.tipo_email import TipoEmail
 
 from typing import Optional
 
@@ -30,14 +32,26 @@ class IAlteracaoInfosCadastro:
         """ Remove roles de um usuario """
         pass
     
-    def adicionar_email(self, telefone: Email):
+    def adicionar_email(self, email: Email):
         """ Adiciona um novo email na lista de emails de Contato. """
         pass
     
-    def remover_email(self, telefone: Email):
+    def remover_email(self, email: Email):
         """ Remove um email da lista de email de Contato. """
         pass
     
-    def editar_email(self, email: Email, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
+    def editar_email(self, email: Email, email_novo: Optional[str], tipo: Optional[TipoEmail], prioridade: Optional[int]):
         """ Edita informacoes de um email"""
+        pass
+    
+    def adicionar_endereco(self, endereco: Endereco):
+        """ Adiciona um novo endereco na lista de enderecos de Contato. """
+        pass
+    
+    def remover_endereco(self, endereco: Endereco):
+        """ Remove um endereco da lista de enderecos de Contato. """
+        pass
+    
+    def editar_endereco(self, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]):
+        """ Edita informacoes de um endereco"""
         pass
