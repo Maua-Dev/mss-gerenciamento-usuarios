@@ -13,46 +13,46 @@ from abc import ABC, abstractmethod
 class IAlteracaoInfosCadastro(ABC):
     
     @abstractmethod
-    def adicionar_telefone(self, telefone: Telefone):
+    def adicionar_telefone(self, telefone: Telefone) -> bool:
         """ Adiciona um novo telefone na lista de telefones de Contato. """
         pass
     
     @abstractmethod
-    def remover_telefone(self, telefone: Telefone):
+    def remover_telefone(self, telefone: Telefone) -> bool:
         """ Remove um telefone da lista de telefones de Contato. """
         pass
     
     @abstractmethod
-    def editar_telefone(self, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
+    def editar_telefone(self, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]) -> bool:
         """ Edita informacoes de um Telefone"""
         pass
     
     @abstractmethod
-    def adicionar_email(self, email: Email):
+    def adicionar_email(self, email: Email) -> bool:
         """ Adiciona um novo email na lista de emails de Contato. """
         pass
     
     @abstractmethod
-    def remover_email(self, email: Email):
+    def remover_email(self, email: Email) -> bool:
         """ Remove um email da lista de email de Contato. """
         pass
     
     @abstractmethod
-    def editar_email(self, email: Email, email_novo: Optional[str], tipo: Optional[TipoEmail], prioridade: Optional[int]):
+    def editar_email(self, email: Email, email_novo: Optional[str], tipo: Optional[TipoEmail], prioridade: Optional[int]) -> bool:
         """ Edita informacoes de um email"""
         pass
     
     @abstractmethod
-    def adicionar_endereco(self, endereco: Endereco):
+    def adicionar_endereco(self, endereco: Endereco) -> bool:
         """ Adiciona um novo endereco na lista de enderecos de Contato. """
         pass
     
     @abstractmethod
-    def remover_endereco(self, endereco: Endereco):
+    def remover_endereco(self, endereco: Endereco) -> bool:
         """ Remove um endereco da lista de enderecos de Contato. """
         pass
     
     @abstractmethod
-    def editar_endereco(self, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]):
+    def editar_endereco(self, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]) -> bool:
         """ Edita informacoes de um endereco"""
         pass
