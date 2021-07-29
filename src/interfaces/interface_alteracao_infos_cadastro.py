@@ -11,6 +11,8 @@ from abc import ABC, abstractmethod
 
 class IAlteracaoInfosCadastro(ABC):
     
+    """ Interface de modificação de informações de um usuario """
+    
     @abstractmethod
     def adicionar_telefone(self, telefone: Telefone) -> bool:
         """ Adiciona um novo telefone na lista de telefones de Contato. """
