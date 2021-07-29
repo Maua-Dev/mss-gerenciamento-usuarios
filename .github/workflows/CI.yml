@@ -24,9 +24,8 @@ jobs:
           activate-environment: environment.yml
           auto-activate-base: true
     - name: Ativa o enviroment
-      run: |
-        conda init bash
-        conda activate environment.yml
+      uses: s-weigand/setup-conda@v1
+
 
     - name: Runs tests
       run: pytest
