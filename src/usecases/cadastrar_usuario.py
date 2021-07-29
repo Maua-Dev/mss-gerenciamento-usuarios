@@ -1,18 +1,19 @@
 from devmaua.src.models.usuario import Usuario
 
-from src.interfaces.interface_gerenciamento_usuarios import IGerenciamentoUsuarios
+from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
+from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 
 
 class CadastradorUsuario():
 
-    usuarios_repo: IGerenciamentoUsuarios
+    usuarios_repo: IArmazenamento
 
-    def __init__(self, usuarios_repo: IGerenciamentoUsuarios):
+    def __init__(self, usuarios_repo: IArmazenamento):
         self.usuarios_repo = usuarios_repo
 
     def cadastrar(self, usuario: Usuario):
-        try:
-            return self.usuarios_repo.logar_usuario(Usuario)
-        except:
-            return False
+        if self.usuarios_repo.usuario_existe(usuario):
+            raise ErroUsuarioExiste
+        self.usuarios_repo.cadastrar_usuario(usuario)
+
 
