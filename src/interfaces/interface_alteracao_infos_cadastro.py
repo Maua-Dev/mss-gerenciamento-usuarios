@@ -1,8 +1,7 @@
 from devmaua.src.models.telefone import Telefone        
 from devmaua.src.models.email import Email
 from devmaua.src.models.endereco import Endereco
-
-from devmaua.src.enum.roles import Roles                
+           
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_email import TipoEmail
