@@ -1,9 +1,11 @@
-from devmaua.src.models.telefone import Telefone  #Importa todos as classes do repositorio https://github.com/Maua-Dev/models-devmaua
-from devmaua.src.enum.tipo_telefone import TipoTelefone    #Importa todos os enums do repositorio https://github.com/Maua-Dev/models-devmaua
+from devmaua.src.models.telefone import Telefone        #Importa a classe Telefone do repositorio https://github.com/Maua-Dev/models-devmaua
+from devmaua.src.enum.roles import Roles                #Importa o enum de Roles do repositorio https://github.com/Maua-Dev/models-devmaua
+from devmaua.src.enum.tipo_telefone import TipoTelefone #Importa o enum de TipoTelefone do repositorio https://github.com/Maua-Dev/models-devmaua
+
 from typing import Optional
 
 
-class AlteracaoInfosCadastroInterface:
+class IAlteracaoInfosCadastro:
     
     def adicionar_telefone(self, telefone: Telefone):
         """ Adiciona um novo telefone na lista de telefones de Contato. """
@@ -17,3 +19,10 @@ class AlteracaoInfosCadastroInterface:
         """ Edita informacoes de um Telefone"""
         pass
         
+    def adicionar_roles(self, roles: list[Roles]):
+        """ Adiciona roles a um usuario """
+        pass
+    
+    def remover_roles(self, roles: list[Roles]):
+        """ Remove roles de um usuario """
+        pass
