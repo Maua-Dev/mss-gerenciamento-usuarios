@@ -28,16 +28,6 @@ class IAlteracaoInfosCadastro(ABC):
         pass
     
     @abstractmethod
-    def adicionar_roles(self, roles: list[Roles]):
-        """ Adiciona roles a um usuario """
-        pass
-    
-    @abstractmethod
-    def remover_roles(self, roles: list[Roles]):
-        """ Remove roles de um usuario """
-        pass
-    
-    @abstractmethod
     def adicionar_email(self, email: Email):
         """ Adiciona um novo email na lista de emails de Contato. """
         pass
