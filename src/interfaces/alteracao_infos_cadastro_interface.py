@@ -1,6 +1,9 @@
-from devmaua.src.models.telefone import Telefone        #Importa a classe Telefone do repositorio https://github.com/Maua-Dev/models-devmaua
-from devmaua.src.enum.roles import Roles                #Importa o enum de Roles do repositorio https://github.com/Maua-Dev/models-devmaua
-from devmaua.src.enum.tipo_telefone import TipoTelefone #Importa o enum de TipoTelefone do repositorio https://github.com/Maua-Dev/models-devmaua
+from devmaua.src.models.telefone import Telefone        
+from devmaua.src.models.email import Email
+from devmaua.src.models.endereco import Endereco
+
+from devmaua.src.enum.roles import Roles                
+from devmaua.src.enum.tipo_telefone import TipoTelefone 
 
 from typing import Optional
 
@@ -15,7 +18,7 @@ class IAlteracaoInfosCadastro:
         """ Remove um telefone da lista de telefones de Contato. """
         pass
     
-    def editar_telefone(self, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
+    def editar_telefone(self, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
         """ Edita informacoes de um Telefone"""
         pass
         
@@ -25,4 +28,16 @@ class IAlteracaoInfosCadastro:
     
     def remover_roles(self, roles: list[Roles]):
         """ Remove roles de um usuario """
+        pass
+    
+    def adicionar_email(self, telefone: Email):
+        """ Adiciona um novo email na lista de emails de Contato. """
+        pass
+    
+    def remover_email(self, telefone: Email):
+        """ Remove um email da lista de email de Contato. """
+        pass
+    
+    def editar_email(self, email: Email, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
+        """ Edita informacoes de um email"""
         pass
