@@ -23,8 +23,11 @@ jobs:
       with:
           activate-environment: environment.yml
           auto-activate-base: true
-    - name: Ativa o enviroment
+    - name: Ativa o conda
       uses: s-weigand/setup-conda@v1
+    - name: Ativa o env  
+      run: conda activate maua-dev-env
+
 
 
     - name: Runs tests
