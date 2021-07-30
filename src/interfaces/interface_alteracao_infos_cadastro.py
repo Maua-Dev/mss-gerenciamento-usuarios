@@ -15,46 +15,46 @@ class IAlteracaoInfosCadastro(ABC):
     """ Interface de modificação de informações de um usuario """
     
     @abstractmethod
-    def adicionarTelefone(self, usuario: Usuario, telefone: Telefone) -> bool:
+    def adicionarTelefone(self, usuario: Usuario, telefone: Telefone):
         """ Adiciona um novo telefone na lista de telefones de Contato. """
         pass
     
     @abstractmethod
-    def removerTelefone(self, usuario: Usuario, telefone: Telefone) -> bool:
+    def removerTelefone(self, usuario: Usuario, telefone: Telefone):
         """ Remove um telefone da lista de telefones de Contato. """
         pass
     
     @abstractmethod
-    def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]) -> bool:
+    def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
         """ Edita informacoes de um Telefone"""
         pass
     
     @abstractmethod
-    def adicionarEmail(self, usuario: Usuario, email: Email) -> bool:
+    def adicionarEmail(self, usuario: Usuario, email: Email):
         """ Adiciona um novo email na lista de emails de Contato. """
         pass
     
     @abstractmethod
-    def removerEmail(self, usuario: Usuario, email: Email) -> bool:
+    def removerEmail(self, usuario: Usuario, email: Email):
         """ Remove um email da lista de email de Contato. """
         pass
     
     @abstractmethod
-    def editarEmail(self, usuario: Usuario, email: Email, email_novo: Optional[str], tipo: Optional[TipoEmail], prioridade: Optional[int]) -> bool:
+    def editarEmail(self, usuario: Usuario, email: Email, email_novo: Optional[str], tipo: Optional[TipoEmail], prioridade: Optional[int]):
         """ Edita informacoes de um email"""
         pass
     
     @abstractmethod
-    def adicionarEndereco(self, usuario: Usuario, endereco: Endereco) -> bool:
+    def adicionarEndereco(self, usuario: Usuario, endereco: Endereco):
         """ Adiciona um novo endereco na lista de enderecos de Contato. """
         pass
     
     @abstractmethod
-    def removerEndereco(self, usuario: Usuario, endereco: Endereco) -> bool:
+    def removerEndereco(self, usuario: Usuario, endereco: Endereco):
         """ Remove um endereco da lista de enderecos de Contato. """
         pass
     
     @abstractmethod
-    def editarEndereco(self, usuario: Usuario, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]) -> bool:
+    def editarEndereco(self, usuario: Usuario, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]):
         """ Edita informacoes de um endereco"""
         pass
