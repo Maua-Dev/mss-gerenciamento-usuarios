@@ -83,3 +83,8 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
     def quantidadeTelefones(self, usuario: Usuario):
         return len(self.armazem[self.armazem.index(usuario)].contato.telefones)
     
+    def usuarioExiste(self, usuario: Usuario):
+        for u in self.armazem:
+            if u.nome == usuario.nome and u.nascimento == usuario.nascimento:
+                return True
+        return False
