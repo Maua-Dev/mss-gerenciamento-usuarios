@@ -13,13 +13,13 @@ from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEmail
 
 class UCRemoverEmail():
     
-    repositorio: IAlteracaoInfosCadastro
+    alteracaoInfosCadastro: IAlteracaoInfosCadastro
     
-    def __init__(self, repositorio: IAlteracaoInfosCadastro):
-        self.repositorio = repositorio
+    def __init__(self, alteracaoInfosCadastro: IAlteracaoInfosCadastro):
+        self.alteracaoInfosCadastro = alteracaoInfosCadastro
         
     def removerEmail(self, usuario: Usuario, email: Email):
-        if not(self.repositorio.usuarioExiste(usuario)):
+        if not(self.alteracaoInfosCadastro.usuarioExiste(usuario)):
             raise ErroUsuarioInvalido
         
         if email == None or email not in usuario.contato.emails:
@@ -31,4 +31,4 @@ class UCRemoverEmail():
         if len(usuario.contato.emails) == 1:
             raise ErroDeletarEmailUnico
         
-        self.repositorio.removerEmail(usuario, email)
+        self.alteracaoInfosCadastro.removerEmail(usuario, email)
