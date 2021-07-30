@@ -73,3 +73,13 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
         self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].cep = cep
         self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].complemento = complemento
         self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].tipo = tipo
+        
+    def quantidadeEmails(self, usuario: Usuario):
+        return len(self.armazem[self.armazem.index(usuario)].contato.emails)
+    
+    def quantidadeEnderecos(self, usuario: Usuario):
+        return len(self.armazem[self.armazem.index(usuario)].contato.enderecos)
+    
+    def quantidadeTelefones(self, usuario: Usuario):
+        return len(self.armazem[self.armazem.index(usuario)].contato.telefones)
+    
