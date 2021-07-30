@@ -61,4 +61,15 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
         self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].tipo = tipo
         self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].prioridade = prioridade
         
-    
+    def adicionarEndereco(self, usuario: Usuario, endereco: Endereco):
+        self.armazem[self.armazem.index(usuario)].contato.enderecos.append(endereco)
+        
+    def removerEndereco(self, usuario: Usuario, endereco: Endereco):
+        self.armazem[self.armazem.index(usuario)].contato.enderecos.remove(endereco)
+        
+    def editarEndereco(self, usuario: Usuario, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]):
+        self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].logradouro = logradouro
+        self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].numero = numero
+        self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].cep = cep
+        self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].complemento = complemento
+        self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].tipo = tipo
