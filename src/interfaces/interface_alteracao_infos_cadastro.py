@@ -9,6 +9,7 @@ from devmaua.src.enum.tipo_email import TipoEmail
 
 from typing import Optional
 from abc import ABC, abstractmethod
+from datetime import date
 
 class IAlteracaoInfosCadastro(ABC):
     
@@ -80,6 +81,6 @@ class IAlteracaoInfosCadastro(ABC):
         pass
     
     @abstractmethod
-    def getUsuarioPorNomeENascimento(self, usuario: Usuario):
+    def getUsuarioPorNomeENascimento(self, nome: str, nascimento: date):
         """ Busca um usuario pelo nome e data de nascimento """
         pass
