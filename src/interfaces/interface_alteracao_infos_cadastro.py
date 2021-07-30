@@ -58,3 +58,19 @@ class IAlteracaoInfosCadastro(ABC):
     def editarEndereco(self, usuario: Usuario, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]):
         """ Edita informacoes de um endereco"""
         pass
+    
+    @abstractmethod
+    def quantidadeEmails(self, usuario: Usuario):
+        """ Retorna a quantidade de emails que o usuario tem """
+        pass
+    
+    @abstractmethod
+    def quantidadeTelefones(self, usuario: Usuario):
+        """ Retorna a quantidade de telefones que o usuario tem """
+        pass
+    
+    @abstractmethod
+    def quantidadeEnderecos(self, usuario: Usuario):
+        """ Retorna a quantidade de enderecos que o usuario tem """
+        pass
+    
