@@ -1,8 +1,18 @@
 from devmaua.src.models.ra import RA
 from devmaua.src.models.usuario import Usuario
+from devmaua.src.models.telefone import Telefone        
+from devmaua.src.models.email import Email
+from devmaua.src.models.endereco import Endereco
+
+from devmaua.src.enum.tipo_telefone import TipoTelefone
+from devmaua.src.enum.tipo_endereco import TipoEndereco
+from devmaua.src.enum.tipo_email import TipoEmail
+
 
 from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
+
+from typing import Optional
 
 
 class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
@@ -29,9 +39,13 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
     def logar_usuario(self, login: str, senha: str):
         pass
     
-    def adicionarTelefone(self, usuario: Usuario, telefone: Telefone) -> bool:
-        if usuario in self.armazem:
-            if telefone != None:
-                self.armazem[self.armazem.index(usuario)].contato.telefones.append(telefone)
-                return True
-        return False
+    def adicionarTelefone(self, usuario: Usuario, telefone: Telefone):
+        self.armazem[self.armazem.index(usuario)].contato.telefones.append(telefone)
+        
+    def removerTelefone(self, usuario: Usuario, telefone: Telefone):
+        self.armazem[self.armazem.index(usuario)].contato.telefones.remove(telefone)
+        
+    def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
+        self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].tipo = tipo
+        self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].numero = numero
+        self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].ddd = ddd
