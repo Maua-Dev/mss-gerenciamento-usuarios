@@ -79,3 +79,7 @@ class IAlteracaoInfosCadastro(ABC):
         """ Retorna se um usuario existe """
         pass
     
+    @abstractmethod
+    def getUsuarioPorNomeENascimento(self, usuario: Usuario):
+        """ Busca um usuario pelo nome e data de nascimento """
+        pass
