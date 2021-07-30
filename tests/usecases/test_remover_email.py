@@ -70,8 +70,8 @@ class TestRemoverEmail:
                 
         removerEmail.removerEmail(usuario, email)
         
-        assert email not in repositorio.armazem[0].contato.emails
-        assert len(repositorio.armazem[0].contato.emails) == 1
+        assert email not in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.emails
+        assert repositorio.quantidadeEmails(repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)))
         
     def teste_erro_usuario_invalido(self):
         repositorio = ArmazenamentoUsuarioVolatil()

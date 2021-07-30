@@ -13,7 +13,7 @@ from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
 
 from typing import Optional
-
+from datetime import date
 
 class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
     armazem: list[Usuario]
