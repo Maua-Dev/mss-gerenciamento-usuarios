@@ -2,9 +2,10 @@ from devmaua.src.models.ra import RA
 from devmaua.src.models.usuario import Usuario
 
 from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
+from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
 
 
-class ArmazenamentoUsuarioVolatil(IArmazenamento):
+class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
     armazem: list[Usuario]
 
     def __init__(self):
@@ -27,3 +28,10 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento):
 
     def logar_usuario(self, login: str, senha: str):
         pass
+    
+    def adicionarTelefone(self, usuario: Usuario, telefone: Telefone) -> bool:
+        if usuario in self.armazem:
+            if telefone != None:
+                self.armazem[self.armazem.index(usuario)].contato.telefones.append(telefone)
+                return True
+        return False
