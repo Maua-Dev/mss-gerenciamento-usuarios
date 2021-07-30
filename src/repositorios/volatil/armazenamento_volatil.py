@@ -46,9 +46,12 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
         self.armazem[self.armazem.index(usuario)].contato.telefones.remove(telefone)
         
     def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
-        self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].tipo = tipo
-        self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].numero = numero
-        self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].ddd = ddd
+        if tipo != None:
+            self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].tipo = tipo
+        if ddd != None:
+            self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].numero = numero
+        if numero != None:
+            self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].ddd = ddd
         
     def adicionarEmail(self, usuario: Usuario, email: Email):
         self.armazem[self.armazem.index(usuario)].contato.emails.append(email)
@@ -57,9 +60,12 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
         self.armazem[self.armazem.index(usuario)].contato.emails.remove(email)
         
     def editarEmail(self, usuario: Usuario, email: Email, email_novo: Optional[str], tipo: Optional[TipoEmail], prioridade: Optional[int]):
-        self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].email = email_novo
-        self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].tipo = tipo
-        self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].prioridade = prioridade
+        if email_novo != None:
+            self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].email = email_novo
+        if tipo != None:
+            self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].tipo = tipo
+        if prioridade != None:
+            self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].prioridade = prioridade
         
     def adicionarEndereco(self, usuario: Usuario, endereco: Endereco):
         self.armazem[self.armazem.index(usuario)].contato.enderecos.append(endereco)
@@ -68,11 +74,16 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
         self.armazem[self.armazem.index(usuario)].contato.enderecos.remove(endereco)
         
     def editarEndereco(self, usuario: Usuario, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]):
-        self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].logradouro = logradouro
-        self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].numero = numero
-        self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].cep = cep
-        self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].complemento = complemento
-        self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].tipo = tipo
+        if logradouro != None:
+            self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].logradouro = logradouro
+        if numero != None:
+            self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].numero = numero
+        if cep != None:
+            self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].cep = cep
+        if complemento != None:
+            self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].complemento = complemento
+        if tipo != None:
+            self.armazem[self.armazem.index(usuario)].contato.enderecos[self.armazem[self.armazem.index(usuario)].contato.enderecos.index(endereco)].tipo = tipo
         
     def quantidadeEmails(self, usuario: Usuario):
         return len(self.armazem[self.armazem.index(usuario)].contato.emails)
