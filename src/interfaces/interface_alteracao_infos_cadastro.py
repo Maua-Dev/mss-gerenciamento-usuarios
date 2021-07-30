@@ -74,3 +74,8 @@ class IAlteracaoInfosCadastro(ABC):
         """ Retorna a quantidade de enderecos que o usuario tem """
         pass
     
+    @abstractmethod
+    def usuarioExiste(self, usuario: Usuario):
+        """ Retorna se um usuario existe """
+        pass
+    
