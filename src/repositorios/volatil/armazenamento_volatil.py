@@ -88,3 +88,8 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
             if u.nome == usuario.nome and u.nascimento == usuario.nascimento:
                 return True
         return False
+    
+    def getUsuarioPorNomeENascimento(self, nome: str, nascimento: date):
+        for usuario in self.armazem:
+            if usuario.nome == nome and usuario.nascimento == nascimento:
+                return usuario
