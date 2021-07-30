@@ -49,3 +49,16 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
         self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].tipo = tipo
         self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].numero = numero
         self.armazem[self.armazem.index(usuario)].contato.telefones[self.armazem[self.armazem.index(usuario)].contato.telefones.index(telefone)].ddd = ddd
+        
+    def adicionarEmail(self, usuario: Usuario, email: Email):
+        self.armazem[self.armazem.index(usuario)].contato.emails.append(email)
+        
+    def removerEmail(self, usuario: Usuario, email: Email):
+        self.armazem[self.armazem.index(usuario)].contato.emails.remove(email)
+        
+    def editarEmail(self, usuario: Usuario, email: Email, email_novo: Optional[str], tipo: Optional[TipoEmail], prioridade: Optional[int]):
+        self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].email = email_novo
+        self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].tipo = tipo
+        self.armazem[self.armazem.index(usuario)].contato.emails[self.armazem[self.armazem.index(usuario)].contato.emails.index(email)].prioridade = prioridade
+        
+    
