@@ -15,17 +15,21 @@ from devmaua.src.enum.tipo_telefone import TipoTelefone
 from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.cadastrar_usuario import CadastradorUsuario
 
-from src.usecases.uc_adicionar_email import UCAdicionarEmail
+from src.usecases.uc_remover_email import UCRemoverEmail
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 
-class TestAdicionarEmail:
+class TestRemoverEmail:
     
     def mockUsuario(self) -> Usuario:
-        email = Email(email='teste@teste.com',
+        email1 = Email(email='email@principal.com',
+                      tipo=TipoEmail.UNIVERSITARIO,
+                      prioridade=1)
+        email2 = Email(email='teste@teste.com',
                       tipo=TipoEmail.PRIVADO,
                       prioridade=1)
+        
         end = Endereco(logradouro='rua de tal',
                        numero=20,
                        cep='00000-000',
@@ -34,7 +38,7 @@ class TestAdicionarEmail:
                        numero='99999-9999',
                        ddd=11,
                        prioridade=3)
-        contato = Contato(emails=[email],
+        contato = Contato(emails=[email1, email2],
                           telefones=[tel],
                           enderecos=[end])
 
@@ -44,9 +48,9 @@ class TestAdicionarEmail:
                            roles=[Roles.ALUNO])
         
     def mockEmail(self) -> Email:
-        return Email(email='email@adicionado.com',
-                      tipo=TipoEmail.TRABALHO,
-                      prioridade=2)
+        return Email(email='teste@teste.com',
+                      tipo=TipoEmail.PRIVADO,
+                      prioridade=1)
         
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
         repositorio = ArmazenamentoUsuarioVolatil()
@@ -54,37 +58,15 @@ class TestAdicionarEmail:
         usuario = self.mockUsuario()
         cadastrador.cadastrar(usuario)
         return repositorio
-        
-    def test_adicionar_email(self):
+    
+    def test_remover_email(self):
         repositorio = self.mockRepositorio()
-        addEmail = UCAdicionarEmail(repositorio)
+        removerEmail = UCRemoverEmail(repositorio)
         
         usuario = self.mockUsuario()
-        email_novo = self.mockEmail()
+        email = self.mockEmail()
                 
-        addEmail.adicionarEmail(usuario, email_novo)
+        removerEmail.removerEmail(usuario, email)
         
-        assert email_novo in repositorio.armazem[0].contato.emails
-        assert len(repositorio.armazem[0].contato.emails) == 2
-        
-    def test_erro_usuario_inexistente(self):
-        repositorio = ArmazenamentoUsuarioVolatil()
-        addEmail = UCAdicionarEmail(repositorio)
-        
-        usuario = self.mockUsuario()
-        email_novo = self.mockEmail()
-        
-        with pytest.raises(ErroUsuarioInvalido):
-            addEmail.adicionarEmail(usuario, email_novo)
-            
-    def test_erro_email_invalido(self):
-        repositorio = self.mockRepositorio()
-        addEmail = UCAdicionarEmail(repositorio)
-        
-        usuario = self.mockUsuario()
-        email_novo = None
-        
-        with pytest.raises(ErroEmailInvalido):
-            addEmail.adicionarEmail(usuario, email_novo)
-        
-        
+        assert email not in repositorio.armazem[0].contato.emails
+        assert len(repositorio.armazem[0].contato.emails) == 1
