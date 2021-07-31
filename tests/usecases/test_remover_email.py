@@ -108,7 +108,8 @@ class TestRemoverEmail:
             removerEmail.removerEmail(usuario, email)
             
     def test_erro_deletar_email_unico(self):
-        repositorio = self.mockRepositorio()
+        repositorio = ArmazenamentoUsuarioVolatil()
+        cadastrador = CadastradorUsuario(repositorio)
         removerEmail = UCRemoverEmail(repositorio)
         
         email = Email(email='teste@teste.com',
@@ -131,6 +132,6 @@ class TestRemoverEmail:
                            contato=contato,
                            nascimento= datetime.date(1999, 2, 23),
                            roles=[Roles.ALUNO])
-        
+        cadastrador.cadastrar(usuario)
         with pytest.raises(ErroDeletarEmailUnico):
             removerEmail.removerEmail(usuario, email)
