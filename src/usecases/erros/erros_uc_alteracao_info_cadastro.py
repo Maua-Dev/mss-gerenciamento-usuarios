@@ -13,3 +13,7 @@ class ErroManipulacaoEmailFaculdade(Exception):
 class ErroDeletarEmailUnico(Exception):
     def __init__(self):
         super().__init__("Nao é possivel deletar o email pois ele é o único email cadastrado para o usuario")
+        
+class ErroTelefoneInvalido(Exception):
+    def __init__(self):
+        super().__init__("Telefone invalido!")
