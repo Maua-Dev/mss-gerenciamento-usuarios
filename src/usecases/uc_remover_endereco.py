@@ -19,7 +19,7 @@ class UCRemoverEndereco():
         if not(self.alteracaoInfosCadastro.usuarioExiste(usuario)):
             raise ErroUsuarioInvalido
         
-        if endereco == None or endereco not in usuario.contato.telefones:
+        if endereco == None or endereco not in usuario.contato.enderecos:
             raise ErroEnderecoInvalido
         
         if self.alteracaoInfosCadastro.quantidadeEnderecos(usuario) == 1:
