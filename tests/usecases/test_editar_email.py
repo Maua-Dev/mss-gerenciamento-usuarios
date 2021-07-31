@@ -20,7 +20,6 @@ from src.usecases.uc_editar_email import UCEditarEmail
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoEmailFaculdade
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEmailUnico
 
 
 class TestEditarEmail:
