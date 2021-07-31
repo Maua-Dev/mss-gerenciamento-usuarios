@@ -29,4 +29,4 @@ class UCEditarEmail():
         if email.tipo == TipoEmail.UNIVERSITARIO:
             raise ErroManipulacaoEmailFaculdade
         
-        self.alteracaoInfosCadastro.editarEmail(self, usuario, email, email_novo, tipo, prioridade)
+        self.alteracaoInfosCadastro.editarEmail(usuario, email, email_novo, tipo, prioridade)
