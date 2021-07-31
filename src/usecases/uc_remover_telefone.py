@@ -22,7 +22,7 @@ class UCRemoverTelefone():
         if telefone == None or telefone not in usuario.contato.telefones:
             raise ErroTelefoneInvalido
         
-        if self.alteracaoInfosCadastro.quantidadeTelefones == 1:
+        if self.alteracaoInfosCadastro.quantidadeTelefones() == 1:
             raise ErroDeletarTelefoneUnico
         
         self.alteracaoInfosCadastro.removerTelefone(usuario, telefone)
