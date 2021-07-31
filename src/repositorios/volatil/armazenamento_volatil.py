@@ -47,7 +47,7 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
         u[0].contato.telefones.remove(telefone)
         
-    def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
+    def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str], prioridade: Optional[int]):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
         t = [t for t in u[0].contato.telefones if (t.numero == telefone.numero and t.ddd == telefone.ddd)]
         if tipo != None:
@@ -56,6 +56,8 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
             t[0].numero = numero
         if numero != None:
             t[0].ddd = ddd
+        if prioridade != None:
+            t[0].prioridade = prioridade
         
     def adicionarEmail(self, usuario: Usuario, email: Email):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]

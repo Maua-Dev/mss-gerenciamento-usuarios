@@ -18,11 +18,11 @@ class UCEditarTelefone():
     def __init__(self, alteracaoInfosCadastro: IAlteracaoInfosCadastro):
         self.alteracaoInfosCadastro = alteracaoInfosCadastro
         
-    def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
+    def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str], prioridade: Optional[int]):
         if not(self.alteracaoInfosCadastro.usuarioExiste(usuario)):
             raise ErroUsuarioInvalido
         
         if telefone == None or telefone not in usuario.contato.telefones:
             raise ErroTelefoneInvalido
         
-        self.alteracaoInfosCadastro.editarTelefone(usuario, telefone, tipo, ddd, numero)
+        self.alteracaoInfosCadastro.editarTelefone(usuario, telefone, tipo, ddd, numero, prioridade)

@@ -26,7 +26,7 @@ class IAlteracaoInfosCadastro(ABC):
         pass
     
     @abstractmethod
-    def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str]):
+    def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str], prioridade: Optional[int]):
         """ Edita informacoes de um Telefone"""
         pass
     
