@@ -25,4 +25,4 @@ class UCEditarEndereco():
         if endereco == None or endereco not in usuario.contato.enderecos:
             raise ErroEnderecoInvalido
         
-        self.alteracaoInfosCadastro.editarEndereco(self, usuario, endereco, logradouro, numero, cep, complemento, tipo)
+        self.alteracaoInfosCadastro.editarEndereco(usuario, endereco, logradouro, numero, cep, complemento, tipo)
