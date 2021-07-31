@@ -28,7 +28,7 @@ class UCRemoverEmail():
         if email.tipo == TipoEmail.UNIVERSITARIO:
             raise ErroManipulacaoEmailFaculdade
         
-        if len(usuario.contato.emails) == 1:
+        if self.alteracaoInfosCadastro.quantidadeEmails() == 1:
             raise ErroDeletarEmailUnico
         
         self.alteracaoInfosCadastro.removerEmail(usuario, email)
