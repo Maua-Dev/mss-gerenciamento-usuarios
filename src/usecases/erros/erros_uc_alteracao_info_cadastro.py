@@ -21,3 +21,11 @@ class ErroTelefoneInvalido(Exception):
 class ErroDeletarTelefoneUnico(Exception):
     def __init__(self):
         super().__init__("Nao é possivel deletar o telefone pois ele é o único telefone cadastrado para o usuario")
+
+class ErroEnderecoInvalido(Exception):
+    def __init__(self):
+        super().__init__("Endereco invalido!")
+                
+class ErroDeletarEnderecoUnico(Exception):
+    def __init__(self):
+        super().__init__("Nao é possivel deletar o endereco pois ele é o único endereco cadastrado para o usuario")
