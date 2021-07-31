@@ -17,3 +17,7 @@ class ErroDeletarEmailUnico(Exception):
 class ErroTelefoneInvalido(Exception):
     def __init__(self):
         super().__init__("Telefone invalido!")
+                
+class ErroDeletarTelefoneUnico(Exception):
+    def __init__(self):
+        super().__init__("Nao é possivel deletar o telefone pois ele é o único telefone cadastrado para o usuario")
