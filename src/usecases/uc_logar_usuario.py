@@ -3,15 +3,15 @@ from devmaua.src.models.usuario import Usuario
 from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 
 
-class LogadorUsuario():
+class LogarUsuario():
 
-    usuarios_repo: IArmazenamento
+    usuariosRepo: IArmazenamento
 
-    def __init__(self, usuarios_repo: IArmazenamento):
-        self.usuarios_repo = usuarios_repo
+    def __init__(self, usuariosRepo: IArmazenamento):
+        self.usuariosRepo = usuariosRepo
 
     def logar(self, login: str, senha: str):
         try:
-            return self.usuarios_repo.logar_usuario(login, senha)
+            return self.usuariosRepo.logar_usuario(login, senha)
         except:
             return False

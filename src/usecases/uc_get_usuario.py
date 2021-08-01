@@ -2,7 +2,7 @@ from devmaua.src.models.ra import RA
 from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 
 
-class getter_usuario():
+class GetUsuario():
 
     usuarios_repo: IArmazenamento
 

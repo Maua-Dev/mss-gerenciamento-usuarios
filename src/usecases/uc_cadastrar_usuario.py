@@ -4,16 +4,16 @@ from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 
 
-class CadastradorUsuario():
+class CadastrarUsuario():
 
-    usuarios_repo: IArmazenamento
+    usuariosRepo: IArmazenamento
 
-    def __init__(self, usuarios_repo: IArmazenamento):
-        self.usuarios_repo = usuarios_repo
+    def __init__(self, usuariosRepo: IArmazenamento):
+        self.usuariosRepo = usuariosRepo
 
     def cadastrar(self, usuario: Usuario):
-        if self.usuarios_repo.usuario_existe(usuario):
+        if self.usuariosRepo.usuario_existe(usuario):
             raise ErroUsuarioExiste
-        self.usuarios_repo.cadastrar_usuario(usuario)
+        self.usuariosRepo.cadastrar_usuario(usuario)
 
 
