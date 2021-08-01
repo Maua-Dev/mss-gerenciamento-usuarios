@@ -12,8 +12,8 @@ class CadastrarUsuario():
         self.usuariosRepo = usuariosRepo
 
     def cadastrar(self, usuario: Usuario):
-        if self.usuariosRepo.usuario_existe(usuario):
+        if self.usuariosRepo.usuarioExiste(usuario):
             raise ErroUsuarioExiste
-        self.usuariosRepo.cadastrar_usuario(usuario)
+        self.usuariosRepo.cadastrarUsuario(usuario)
 
 

@@ -11,21 +11,21 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento):
         self.armazem = []
 
 
-    def usuario_existe(self, outro_usuario: Usuario):
+    def usuarioExiste(self, outro_usuario: Usuario):
         for u in self.armazem:
             if u.nome == outro_usuario.nome and u.nascimento == outro_usuario.nascimento:
                 return True
         return False
 
-    def cadastrar_usuario(self, usuario: Usuario):
+    def cadastrarUsuario(self, usuario: Usuario):
         self.armazem.append(usuario)
 
 
-    def get_usuario(self, ra: RA):
+    def getUsuario(self, ra: RA):
         pass
 
 
-    def logar_usuario(self, login: str, senha: str):
+    def logarUsuario(self, login: str, senha: str):
         pass
 
 
