@@ -4,14 +4,14 @@ from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 
 class GetUsuario():
 
-    usuarios_repo: IArmazenamento
+    usuariosRepo: IArmazenamento
 
-    def __init__(self, usuarios_repo: IArmazenamento):
-        self.usuarios_repo = usuarios_repo
+    def __init__(self, usuariosRepo: IArmazenamento):
+        self.usuariosRepo = usuariosRepo
 
     def get_por_id(self, id: int):
         try:
-            return self.usuarios_repo.get_usuario(id)
+            return self.usuariosRepo.get_usuario(id)
         except:
             return False
 
