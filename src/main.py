@@ -1,26 +1,31 @@
 from devmaua.src.models.usuario import Usuario
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from uvicorn.middleware.debug import PlainTextResponse
 
+from src.controladores.control_cadastrar_usuario import cadastrarUsuario
 from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import CadastrarUsuario
-from src.usecases.erros.erros_usecase import ErroUsuarioExiste
+from src.usecases.erros.erros_usecase import ErroUsuarioExiste, ErroDadosUsuarioInvalidos
+from typing import Any, Dict, AnyStr, List, Union
 
 app = FastAPI()
 
 
 armazenamento = ArmazenamentoUsuarioVolatil()
-cadastrador = CadastrarUsuario(armazenamento)
+cadastrarUsuarioUC = CadastrarUsuario(armazenamento)
 
+JSONObject = Dict[AnyStr, Any]
+JSONArray = List[Any]
+JSONStructure = Union[JSONArray, JSONObject]
 
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
 
-@app.exception_handler(RequestValidationError)
+@app.exception_handler(ErroDadosUsuarioInvalidos)
 async def validation_exception_handler(request, exc):
-    return PlainTextResponse(status_code=400, content="Erro de criação do usuario")
+    return PlainTextResponse(status_code=400, content=str(exc))
 
 @app.exception_handler(ErroUsuarioExiste)
 async def exception_handler(request, exc):
@@ -28,13 +33,10 @@ async def exception_handler(request, exc):
 
 
 @app.post("/cadastro/")
-async def cadastro(request: Usuario):
-    cadastrador.cadastrar(request)
-    return request
+async def cadastro(request: dict):
+    return await cadastrarUsuario(request, cadastrarUsuarioUC)
 
-@app.get("/cadastro/")
-async def cadastro_():
-    return armazenamento.armazem
+
 
 
 
