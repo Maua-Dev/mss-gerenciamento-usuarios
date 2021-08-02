@@ -5,7 +5,7 @@ from uvicorn.middleware.debug import PlainTextResponse
 
 from src.controladores.control_cadastrar_usuario import cadastrarUsuario
 from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import CadastrarUsuario
+from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste, ErroDadosUsuarioInvalidos
 from typing import Any, Dict, AnyStr, List, Union
 
@@ -13,7 +13,7 @@ app = FastAPI()
 
 
 armazenamento = ArmazenamentoUsuarioVolatil()
-cadastrarUsuarioUC = CadastrarUsuario(armazenamento)
+cadastrarUsuarioUC = UCCadastrarUsuario(armazenamento)
 
 JSONObject = Dict[AnyStr, Any]
 JSONArray = List[Any]

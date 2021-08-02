@@ -10,7 +10,7 @@ from devmaua.src.models.telefone import Telefone
 from devmaua.src.models.usuario import Usuario
 
 from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import CadastrarUsuario
+from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 
 
@@ -43,7 +43,7 @@ class TestCadastro:
 
     def test_cadastrar(self):
         armazenamento = ArmazenamentoUsuarioVolatil()
-        cadastrador = CadastrarUsuario(armazenamento)
+        cadastrador = UCCadastrarUsuario(armazenamento)
         usuario1 = self.mock_usuario()
 
 
@@ -52,7 +52,7 @@ class TestCadastro:
 
     def test_erro_usuario_existente(self):
         armazenamento = ArmazenamentoUsuarioVolatil()
-        cadastrador = CadastrarUsuario(armazenamento)
+        cadastrador = UCCadastrarUsuario(armazenamento)
         usuario1 = self.mock_usuario()
 
         cadastrador.cadastrar(usuario1)

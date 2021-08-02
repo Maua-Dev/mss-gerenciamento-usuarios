@@ -9,10 +9,10 @@ from pydantic import ValidationError
 
 
 from src.usecases.erros.erros_usecase import ErroDadosUsuarioInvalidos
-from src.usecases.uc_cadastrar_usuario import CadastrarUsuario
+from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 
-async def cadastrarUsuario(body, cadastrarUsuarioUC: CadastrarUsuario):
+async def cadastrarUsuario(body, cadastrarUsuarioUC: UCCadastrarUsuario):
 
     try:
         email = Email(email=body['contato']['emails'][0]['email'],

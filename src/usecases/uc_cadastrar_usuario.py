@@ -4,7 +4,7 @@ from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 
 
-class CadastrarUsuario():
+class UCCadastrarUsuario():
 
     usuariosRepo: IArmazenamento
 
