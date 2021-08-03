@@ -47,7 +47,7 @@ class TestCadastro:
         usuario1 = self.mock_usuario()
 
 
-        cadastrador.cadastrar(usuario1)
+        cadastrador(usuario1)
         assert usuario1 in armazenamento.armazem
 
     def test_erro_usuario_existente(self):
@@ -55,9 +55,9 @@ class TestCadastro:
         cadastrador = UCCadastrarUsuario(armazenamento)
         usuario1 = self.mock_usuario()
 
-        cadastrador.cadastrar(usuario1)
+        cadastrador(usuario1)
         with pytest.raises(ErroUsuarioExiste):
-            cadastrador.cadastrar(usuario1)
+            cadastrador(usuario1)
         assert len(armazenamento.armazem) == 1
 
 

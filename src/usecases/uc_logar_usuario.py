@@ -10,7 +10,7 @@ class UCLogarUsuario():
     def __init__(self, usuariosRepo: IArmazenamento):
         self.usuariosRepo = usuariosRepo
 
-    def logar(self, login: str, senha: str):
+    def __call__(self, login: str, senha: str):
         try:
             return self.usuariosRepo.logarUsuario(login, senha)
         except:

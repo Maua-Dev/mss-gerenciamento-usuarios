@@ -17,7 +17,7 @@ from src.main import app
 from src.usecases.erros.erros_usecase import ErroDadosUsuarioInvalidos
 
 
-class TestCadastrarUsuario():
+class TestCadastrarUsuario(): #TODO Trocar nome
     client = TestClient(app)
 
     def mockUsuario(self):

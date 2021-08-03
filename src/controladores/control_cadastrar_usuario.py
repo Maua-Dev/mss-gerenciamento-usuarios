@@ -43,9 +43,9 @@ async def cadastrarUsuario(body, cadastrarUsuarioUC: UCCadastrarUsuario):
     except KeyError:
         raise ErroDadosUsuarioInvalidos
 
-    cadastrarUsuarioUC.cadastrar(usuario)
+    cadastrarUsuarioUC(usuario)
 
-    return Response(content="Usuario criado com sucesso", status_code=200)
+    return Response(content="Usuario criado com sucesso", status_code=200) #TODO Colocar excpectuib para use case diferente resp[onse
 
 
 

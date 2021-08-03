@@ -11,7 +11,7 @@ class UCCadastrarUsuario():
     def __init__(self, usuariosRepo: IArmazenamento):
         self.usuariosRepo = usuariosRepo
 
-    def cadastrar(self, usuario: Usuario):
+    def __call__(self, usuario: Usuario):
         if self.usuariosRepo.usuarioExiste(usuario):
             raise ErroUsuarioExiste
         self.usuariosRepo.cadastrarUsuario(usuario)
