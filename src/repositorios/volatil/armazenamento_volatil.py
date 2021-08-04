@@ -3,19 +3,21 @@ from devmaua.src.models.usuario import Usuario
 from devmaua.src.models.telefone import Telefone        
 from devmaua.src.models.email import Email
 from devmaua.src.models.endereco import Endereco
+from devmaua.src.models.aluno import Aluno
 
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_email import TipoEmail
-
+from devmaua.src.enum.roles import Roles
 
 from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
+from src.interfaces.interface_deletar_usuario import IDeletarUsuario
 
 from typing import Optional
 from datetime import date
 
-class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
+class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro, IDeletarUsuario):
     armazem: list[Usuario]
 
     def __init__(self):
@@ -122,3 +124,11 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro):
     def getUsuarioPorNomeENascimento(self, nome: str, nascimento: date):
         u = [u for u in self.armazem if (u.nome == nome and u.nascimento == nascimento)]
         return u[0]
+    
+    def removerAlunoPorRA(self, ra: RA):
+        for u in self.armazem:
+            if Roles.ALUNO in u.roles:
+                if u.ra == ra:
+                    self.armazem.remove(u)
+                    return True
+        return False
