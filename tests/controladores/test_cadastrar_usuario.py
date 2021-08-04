@@ -17,7 +17,7 @@ from src.main import app
 from src.usecases.erros.erros_usecase import ErroDadosUsuarioInvalidos
 
 
-class TestCadastrarUsuario(): #TODO Trocar nome
+class TestControllerCadastrarUsuario(): #TODO Trocar nome
     client = TestClient(app)
 
     def mockUsuario(self):
@@ -55,13 +55,13 @@ class TestCadastrarUsuario(): #TODO Trocar nome
             ]
         }
 
-    def test_cadastrar_usuario(self):
+    def test_controller_cadastrar_usuario(self):
         usuario = self.mockUsuario()
         response = self.client.post("/cadastro/", data=json.dumps(usuario))
 
         assert response.status_code == 200
 
-    def test_cadastrar_sem_nome(self):
+    def test_controller_cadastrar_sem_nome(self):
         usuario = self.mockUsuario()
         usuario['nome'] = None
         response = self.client.post("/cadastro/", data=json.dumps(usuario))
