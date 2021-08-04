@@ -132,3 +132,10 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro, IDele
                     self.armazem.remove(u)
                     return True
         return False
+    
+    def alunoExiste(self, ra: RA):
+        for u in self.armazem:
+            if Roles.ALUNO in u.roles:
+                if u.ra == ra:
+                    return True
+        return False

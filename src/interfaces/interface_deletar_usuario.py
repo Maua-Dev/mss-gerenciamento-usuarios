@@ -11,3 +11,7 @@ class IDeletarUsuario(ABC):
         """ Remove um usuario com a role 'Aluno' da base de usuarios """
         pass
     
+    @abstractmethod
+    def alunoExiste(self, ra: RA):
+        """ Retorna se um aluno existe """
+        pass
