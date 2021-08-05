@@ -43,77 +43,94 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro, IDele
     
     def adicionarTelefone(self, usuario: Usuario, telefone: Telefone):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        u[0].contato.telefones.append(telefone)
+        if u != None:
+            u[0].contato.telefones.append(telefone)
         
     def removerTelefone(self, usuario: Usuario, telefone: Telefone):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        u[0].contato.telefones.remove(telefone)
+        if u != None:
+            u[0].contato.telefones.remove(telefone)
         
     def editarTelefone(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str], prioridade: Optional[int]):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        t = [t for t in u[0].contato.telefones if (t.numero == telefone.numero and t.ddd == telefone.ddd)]
-        if tipo != None:
-            t[0].tipo = tipo
-        if ddd != None:
-            t[0].numero = numero
-        if numero != None:
-            t[0].ddd = ddd
-        if prioridade != None:
-            t[0].prioridade = prioridade
+        if u != None:
+            t = [t for t in u[0].contato.telefones if (t.numero == telefone.numero and t.ddd == telefone.ddd)]
+            if t != None:
+                if tipo != None:
+                    t[0].tipo = tipo
+                if ddd != None:
+                    t[0].numero = numero
+                if numero != None:
+                    t[0].ddd = ddd
+                if prioridade != None:
+                    t[0].prioridade = prioridade
         
     def adicionarEmail(self, usuario: Usuario, email: Email):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        u[0].contato.emails.append(email)
+        if u != None:
+            u[0].contato.emails.append(email)
         
     def removerEmail(self, usuario: Usuario, email: Email):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        u[0].contato.emails.remove(email)
+        if u != None:
+            u[0].contato.emails.remove(email)
         
     def editarEmail(self, usuario: Usuario, email: Email, email_novo: Optional[str], tipo: Optional[TipoEmail], prioridade: Optional[int]):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        e = [e for e in u[0].contato.emails if (e.email == email.email and e.tipo == email.tipo)]
-        
-        if email_novo != None:
-            e[0].email = email_novo
-        if tipo != None:
-           e[0].tipo = tipo
-        if prioridade != None:
-            e[0].prioridade = prioridade
+        if u != None:
+            e = [e for e in u[0].contato.emails if (e.email == email.email and e.tipo == email.tipo)]
+            
+            if e != None:        
+                if email_novo != None:
+                    e[0].email = email_novo
+                if tipo != None:
+                    e[0].tipo = tipo
+                if prioridade != None:
+                    e[0].prioridade = prioridade
         
     def adicionarEndereco(self, usuario: Usuario, endereco: Endereco):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        u[0].contato.enderecos.append(endereco)
+        if u != None:
+            u[0].contato.enderecos.append(endereco)
         
     def removerEndereco(self, usuario: Usuario, endereco: Endereco):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        u[0].contato.enderecos.remove(endereco)
+        if u != None:
+            u[0].contato.enderecos.remove(endereco)
         
     def editarEndereco(self, usuario: Usuario, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        e = [e for e in u[0].contato.enderecos if (e.logradouro == endereco.logradouro and e.cep == endereco.cep)]
-        
-        if logradouro != None:
-            e[0].logradouro = logradouro
-        if numero != None:
-            e[0].numero = numero
-        if cep != None:
-            e[0].cep = cep
-        if complemento != None:
-            e[0].complemento = complemento
-        if tipo != None:
-            e[0].tipo = tipo
+        if u != None:
+            e = [e for e in u[0].contato.enderecos if (e.logradouro == endereco.logradouro and e.cep == endereco.cep)]
+            if e != None:
+                if logradouro != None:
+                    e[0].logradouro = logradouro
+                if numero != None:
+                    e[0].numero = numero
+                if cep != None:
+                    e[0].cep = cep
+                if complemento != None:
+                    e[0].complemento = complemento
+                if tipo != None:
+                    e[0].tipo = tipo
         
     def quantidadeEmails(self, usuario: Usuario):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        return len(u[0].contato.emails)
+        if u != None:
+            return len(u[0].contato.emails)
+        return None
     
     def quantidadeEnderecos(self, usuario: Usuario):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        return len(u[0].contato.enderecos)
+        if u != None:
+            return len(u[0].contato.enderecos)
+        return None
     
     def quantidadeTelefones(self, usuario: Usuario):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
-        return len(u[0].contato.telefones)
+        if u != None:
+            return len(u[0].contato.telefones)
+        return None
     
     def usuarioExiste(self, usuario: Usuario):
         for u in self.armazem:
@@ -123,7 +140,9 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro, IDele
     
     def getUsuarioPorNomeENascimento(self, nome: str, nascimento: date):
         u = [u for u in self.armazem if (u.nome == nome and u.nascimento == nascimento)]
-        return u[0]
+        if u != None:
+            return u[0]
+        return None
     
     def removerAlunoPorRA(self, ra: RA):
         for u in self.armazem:
