@@ -1,11 +1,7 @@
-from devmaua.src.models.contato import Contato
-from devmaua.src.models.email import Email
-from devmaua.src.models.endereco import Endereco
-from devmaua.src.models.telefone import Telefone
 from devmaua.src.models.usuario import Usuario
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
-from fastapi import Request, Response
-from pydantic import ValidationError
+from devmaua.src.models.usuario import Usuario
+from fastapi import Response
 
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario

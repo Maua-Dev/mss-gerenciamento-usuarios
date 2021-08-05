@@ -1,22 +1,7 @@
-import json
 
-import requests.models
-from devmaua.src.enum.roles import Roles
-from devmaua.src.enum.tipo_email import TipoEmail
-from devmaua.src.enum.tipo_endereco import TipoEndereco
-from devmaua.src.enum.tipo_telefone import TipoTelefone
-from devmaua.src.models.contato import Contato
-from devmaua.src.models.email import Email
-from devmaua.src.models.endereco import Endereco
-from devmaua.src.models.telefone import Telefone
-from devmaua.src.models.usuario import Usuario
-from fastapi.testclient import TestClient
-from devmaua.src import models
 
 from src.controladores.control_cadastrar_usuario import controlCadastrarUsuario
-from src.main import app
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.erros.erros_usecase import ErroDadosUsuarioInvalidos
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 
