@@ -16,8 +16,8 @@ from devmaua.src.models.telefone import Telefone
 from devmaua.src.models.endereco import Endereco
 from devmaua.src.models.ra import RA
 
-from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.cadastrar_usuario import CadastradorUsuario
+from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_remover_aluno_por_ra import UCRemoverAlunoPorRA
 
@@ -62,9 +62,9 @@ class TestRemoverEmail:
         
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
         repositorio = ArmazenamentoUsuarioVolatil()
-        cadastrador = CadastradorUsuario(repositorio)
+        cadastrador = UCCadastrarUsuario(repositorio)
         aluno = self.mockAluno()
-        cadastrador.cadastrar(aluno)
+        cadastrador(aluno)
         return repositorio
     
     def test_remover_aluno_por_ra(self):

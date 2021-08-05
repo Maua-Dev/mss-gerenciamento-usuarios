@@ -12,8 +12,8 @@ from devmaua.src.enum.tipo_email import TipoEmail
 from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
-from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.cadastrar_usuario import CadastradorUsuario
+from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_editar_endereco import UCEditarEndereco
 
@@ -52,9 +52,9 @@ class TestEditarEndereco:
         
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
         repositorio = ArmazenamentoUsuarioVolatil()
-        cadastrador = CadastradorUsuario(repositorio)
+        cadastrador = UCCadastrarUsuario(repositorio)
         usuario = self.mockUsuario()
-        cadastrador.cadastrar(usuario)
+        cadastrador(usuario)
         return repositorio
     
     def test_editar_endereco(self):

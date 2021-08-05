@@ -12,8 +12,8 @@ from devmaua.src.enum.tipo_email import TipoEmail
 from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
-from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.cadastrar_usuario import CadastradorUsuario
+from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_remover_email import UCRemoverEmail
 
@@ -56,9 +56,9 @@ class TestRemoverEmail:
         
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
         repositorio = ArmazenamentoUsuarioVolatil()
-        cadastrador = CadastradorUsuario(repositorio)
+        cadastrador = UCCadastrarUsuario(repositorio)
         usuario = self.mockUsuario()
-        cadastrador.cadastrar(usuario)
+        cadastrador(usuario)
         return repositorio
     
     def test_remover_email(self):
@@ -109,7 +109,7 @@ class TestRemoverEmail:
             
     def test_erro_deletar_email_unico(self):
         repositorio = ArmazenamentoUsuarioVolatil()
-        cadastrador = CadastradorUsuario(repositorio)
+        cadastrador = UCCadastrarUsuario(repositorio)
         removerEmail = UCRemoverEmail(repositorio)
         
         email = Email(email='teste@teste.com',
@@ -132,6 +132,6 @@ class TestRemoverEmail:
                            contato=contato,
                            nascimento= datetime.date(1999, 2, 23),
                            roles=[Roles.ALUNO])
-        cadastrador.cadastrar(usuario)
+        cadastrador(usuario)
         with pytest.raises(ErroDeletarEmailUnico):
             removerEmail.removerEmail(usuario, email)

@@ -12,8 +12,8 @@ from devmaua.src.enum.tipo_email import TipoEmail
 from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
-from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.cadastrar_usuario import CadastradorUsuario
+from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_adicionar_telefone import UCAdicionarTelefone
 
@@ -51,9 +51,9 @@ class TestAdicionarTelefone:
         
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
         armazenamentoUsuarioVolatil = ArmazenamentoUsuarioVolatil()
-        cadastrador = CadastradorUsuario(armazenamentoUsuarioVolatil)
+        cadastrador = UCCadastrarUsuario(armazenamentoUsuarioVolatil)
         usuario = self.mockUsuario()
-        cadastrador.cadastrar(usuario)
+        cadastrador(usuario)
         return armazenamentoUsuarioVolatil
         
     def test_adicionar_telefone(self):

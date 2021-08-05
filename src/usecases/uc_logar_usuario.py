@@ -3,7 +3,7 @@ from devmaua.src.models.usuario import Usuario
 from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 
 
-class LogadorUsuario():
+class UCLogarUsuario():
 
     usuarios_repo: IArmazenamento
 

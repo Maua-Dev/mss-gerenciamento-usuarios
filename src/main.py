@@ -3,15 +3,15 @@ from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from uvicorn.middleware.debug import PlainTextResponse
 
-from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.cadastrar_usuario import CadastradorUsuario
+from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 
 app = FastAPI()
 
 
 armazenamento = ArmazenamentoUsuarioVolatil()
-cadastrador = CadastradorUsuario(armazenamento)
+cadastrador = UCCadastrarUsuario(armazenamento)
 
 
 @app.get("/")
@@ -29,7 +29,7 @@ async def exception_handler(request, exc):
 
 @app.post("/cadastro/")
 async def cadastro(request: Usuario):
-    cadastrador.cadastrar(request)
+    cadastrador(request)
     return request
 
 @app.get("/cadastro/")

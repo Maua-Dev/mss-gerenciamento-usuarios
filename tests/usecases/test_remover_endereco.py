@@ -12,8 +12,8 @@ from devmaua.src.enum.tipo_email import TipoEmail
 from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
-from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.cadastrar_usuario import CadastradorUsuario
+from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_remover_endereco import UCRemoverEndereco
 
@@ -58,9 +58,9 @@ class TestRemoverEndereco:
         
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
         repositorio = ArmazenamentoUsuarioVolatil()
-        cadastrador = CadastradorUsuario(repositorio)
+        cadastrador = UCCadastrarUsuario(repositorio)
         usuario = self.mockUsuario()
-        cadastrador.cadastrar(usuario)
+        cadastrador(usuario)
         return repositorio
     
     def test_remover_endereco(self):
@@ -100,7 +100,7 @@ class TestRemoverEndereco:
             
     def test_erro_deletar_endereco_unico(self):
         repositorio = ArmazenamentoUsuarioVolatil()
-        cadastrador = CadastradorUsuario(repositorio)
+        cadastrador = UCCadastrarUsuario(repositorio)
         removerEndereco = UCRemoverEndereco(repositorio)
         
         email = Email(email='teste@teste.com',
@@ -123,7 +123,7 @@ class TestRemoverEndereco:
                            contato=contato,
                            nascimento= datetime.date(1999, 2, 23),
                            roles=[Roles.ALUNO])
-        cadastrador.cadastrar(usuario)
+        cadastrador(usuario)
         
         with pytest.raises(ErroDeletarEnderecoUnico):
             removerEndereco.removerEndereco(usuario, end)
