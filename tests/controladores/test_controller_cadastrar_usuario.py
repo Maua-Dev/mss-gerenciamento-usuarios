@@ -1,14 +1,14 @@
 
 
-from src.controladores.control_cadastrar_usuario import controlCadastrarUsuario
+from src.controladores.control_cadastrar_usuario import ControllerCadastrarUsuario
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 
 class TestControllerCadastrarUsuario():
-    controlador = controlCadastrarUsuario
     repoVolatil = ArmazenamentoUsuarioVolatil()
     cadastrarUsuarioUC = UCCadastrarUsuario(repoVolatil)
+    controllerCadastrarUsuario = ControllerCadastrarUsuario()
 
     def mockUsuario(self):
         return {
@@ -47,7 +47,7 @@ class TestControllerCadastrarUsuario():
 
     def test_controller_cadastrar_usuario(self):
         usuario = self.mockUsuario()
-        response = controlCadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
+        response = self.controllerCadastrarUsuario.cadastrar(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
         print(response)
         print(dir(response))
 
@@ -56,7 +56,7 @@ class TestControllerCadastrarUsuario():
     def test_controller_cadastrar_sem_nome(self):
         usuario = self.mockUsuario()
         usuario['nome'] = None
-        response = controlCadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
+        response = self.controllerCadastrarUsuario.cadastrar(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
 
         assert response.status_code == 400
 

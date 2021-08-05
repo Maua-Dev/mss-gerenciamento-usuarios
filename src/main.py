@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from src.controladores.control_cadastrar_usuario import controlCadastrarUsuario, ControllerCadastrarUsuario
+from src.controladores.control_cadastrar_usuario import ControllerCadastrarUsuario
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
