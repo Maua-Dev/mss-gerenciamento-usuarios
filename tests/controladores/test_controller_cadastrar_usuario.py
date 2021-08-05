@@ -48,6 +48,8 @@ class TestControllerCadastrarUsuario():
     def test_controller_cadastrar_usuario(self):
         usuario = self.mockUsuario()
         response = controlCadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
+        print(response)
+        print(dir(response))
 
         assert response.status_code == 200
 

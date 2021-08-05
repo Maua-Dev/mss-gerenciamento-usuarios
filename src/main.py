@@ -18,7 +18,7 @@ async def root():
 
 @app.post("/cadastro/")
 async def cadastro(request: dict):
-    return await controlCadastrarUsuario(request, cadastrarUsuarioUC)
+    return controlCadastrarUsuario(request, cadastrarUsuarioUC)
 
 
 

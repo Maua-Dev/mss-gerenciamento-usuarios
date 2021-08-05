@@ -7,7 +7,7 @@ from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 
-async def controlCadastrarUsuario(body, cadastrarUsuarioUC: UCCadastrarUsuario):
+def controlCadastrarUsuario(body, cadastrarUsuarioUC: UCCadastrarUsuario):
 
     try:
         usuario = Usuario.criarUsuarioPorDict(body)
@@ -15,10 +15,10 @@ async def controlCadastrarUsuario(body, cadastrarUsuarioUC: UCCadastrarUsuario):
         response = Response(content="Usuario criado com sucesso", status_code=200)
 
     except ErroDadosUsuarioInvalidos:
-        response = Response(content=ErroDadosUsuarioInvalidos(str(ErroDadosUsuarioInvalidos)), status_code=400)
+        response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=400)
 
     except ErroUsuarioExiste:
-        response = Response(content=ErroDadosUsuarioInvalidos(str(ErroUsuarioExiste)), status_code=400)
+        response = Response(content=str(ErroUsuarioExiste), status_code=400)
 
     return response
 
