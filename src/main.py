@@ -15,21 +15,10 @@ app = FastAPI()
 armazenamento = ArmazenamentoUsuarioVolatil()
 cadastrarUsuarioUC = UCCadastrarUsuario(armazenamento)
 
-JSONObject = Dict[AnyStr, Any]
-JSONArray = List[Any]
-JSONStructure = Union[JSONArray, JSONObject]
 
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
-
-@app.exception_handler(ErroDadosUsuarioInvalidos)
-async def validation_exception_handler(request, exc):
-    return PlainTextResponse(status_code=400, content=str(exc))
-
-@app.exception_handler(ErroUsuarioExiste)
-async def exception_handler(request, exc):
-    return PlainTextResponse(status_code=400, content=str(exc))
 
 
 @app.post("/cadastro/")

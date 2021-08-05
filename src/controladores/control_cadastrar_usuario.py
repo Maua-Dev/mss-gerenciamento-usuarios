@@ -7,9 +7,7 @@ from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from fastapi import Request, Response
 from pydantic import ValidationError
 
-
-
-
+from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 
@@ -22,6 +20,9 @@ async def controlCadastrarUsuario(body, cadastrarUsuarioUC: UCCadastrarUsuario):
 
     except ErroDadosUsuarioInvalidos:
         response = Response(content=ErroDadosUsuarioInvalidos(str(ErroDadosUsuarioInvalidos)), status_code=400)
+
+    except ErroUsuarioExiste:
+        response = Response(content=ErroDadosUsuarioInvalidos(str(ErroUsuarioExiste)), status_code=400)
 
     return response
 
