@@ -6,7 +6,7 @@ from fastapi import Response
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
-class ControllerCadastrarUsuario():
+class ControllerHTTPCadastrarUsuario():
 
     def cadastrar(self, body: dict, cadastrarUsuarioUC: UCCadastrarUsuario):
 

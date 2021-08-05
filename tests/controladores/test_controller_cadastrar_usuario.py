@@ -1,6 +1,6 @@
 
 
-from src.controladores.control_cadastrar_usuario import ControllerCadastrarUsuario
+from src.controladores.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
@@ -8,7 +8,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 class TestControllerCadastrarUsuario():
     repoVolatil = ArmazenamentoUsuarioVolatil()
     cadastrarUsuarioUC = UCCadastrarUsuario(repoVolatil)
-    controllerCadastrarUsuario = ControllerCadastrarUsuario()
+    controllerCadastrarUsuario = ControllerHTTPCadastrarUsuario()
 
     def mockUsuario(self):
         return {
