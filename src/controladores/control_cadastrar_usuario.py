@@ -13,7 +13,7 @@ from pydantic import ValidationError
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 
-async def cadastrarUsuario(body, cadastrarUsuarioUC: UCCadastrarUsuario):
+async def controlCadastrarUsuario(body, cadastrarUsuarioUC: UCCadastrarUsuario):
 
     try:
         usuario = Usuario.criarUsuarioPorDict(body)

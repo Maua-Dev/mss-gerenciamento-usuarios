@@ -13,15 +13,15 @@ from devmaua.src.models.usuario import Usuario
 from fastapi.testclient import TestClient
 from devmaua.src import models
 
-from src.controladores.control_cadastrar_usuario import cadastrarUsuario
+from src.controladores.control_cadastrar_usuario import controlCadastrarUsuario
 from src.main import app
-from src.repositorios.volatil.armazenamento_volatil import ArmazenamentoUsuarioVolatil
+from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.erros.erros_usecase import ErroDadosUsuarioInvalidos
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 
 class TestControllerCadastrarUsuario():
-    controlador = cadastrarUsuario
+    controlador = controlCadastrarUsuario
     repoVolatil = ArmazenamentoUsuarioVolatil()
     cadastrarUsuarioUC = UCCadastrarUsuario(repoVolatil)
 
@@ -62,14 +62,14 @@ class TestControllerCadastrarUsuario():
 
     def test_controller_cadastrar_usuario(self):
         usuario = self.mockUsuario()
-        response = cadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
+        response = controlCadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
 
         assert response.status_code == 200
 
     def test_controller_cadastrar_sem_nome(self):
         usuario = self.mockUsuario()
         usuario['nome'] = None
-        response = cadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
+        response = controlCadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
 
         assert response.status_code == 400
 
