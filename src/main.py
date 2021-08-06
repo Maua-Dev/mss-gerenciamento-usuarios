@@ -1,40 +1,22 @@
-from devmaua.src.models.usuario import Usuario
+from src.usecases.uc_adicionar_email import UCAdicionarEmail
 from fastapi import FastAPI
-from fastapi.exceptions import RequestValidationError
-from uvicorn.middleware.debug import PlainTextResponse
 
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
-from src.usecases.erros.erros_usecase import ErroUsuarioExiste
+
+from src.controladores.control_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
 
 app = FastAPI()
 
 
 armazenamento = ArmazenamentoUsuarioVolatil()
-cadastrador = UCCadastrarUsuario(armazenamento)
+adicionarEmailUC = UCAdicionarEmail(armazenamento)
+controllerAdicionarEmail = ControllerHTTPAdicionarEmailFastAPI()
 
 
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
 
-@app.exception_handler(RequestValidationError)
-async def validation_exception_handler(request, exc):
-    return PlainTextResponse(status_code=400, content="Erro de criação do usuario")
-
-@app.exception_handler(ErroUsuarioExiste)
-async def exception_handler(request, exc):
-    return PlainTextResponse(status_code=400, content=str(exc))
-
-
-@app.post("/cadastro/")
-async def cadastro(request: Usuario):
-    cadastrador(request)
-    return request
-
-@app.get("/cadastro/")
-async def cadastro_():
-    return armazenamento.armazem
-
-
-
+@app.post("/email")
+async def adicionarEmail(request: dict):
+    return controllerAdicionarEmail.adicionarEmail(request, adicionarEmailUC)
