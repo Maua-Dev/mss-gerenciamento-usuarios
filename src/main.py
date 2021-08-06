@@ -17,6 +17,9 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.controladores.control_adicionar_telefone_fastapi import ControllerHTTPAdicionarTelefoneFastAPI
 from src.usecases.uc_adicionar_telefone import UCAdicionarTelefone
 
+from src.controladores.control_remover_telefone_fastapi import ControllerHTTPRemoverTelefoneFastAPI
+from src.usecases.uc_remover_telefone import UCRemoverTelefone
+
 
 app = FastAPI()
 
@@ -36,6 +39,9 @@ controllerCadastrarUsuario = ControllerHTTPCadastrarUsuario()
 
 adicionarTelefoneUC = UCAdicionarTelefone(armazenamento)
 controllerAdicionarTelefone = ControllerHTTPAdicionarTelefoneFastAPI()
+
+removerTelefoneUC = UCRemoverTelefone(armazenamento)
+controllerRemoverTelefone = ControllerHTTPRemoverTelefoneFastAPI()
 
 
 @app.get("/")
@@ -61,3 +67,7 @@ async def cadastro(request: dict):
 @app.post("/telefone")
 async def adicionarTelefone(request: dict):
     return controllerAdicionarTelefone.adicionarTelefone(request, adicionarTelefoneUC = adicionarTelefoneUC)
+
+@app.delete("/telefone")
+async def removerTelefone(request: dict):
+    return controllerRemoverTelefone.removerTelefone(request, removerTelefoneUC = removerTelefoneUC)
