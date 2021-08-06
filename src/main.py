@@ -8,6 +8,9 @@ from src.usecases.uc_adicionar_email import UCAdicionarEmail
 from src.controladores.control_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
 from src.usecases.uc_remover_email import UCRemoverEmail
 
+from src.controladores.control_editar_email_fastapi import ControllerHTTPEditarEmailFastAPI
+from src.usecases.uc_editar_email import UCEditarEmail
+
 from src.controladores.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
@@ -21,6 +24,9 @@ controllerAdicionarEmail = ControllerHTTPAdicionarEmailFastAPI()
 
 removerEmailUC = UCRemoverEmail(armazenamento)
 controllerRemoverEmail = ControllerHTTPRemoverEmailFastAPI()
+
+editarEmailUC = UCEditarEmail(armazenamento)
+controllerEditarEmail = ControllerHTTPEditarEmailFastAPI()
 
 cadastrarUsuarioUC = UCCadastrarUsuario(armazenamento)
 controllerCadastrarUsuario = ControllerHTTPCadastrarUsuario()
@@ -37,6 +43,10 @@ async def adicionarEmail(request: dict):
 @app.delete("/email")
 async def removerEmail(request: dict):
     return controllerRemoverEmail.removerEmail(request, removerEmailUC = removerEmailUC)
+
+@app.put("/email")
+async def editarEmail(request: dict):
+    return controllerEditarEmail.editarEmail(request, editarEmailUC = editarEmailUC)
 
 @app.post("/cadastro/")
 async def cadastro(request: dict):
