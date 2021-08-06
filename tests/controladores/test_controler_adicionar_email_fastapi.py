@@ -108,3 +108,37 @@ class TestControllerAdicionarEmailFastAPI():
         response = controllerAdicionarEmailFastAPI.adicionarEmail(body = body, adicionarEmailUC = adicionarEmailUC)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_email.ErroDadosEmailInvalidos'>"
         assert response.status_code == 400
+        
+    def test_erro_email_vazio(self):
+        repoVolatil = self.mockRepositorioComUmUsuario()
+        adicionarEmailUC = UCAdicionarEmail(repoVolatil)
+        controllerAdicionarEmailFastAPI = ControllerHTTPAdicionarEmailFastAPI()
+        
+        usuario = self.mockDictUsuario()
+        email = self.mockDictEmail()
+        body = {
+                "usuario": usuario,
+                "email": None
+                }
+        response = controllerAdicionarEmailFastAPI.adicionarEmail(body = body, adicionarEmailUC = adicionarEmailUC)
+        assert response.body == b"<class 'devmaua.src.models.erros.erro_email.ErroDadosEmailInvalidos'>"
+        assert response.status_code == 400
+        
+    def test_erro_usuario_vazio(self):
+        repoVolatil = self.mockRepositorioComUmUsuario()
+        adicionarEmailUC = UCAdicionarEmail(repoVolatil)
+        controllerAdicionarEmailFastAPI = ControllerHTTPAdicionarEmailFastAPI()
+        
+        usuario = self.mockDictUsuario()
+        email = self.mockDictEmail()
+        body = {
+                "usuario": None,
+                "email": {
+                        "email": None,
+                        "tipo": 2,
+                        "prioridade": 2
+                        }
+                }
+        response = controllerAdicionarEmailFastAPI.adicionarEmail(body = body, adicionarEmailUC = adicionarEmailUC)
+        assert response.body == b"<class 'devmaua.src.models.erros.erro_usuario.ErroDadosUsuarioInvalidos'>"
+        assert response.status_code == 400
