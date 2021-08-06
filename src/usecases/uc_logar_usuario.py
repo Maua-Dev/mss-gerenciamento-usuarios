@@ -12,6 +12,6 @@ class UCLogarUsuario():
 
     def logar(self, login: str, senha: str):
         try:
-            return self.usuarios_repo.logar_usuario(login, senha)
+            return self.usuarios_repo.logarUsuario(login, senha)
         except:
             return False

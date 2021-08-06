@@ -10,17 +10,17 @@ class IArmazenamento(ABC):
     Interface com os métodos necessários para o gerenciamento de usuários
     """
     @abstractmethod
-    def get_usuario(self, ra: RA):
+    def getUsuario(self, ra: RA):
         pass
 
     @abstractmethod
-    def cadastrar_usuario(self, usuario: Usuario):
+    def cadastrarUsuario(self, usuario: Usuario):
         pass
 
     @abstractmethod
-    def logar_usuario(self, login: str, senha: str):
+    def logarUsuario(self, login: str, senha: str):
         pass
 
     @abstractmethod
-    def usuario_existe(self, usuario_outro: Usuario):
+    def usuarioExiste(self, usuario_outro: Usuario):
         pass
