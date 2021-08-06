@@ -14,6 +14,9 @@ from src.usecases.uc_editar_email import UCEditarEmail
 from src.controladores.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
+from src.controladores.control_adicionar_telefone_fastapi import ControllerHTTPAdicionarTelefoneFastAPI
+from src.usecases.uc_adicionar_telefone import UCAdicionarTelefone
+
 
 app = FastAPI()
 
@@ -30,6 +33,9 @@ controllerEditarEmail = ControllerHTTPEditarEmailFastAPI()
 
 cadastrarUsuarioUC = UCCadastrarUsuario(armazenamento)
 controllerCadastrarUsuario = ControllerHTTPCadastrarUsuario()
+
+adicionarTelefoneUC = UCAdicionarTelefone(armazenamento)
+controllerAdicionarTelefone = ControllerHTTPAdicionarTelefoneFastAPI()
 
 
 @app.get("/")
@@ -51,3 +57,7 @@ async def editarEmail(request: dict):
 @app.post("/cadastro/")
 async def cadastro(request: dict):
     return controllerCadastrarUsuario.cadastrar(request, cadastrarUsuarioUC)
+
+@app.post("/telefone")
+async def adicionarTelefone(request: dict):
+    return controllerAdicionarTelefone.adicionarTelefone(request, adicionarTelefoneUC = adicionarTelefoneUC)
