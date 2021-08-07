@@ -4,7 +4,6 @@ import datetime
 from devmaua.src.enum.tipo_email import TipoEmail
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 from devmaua.src.enum.tipo_endereco import TipoEndereco
-from devmaua.src.enum.roles import Roles
 from devmaua.src.enum.nome_curso import NomeCurso
 from devmaua.src.enum.periodo import Periodo
 from devmaua.src.enum.codigo_disciplina import CodigoDisciplina
@@ -19,11 +18,11 @@ from devmaua.src.models.ra import RA
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
-from src.usecases.uc_remover_aluno_por_ra import UCRemoverAlunoPorRA
+from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 
-class TestRemoverEmail:
+class TestUCDeletarUsuarioPorEmail:
     
     def mockAluno(self) -> Aluno:
         email = Email(email='teste@teste.com',
@@ -55,11 +54,6 @@ class TestRemoverEmail:
                           listaDPs=[],
                           hasDP=False)
         
-    def mockRA(self) -> RA:
-        return RA(ano='19',
-                numero='02009',
-                digito='0')  
-        
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
         repositorio = ArmazenamentoUsuarioVolatil()
         cadastrador = UCCadastrarUsuario(repositorio)
@@ -67,23 +61,23 @@ class TestRemoverEmail:
         cadastrador(aluno)
         return repositorio
     
-    def test_remover_aluno_por_ra(self):
+    def test_remover_usuario_por_email(self):
         repositorio = self.mockRepositorio()
-        removedorAluno = UCRemoverAlunoPorRA(repositorio)
+        removedorUsuario = UCDeletarUsuarioPorEmail(repositorio)
         
-        ra = self.mockRA()
+        email = 'teste@teste.com'
                 
         assert self.mockAluno() in repositorio.armazem
                 
-        removedorAluno.removerAlunoPorRA(ra)
+        removedorUsuario.deletarUsuarioPorEmail(email)
         
         assert repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)) == []
         
     def teste_erro_usuario_invalido(self):
         repositorio = ArmazenamentoUsuarioVolatil()
-        removedorAluno = UCRemoverAlunoPorRA(repositorio)
+        removedorUsuario = UCDeletarUsuarioPorEmail(repositorio)
         
-        ra = self.mockRA()
+        email = 'teste@teste.com'
         
         with pytest.raises(ErroUsuarioInvalido):
-            removedorAluno.removerAlunoPorRA(ra)
+            removedorUsuario.deletarUsuarioPorEmail(email)
