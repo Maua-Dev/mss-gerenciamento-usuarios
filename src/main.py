@@ -23,6 +23,9 @@ from src.usecases.uc_remover_telefone import UCRemoverTelefone
 from src.controladores.control_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
 from src.usecases.uc_editar_telefone import UCEditarTelefone
 
+from src.controladores.control_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
+from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
+
 
 app = FastAPI()
 
@@ -48,6 +51,9 @@ controllerRemoverTelefone = ControllerHTTPRemoverTelefoneFastAPI()
 
 editarTelefoneUC = UCEditarTelefone(armazenamento)
 controllerEditarTelefone = ControllerHTTPEditarTelefoneFastAPI()
+
+adicionarEnderecoUC = UCAdicionarEndereco(armazenamento)
+controllerAdicionarEndereco = ControllerHTTPAdicionarEnderecoFastAPI()
 
 
 @app.get("/")
@@ -81,3 +87,7 @@ async def removerTelefone(request: dict):
 @app.put("/telefone")
 async def editarTelefone(request: dict):
     return controllerEditarTelefone.editarTelefone(request, editarTelefoneUC = editarTelefoneUC)
+
+@app.post("/endereco")
+async def adicionarEndereco(request: dict):
+    return controllerAdicionarEndereco.adicionarEndereco(request, adicionarEnderecoUC = adicionarEnderecoUC)
