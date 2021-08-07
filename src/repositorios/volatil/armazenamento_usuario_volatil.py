@@ -143,7 +143,7 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro, IDele
             return u[0]
         return []
     
-    def removerUsuarioPeloEmail(self, email: str):
+    def deletarUsuarioPeloEmail(self, email: str):
         for u in self.armazem:
             for e in u.contato.emails:
                 if e.email == email:
