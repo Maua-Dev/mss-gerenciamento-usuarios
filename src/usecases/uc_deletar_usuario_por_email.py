@@ -14,4 +14,4 @@ class UCDeletarUsuarioPorEmail():
         if not(self.deletarUsuario.usuarioExistePorEmail(email)):
             raise ErroUsuarioInvalido
         
-        self.deletarUsuario.deletarUsuarioPeloEmail(email)
+        self.deletarUsuario.deletarUsuarioPorEmail(email)

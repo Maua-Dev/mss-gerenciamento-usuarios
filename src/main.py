@@ -32,7 +32,7 @@ from src.usecases.uc_remover_endereco import UCRemoverEndereco
 from src.controladores.control_editar_endereco_fastapi import ControllerHTTPEditarEnderecoFastAPI
 from src.usecases.uc_editar_endereco import UCEditarEndereco
 
-from src.controladores.control_deletar_usuario_pelo_email_fastapi import ControllerHTTPDeletarUsuarioPorEmailFastAPI
+from src.controladores.control_deletar_usuario_por_email_fastapi import ControllerHTTPDeletarUsuarioPorEmailFastAPI
 from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 
 

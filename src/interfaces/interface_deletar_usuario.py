@@ -7,11 +7,11 @@ class IDeletarUsuario(ABC):
     """" Interface para deletar um usuario cadastrado no sistema """
     
     @abstractmethod
-    def deletarUsuarioPeloEmail(self, email: str):
-        """ Remove um usuario com a role 'Aluno' da base de usuarios """
+    def deletarUsuarioPorEmail(self, email: str):
+        """ Remove um usuario a partir do seu email """
         pass
     
     @abstractmethod
     def usuarioExistePorEmail(self, email:str):
-        """ Retorna se um aluno existe """
+        """ Retorna se um usuario existe """
         pass
