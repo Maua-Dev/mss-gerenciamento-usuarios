@@ -24,5 +24,3 @@ class IArmazenamento(ABC):
     @abstractmethod
     def usuarioExiste(self, usuario_outro: Usuario):
         pass
-
-

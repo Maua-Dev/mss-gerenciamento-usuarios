@@ -13,5 +13,4 @@ class UCLogarUsuario():
     def __call__(self, login: str, senha: str):
         try:
             return self.usuariosRepo.logarUsuario(login, senha)
-        except:
-            return False
+

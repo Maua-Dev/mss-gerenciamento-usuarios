@@ -16,4 +16,3 @@ class UCCadastrarUsuario():
             raise ErroUsuarioExiste
         self.usuariosRepo.cadastrarUsuario(usuario)
 
-
