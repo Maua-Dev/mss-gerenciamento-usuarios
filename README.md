@@ -1,5 +1,5 @@
 # MSS - Gerenciamento de usuários.
-[![codecov](https://codecov.io/gh/Maua-Dev/mss-gerenciamento-usuarios/branch/main/graph/badge.svg?token=SZ815UNBXK)](https://codecov.io/gh/Maua-Dev/mss-gerenciamento-usuarios)
+[![codecov](https://codecov.io/gh/Maua-Dev/mss_gerenciamento_usuarios/branch/main/graph/badge.svg?token=SZ815UNBXK)](https://codecov.io/gh/Maua-Dev/mss_gerenciamento_usuarios)
 
 
 MSS para gerenciamento de usuários cadastrados.

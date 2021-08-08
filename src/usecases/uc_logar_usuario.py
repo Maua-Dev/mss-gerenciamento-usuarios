@@ -5,13 +5,12 @@ from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 
 class UCLogarUsuario():
 
-    usuarios_repo: IArmazenamento
+    usuariosRepo: IArmazenamento
 
-    def __init__(self, usuarios_repo: IArmazenamento):
-        self.usuarios_repo = usuarios_repo
+    def __init__(self, usuariosRepo: IArmazenamento):
+        self.usuariosRepo = usuariosRepo
 
-    def logar(self, login: str, senha: str):
+    def __call__(self, login: str, senha: str):
         try:
-            return self.usuarios_repo.logarUsuario(login, senha)
-        except:
-            return False
+            return self.usuariosRepo.logarUsuario(login, senha)
+
