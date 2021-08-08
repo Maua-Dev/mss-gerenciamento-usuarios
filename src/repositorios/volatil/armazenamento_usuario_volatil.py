@@ -1,5 +1,12 @@
 from devmaua.src.models.ra import RA
 from devmaua.src.models.usuario import Usuario
+
+
+from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
+from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
+from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
+from src.interfaces.interface_deletar_usuario import IDeletarUsuario
+
 from devmaua.src.models.telefone import Telefone        
 from devmaua.src.models.email import Email
 from devmaua.src.models.endereco import Endereco
@@ -10,14 +17,11 @@ from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_email import TipoEmail
 from devmaua.src.enum.roles import Roles
 
-from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
-from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
-from src.interfaces.interface_deletar_usuario import IDeletarUsuario
-
 from typing import Optional
 from datetime import date
 
 class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro, IDeletarUsuario):
+
     armazem: list[Usuario]
 
     def __init__(self):
@@ -40,6 +44,7 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro, IDele
 
     def logarUsuario(self, login: str, senha: str):
         pass
+
     
     def adicionarTelefone(self, usuario: Usuario, telefone: Telefone):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]
@@ -157,3 +162,4 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro, IDele
                 if u.ra == ra:
                     return True
         return False
+
