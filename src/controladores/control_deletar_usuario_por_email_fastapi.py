@@ -4,7 +4,7 @@ from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 
-class ControllerHTTPDeletarUsuarioPorEmailFastAPI():
+class CDeletarUsuarioPorEmailFastAPI():
     
     def deletarUsuarioPorEmail(self, body: dict, deletarUsuarioPorEmailUC: UCDeletarUsuarioPorEmail):
         """ Estilo do body:
