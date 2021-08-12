@@ -148,18 +148,15 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro, IDele
             return u[0]
         return []
     
-    def removerAlunoPorRA(self, ra: RA):
+    def deletarUsuarioPorEmail(self, email: str):
         for u in self.armazem:
-            if Roles.ALUNO in u.roles:
-                if u.ra == ra:
+            for e in u.contato.emails:
+                if e.email == email:
                     self.armazem.remove(u)
-                    return True
-        return False
     
-    def alunoExiste(self, ra: RA):
+    def usuarioExistePorEmail(self, email: str):
         for u in self.armazem:
-            if Roles.ALUNO in u.roles:
-                if u.ra == ra:
+            for e in u.contato.emails:
+                if e.email == email:
                     return True
         return False
-

@@ -35,6 +35,9 @@ from src.usecases.uc_remover_endereco import UCRemoverEndereco
 from src.controladores.control_editar_endereco_fastapi import ControllerHTTPEditarEnderecoFastAPI
 from src.usecases.uc_editar_endereco import UCEditarEndereco
 
+from src.controladores.control_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
+from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
+
 
 app = FastAPI()
 
@@ -74,6 +77,8 @@ controllerRemoverEndereco = ControllerHTTPRemoverEnderecoFastAPI()
 editarEnderecoUC = UCEditarEndereco(armazenamento)
 controllerEditarEndereco = ControllerHTTPEditarEnderecoFastAPI()
 
+deletarUsuarioPorEmailUC = UCDeletarUsuarioPorEmail(armazenamento)
+controllerDeletarUsuarioPorEmail = CDeletarUsuarioPorEmailFastAPI()
 
 
 @app.get("/")
@@ -123,3 +128,7 @@ async def removerEndereco(request: dict):
 @app.put("/endereco")
 async def editarEndereco(request: dict):
     return controllerEditarEndereco.editarEndereco(request, editarEnderecoUC = editarEnderecoUC)
+
+@app.delete("/usuario")
+async def deletarUsuarioPorEmail(request: dict):
+    return controllerDeletarUsuarioPorEmail.deletarUsuarioPorEmail(request, deletarUsuarioPorEmailUC = deletarUsuarioPorEmailUC)
