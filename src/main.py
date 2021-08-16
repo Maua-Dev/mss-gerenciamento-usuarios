@@ -83,7 +83,7 @@ controllerDeletarUsuarioPorEmail = CDeletarUsuarioPorEmailFastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"mss": "gerenciamento_usuario"}
 
 
 
