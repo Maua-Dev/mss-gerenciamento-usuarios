@@ -76,6 +76,6 @@ class TestControllerEditarTelefoneFastAPI():
                 "numero": '99999-8888',
                 "prioridade": 3
             }
-        response = controllerEditarTelefoneFastAPI.editarTelefone(body = body, editarTelefoneUC = editarTelefoneUC)
+        response = controllerEditarTelefoneFastAPI(body = body, editarTelefoneUC = editarTelefoneUC)
         
         assert response.status_code == 200
