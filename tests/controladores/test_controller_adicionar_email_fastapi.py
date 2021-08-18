@@ -70,7 +70,7 @@ class TestControllerAdicionarEmailFastAPI():
                 "usuario": usuario,
                 "email": email            
                 }
-        response = controllerAdicionarEmailFastAPI.adicionarEmail(body = body, adicionarEmailUC = adicionarEmailUC)
+        response = controllerAdicionarEmailFastAPI(body = body, adicionarEmailUC = adicionarEmailUC)
 
         assert response.status_code == 200
         
@@ -85,7 +85,7 @@ class TestControllerAdicionarEmailFastAPI():
                 "usuario": usuario,
                 "email": email            
                 }
-        response = controllerAdicionarEmailFastAPI.adicionarEmail(body = body, adicionarEmailUC = adicionarEmailUC)
+        response = controllerAdicionarEmailFastAPI(body = body, adicionarEmailUC = adicionarEmailUC)
         assert response.body == b"<class 'src.usecases.erros.erros_uc_alteracao_info_cadastro.ErroUsuarioInvalido'>"
         assert response.status_code == 400
         
@@ -105,7 +105,7 @@ class TestControllerAdicionarEmailFastAPI():
                         }
            
                 }
-        response = controllerAdicionarEmailFastAPI.adicionarEmail(body = body, adicionarEmailUC = adicionarEmailUC)
+        response = controllerAdicionarEmailFastAPI(body = body, adicionarEmailUC = adicionarEmailUC)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_email.ErroDadosEmailInvalidos'>"
         assert response.status_code == 400
         
@@ -120,7 +120,7 @@ class TestControllerAdicionarEmailFastAPI():
                 "usuario": usuario,
                 "email": None
                 }
-        response = controllerAdicionarEmailFastAPI.adicionarEmail(body = body, adicionarEmailUC = adicionarEmailUC)
+        response = controllerAdicionarEmailFastAPI(body = body, adicionarEmailUC = adicionarEmailUC)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_email.ErroDadosEmailInvalidos'>"
         assert response.status_code == 400
         
@@ -139,6 +139,6 @@ class TestControllerAdicionarEmailFastAPI():
                         "prioridade": 2
                         }
                 }
-        response = controllerAdicionarEmailFastAPI.adicionarEmail(body = body, adicionarEmailUC = adicionarEmailUC)
+        response = controllerAdicionarEmailFastAPI(body = body, adicionarEmailUC = adicionarEmailUC)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_usuario.ErroDadosUsuarioInvalidos'>"
         assert response.status_code == 400

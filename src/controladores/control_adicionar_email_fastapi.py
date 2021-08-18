@@ -12,13 +12,13 @@ from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInval
 
 class ControllerHTTPAdicionarEmailFastAPI():
     
-    def adicionarEmail(self, body: dict, adicionarEmailUC: UCAdicionarEmail):
+    def __call__(self, body: dict, adicionarEmailUC: UCAdicionarEmail):
         
         try:
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             email = Email.criarEmailPorDict(body['email'])
             
-            adicionarEmailUC.adicionarEmail(usuario, email)
+            adicionarEmailUC(usuario, email)
             response = Response(content="Email adicionado com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:

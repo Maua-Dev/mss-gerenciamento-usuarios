@@ -62,7 +62,7 @@ class TestAdicionarEmail:
         usuario = self.mockUsuario()
         email_novo = self.mockEmail()
                 
-        addEmail.adicionarEmail(usuario, email_novo)
+        addEmail(usuario, email_novo)
         
         assert email_novo in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.emails
         assert repositorio.quantidadeEmails(repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 2
@@ -75,7 +75,7 @@ class TestAdicionarEmail:
         email_novo = self.mockEmail()
         
         with pytest.raises(ErroUsuarioInvalido):
-            addEmail.adicionarEmail(usuario, email_novo)
+            addEmail(usuario, email_novo)
             
     def test_erro_email_invalido(self):
         repositorio = self.mockRepositorio()
@@ -85,6 +85,6 @@ class TestAdicionarEmail:
         email_novo = None
         
         with pytest.raises(ErroEmailInvalido):
-            addEmail.adicionarEmail(usuario, email_novo)
+            addEmail(usuario, email_novo)
         
         
