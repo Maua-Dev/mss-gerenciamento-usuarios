@@ -78,6 +78,6 @@ class TestControllerRemoverTelefoneFastAPI():
                 "usuario": usuarioDict,
                 "telefone": telefoneDict         
                 }
-        response = controllerRemoverTelefoneFastAPI.removerTelefone(body = body, removerTelefoneUC = removerTelefoneUC)
+        response = controllerRemoverTelefoneFastAPI(body = body, removerTelefoneUC = removerTelefoneUC)
 
         assert response.status_code == 200

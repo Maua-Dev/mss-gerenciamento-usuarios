@@ -12,7 +12,7 @@ from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInval
 
 class ControllerHTTPRemoverTelefoneFastAPI():
     
-    def removerTelefone(self, body: dict, removerTelefoneUC: UCRemoverTelefone):
+    def __call__(self, body: dict, removerTelefoneUC: UCRemoverTelefone):
         """ Estrutura do body:
             {
                 "usuario": dict de usuario,
@@ -25,7 +25,7 @@ class ControllerHTTPRemoverTelefoneFastAPI():
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             telefone = Telefone.criarTelefonePorDict(body['telefone'])
             
-            removerTelefoneUC.removerTelefone(usuario, telefone)
+            removerTelefoneUC(usuario, telefone)
             response = Response(content="Telefone removido com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:
