@@ -14,7 +14,7 @@ class UCAdicionarEndereco():
     def __init__(self, alteracaoInfosCadastro: IAlteracaoInfosCadastro):
         self.alteracaoInfosCadastro = alteracaoInfosCadastro
         
-    def adicionarEndereco(self, usuario: Usuario, endereco: Endereco):
+    def __call__(self, usuario: Usuario, endereco: Endereco):
         if not(self.alteracaoInfosCadastro.usuarioExiste(usuario)):
             raise ErroUsuarioInvalido
         

@@ -13,7 +13,7 @@ from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInva
 
 class ControllerHTTPAdicionarEnderecoFastAPI():
     
-    def adicionarEndereco(self, body: dict, adicionarEnderecoUC: UCAdicionarEndereco):
+    def __call__(self, body: dict, adicionarEnderecoUC: UCAdicionarEndereco):
         """ Estilo do body:
             {
                 "usuario": dict de dicionario,
@@ -24,7 +24,7 @@ class ControllerHTTPAdicionarEnderecoFastAPI():
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             endereco = Endereco.criarEnderecoPorDict(body['endereco'])
             
-            adicionarEnderecoUC.adicionarEndereco(usuario, endereco)
+            adicionarEnderecoUC(usuario, endereco)
             response = Response(content="Endereco adicionado com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:

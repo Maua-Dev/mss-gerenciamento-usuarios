@@ -72,7 +72,7 @@ class TestControllerAdicionarEnderecoFastAPI():
                 "usuario": usuario,
                 "endereco": endereco            
                 }
-        response = controllerAdicionarEnderecoFastAPI.adicionarEndereco(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
+        response = controllerAdicionarEnderecoFastAPI(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
 
         assert response.status_code == 200
         
@@ -87,7 +87,7 @@ class TestControllerAdicionarEnderecoFastAPI():
                 "usuario": usuario,
                 "endereco": endereco            
                 }
-        response = controllerAdicionarEnderecoFastAPI.adicionarEndereco(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
+        response = controllerAdicionarEnderecoFastAPI(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
         assert response.body == b"<class 'src.usecases.erros.erros_uc_alteracao_info_cadastro.ErroUsuarioInvalido'>"
         assert response.status_code == 400
         
@@ -102,7 +102,7 @@ class TestControllerAdicionarEnderecoFastAPI():
                 "usuario": usuario,
                 "endereco": None            
                 }
-        response = controllerAdicionarEnderecoFastAPI.adicionarEndereco(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
+        response = controllerAdicionarEnderecoFastAPI(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_endereco.ErroDadosEnderecoInvalidos'>"
         assert response.status_code == 400
         
@@ -117,6 +117,6 @@ class TestControllerAdicionarEnderecoFastAPI():
                 "usuario": None,
                 "endereco": endereco            
                 }
-        response = controllerAdicionarEnderecoFastAPI.adicionarEndereco(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
+        response = controllerAdicionarEnderecoFastAPI(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_usuario.ErroDadosUsuarioInvalidos'>"
         assert response.status_code == 400
