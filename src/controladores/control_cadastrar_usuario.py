@@ -8,7 +8,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 class ControllerHTTPCadastrarUsuario():
 
-    def cadastrar(self, body: dict, cadastrarUsuarioUC: UCCadastrarUsuario):
+    def __call__(self, body: dict, cadastrarUsuarioUC: UCCadastrarUsuario):
 
         try:
             usuario = Usuario.criarUsuarioPorDict(body)

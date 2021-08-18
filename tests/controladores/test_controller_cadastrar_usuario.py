@@ -47,7 +47,7 @@ class TestControllerCadastrarUsuario():
 
     def test_controller_cadastrar_usuario(self):
         usuario = self.mockUsuario()
-        response = self.controllerCadastrarUsuario.cadastrar(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
+        response = self.controllerCadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
         print(response)
         print(dir(response))
 
@@ -56,7 +56,7 @@ class TestControllerCadastrarUsuario():
     def test_controller_cadastrar_sem_nome(self):
         usuario = self.mockUsuario()
         usuario['nome'] = None
-        response = self.controllerCadastrarUsuario.cadastrar(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
+        response = self.controllerCadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
 
         assert response.status_code == 400
 
