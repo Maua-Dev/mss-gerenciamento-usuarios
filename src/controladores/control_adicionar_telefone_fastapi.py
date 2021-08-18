@@ -12,7 +12,7 @@ from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInval
 
 class ControllerHTTPAdicionarTelefoneFastAPI():
     
-    def adicionarTelefone(self, body: dict, adicionarTelefoneUC: UCAdicionarTelefone):
+    def __call__(self, body: dict, adicionarTelefoneUC: UCAdicionarTelefone):
         """ Estrutura do body:
             {
                 "usuario": dict de usuario,
@@ -25,7 +25,7 @@ class ControllerHTTPAdicionarTelefoneFastAPI():
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             telefone = Telefone.criarTelefonePorDict(body['telefone'])
             
-            adicionarTelefoneUC.adicionarTelefone(usuario, telefone)
+            adicionarTelefoneUC(usuario, telefone)
             response = Response(content="Telefone adicionado com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:

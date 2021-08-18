@@ -63,7 +63,7 @@ class TestAdicionarTelefone:
         usuario = self.mockUsuario()
         telefone = self.mockTelefone()
                 
-        addEmail.adicionarTelefone(usuario, telefone)
+        addEmail(usuario, telefone)
         
         assert telefone in armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.telefones
         assert armazenamentoUsuarioVolatil.quantidadeTelefones(armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 2
@@ -76,7 +76,7 @@ class TestAdicionarTelefone:
         telefone = self.mockTelefone()
         
         with pytest.raises(ErroUsuarioInvalido):
-            addEmail.adicionarTelefone(usuario, telefone)
+            addEmail(usuario, telefone)
             
     def test_erro_telefone_invalido(self):
         armazenamentoUsuarioVolatil = self.mockRepositorio()
@@ -86,6 +86,6 @@ class TestAdicionarTelefone:
         telefone = None
         
         with pytest.raises(ErroTelefoneInvalido):
-            addEmail.adicionarTelefone(usuario, telefone)
+            addEmail(usuario, telefone)
         
         

@@ -71,7 +71,7 @@ class TestControllerAdicionarTelefoneFastAPI():
                 "usuario": usuario,
                 "telefone": telefone            
                 }
-        response = controllerAdicionarTelefoneFastAPI.adicionarTelefone(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
+        response = controllerAdicionarTelefoneFastAPI(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
 
         assert response.status_code == 200
         
@@ -86,7 +86,7 @@ class TestControllerAdicionarTelefoneFastAPI():
                 "usuario": usuario,
                 "telefone": telefone            
                 }
-        response = controllerAdicionarTelefoneFastAPI.adicionarTelefone(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
+        response = controllerAdicionarTelefoneFastAPI(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
         assert response.body == b"<class 'src.usecases.erros.erros_uc_alteracao_info_cadastro.ErroUsuarioInvalido'>"
         assert response.status_code == 400
         
@@ -101,7 +101,7 @@ class TestControllerAdicionarTelefoneFastAPI():
                 "usuario": usuario,
                 "telefone": None            
                 }
-        response = controllerAdicionarTelefoneFastAPI.adicionarTelefone(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
+        response = controllerAdicionarTelefoneFastAPI(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
         
         assert response.body == b"<class 'devmaua.src.models.erros.erro_telefone.ErroDadosTelefoneInvalidos'>"
         assert response.status_code == 400
@@ -117,7 +117,7 @@ class TestControllerAdicionarTelefoneFastAPI():
                 "usuario": usuario,
                 "telefone": None            
                 }
-        response = controllerAdicionarTelefoneFastAPI.adicionarTelefone(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
+        response = controllerAdicionarTelefoneFastAPI(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_telefone.ErroDadosTelefoneInvalidos'>"
         assert response.status_code == 400
         
@@ -132,6 +132,6 @@ class TestControllerAdicionarTelefoneFastAPI():
                 "usuario": None,
                 "telefone": telefone            
                 }
-        response = controllerAdicionarTelefoneFastAPI.adicionarTelefone(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
+        response = controllerAdicionarTelefoneFastAPI(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_usuario.ErroDadosUsuarioInvalidos'>"
         assert response.status_code == 400
