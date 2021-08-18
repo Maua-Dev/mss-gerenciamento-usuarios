@@ -13,7 +13,7 @@ from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoE
 
 class ControllerHTTPEditarEmailFastAPI():
     
-    def editarEmail(self, body: dict, editarEmailUC: UCEditarEmail):
+    def __call__(self, body: dict, editarEmailUC: UCEditarEmail):
         """ Estrutura do body:
             {
                 "usuario": dict de usuario,
@@ -28,7 +28,7 @@ class ControllerHTTPEditarEmailFastAPI():
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             email = Email.criarEmailPorDict(body['email'])
             
-            editarEmailUC.editarEmail(usuario, email, body['emailNovo'], body['tipo'], body['prioridade'])
+            editarEmailUC(usuario, email, body['emailNovo'], body['tipo'], body['prioridade'])
             response = Response(content="Email editado com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:

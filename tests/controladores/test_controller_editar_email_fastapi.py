@@ -79,6 +79,6 @@ class TestControllerEditarEmailFastAPI():
                 "tipo": 3,
                 "prioridade": 3
                 }
-        response = controllerEditarEmailFastAPI.editarEmail(body = body, editarEmailUC = editarEmailUC)
+        response = controllerEditarEmailFastAPI(body = body, editarEmailUC = editarEmailUC)
 
         assert response.status_code == 200
