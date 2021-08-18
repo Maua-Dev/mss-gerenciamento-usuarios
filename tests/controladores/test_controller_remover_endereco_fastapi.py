@@ -80,6 +80,6 @@ class TestControllerRemoverEnderecoFastAPI():
                 "usuario": usuarioDict,
                 "endereco": enderecoDict         
                 }
-        response = controllerRemoverEnderecoFastAPI.removerEndereco(body = body, removerEnderecoUC = removerEnderecoUC)
+        response = controllerRemoverEnderecoFastAPI(body = body, removerEnderecoUC = removerEnderecoUC)
 
         assert response.status_code == 200

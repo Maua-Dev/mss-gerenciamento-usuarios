@@ -15,7 +15,7 @@ class UCRemoverEndereco():
     def __init__(self, alteracaoInfosCadastro: IAlteracaoInfosCadastro):
         self.alteracaoInfosCadastro = alteracaoInfosCadastro
         
-    def removerEndereco(self, usuario: Usuario, endereco: Endereco):
+    def __call__(self, usuario: Usuario, endereco: Endereco):
         if not(self.alteracaoInfosCadastro.usuarioExiste(usuario)):
             raise ErroUsuarioInvalido
         

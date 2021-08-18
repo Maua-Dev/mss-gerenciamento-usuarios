@@ -12,7 +12,7 @@ from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInval
 
 class ControllerHTTPRemoverEnderecoFastAPI():
     
-    def removerEndereco(self, body: dict, removerEnderecoUC: UCRemoverEndereco):
+    def __call__(self, body: dict, removerEnderecoUC: UCRemoverEndereco):
         """ Estrutura do body:
             {
                 "usuario": dict de usuario,
@@ -25,7 +25,7 @@ class ControllerHTTPRemoverEnderecoFastAPI():
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             endereco = Endereco.criarEnderecoPorDict(body['endereco'])
             
-            removerEnderecoUC.removerEndereco(usuario, endereco)
+            removerEnderecoUC(usuario, endereco)
             response = Response(content="Endereco removido com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:
