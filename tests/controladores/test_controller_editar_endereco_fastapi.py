@@ -78,6 +78,6 @@ class TestControllerEditarEnderecoFastAPI():
                 "complemento": "Atras de outra rua",
                 "tipo": 2
             }
-        response = controllerEditarEnderecoFastAPI.editarEndereco(body = body, editarEnderecoUC = editarEnderecoUC)
+        response = controllerEditarEnderecoFastAPI(body = body, editarEnderecoUC = editarEnderecoUC)
         
         assert response.status_code == 200

@@ -13,7 +13,7 @@ from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInval
 
 class ControllerHTTPEditarEnderecoFastAPI():
     
-    def editarEndereco(self, body: dict, editarEnderecoUC: UCEditarEndereco):
+    def __call__(self, body: dict, editarEnderecoUC: UCEditarEndereco):
         """ Estrutura do body:
             {
                 "usuario": dict de usuario,
@@ -30,7 +30,7 @@ class ControllerHTTPEditarEnderecoFastAPI():
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             endereco = Endereco.criarEnderecoPorDict(body['endereco'])
             
-            editarEnderecoUC.editarEndereco(usuario, endereco, body['logradouro'], body['numero'], body['cep'], body['complemento'], body['tipo'])
+            editarEnderecoUC(usuario, endereco, body['logradouro'], body['numero'], body['cep'], body['complemento'], body['tipo'])
             response = Response(content="Endereco editado com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:
