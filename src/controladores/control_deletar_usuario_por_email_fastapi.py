@@ -6,7 +6,7 @@ from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInval
 
 class CDeletarUsuarioPorEmailFastAPI():
     
-    def deletarUsuarioPorEmail(self, body: dict, deletarUsuarioPorEmailUC: UCDeletarUsuarioPorEmail):
+    def __call__(self, body: dict, deletarUsuarioPorEmailUC: UCDeletarUsuarioPorEmail):
         """ Estilo do body:
             {
                 "email": email string
@@ -14,7 +14,7 @@ class CDeletarUsuarioPorEmailFastAPI():
         """
         
         try:
-            deletarUsuarioPorEmailUC.deletarUsuarioPorEmail(body['email'])
+            deletarUsuarioPorEmailUC(body['email'])
             response = Response(content="Usuario deletado com sucesso", status_code=200)
             
         except ErroUsuarioInvalido:

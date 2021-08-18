@@ -62,7 +62,7 @@ class TestControllerDeletarUsuarioPorEmailFastAPI():
                     "email": "teste@teste.com"
                }
         
-        response = controllerDeletarUsuarioPorEmail.deletarUsuarioPorEmail(body = body, deletarUsuarioPorEmailUC = deletarUsuarioPorEmailUC)
+        response = controllerDeletarUsuarioPorEmail(body = body, deletarUsuarioPorEmailUC = deletarUsuarioPorEmailUC)
         assert response.status_code == 200
         assert repoVolatil.usuarioExistePorEmail("teste@teste.com") == False
         
@@ -74,6 +74,6 @@ class TestControllerDeletarUsuarioPorEmailFastAPI():
         body = {
                     "email": "teste@teste.com"
                }
-        response = controllerDeletarUsuarioPorEmail.deletarUsuarioPorEmail(body = body, deletarUsuarioPorEmailUC = deletarUsuarioPorEmailUC)
+        response = controllerDeletarUsuarioPorEmail(body = body, deletarUsuarioPorEmailUC = deletarUsuarioPorEmailUC)
         assert response.body == b"<class 'src.usecases.erros.erros_uc_alteracao_info_cadastro.ErroUsuarioInvalido'>"
         assert response.status_code == 400
