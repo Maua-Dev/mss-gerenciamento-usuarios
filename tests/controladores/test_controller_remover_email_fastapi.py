@@ -76,6 +76,6 @@ class TestControllerRemoverEmailFastAPI():
                 "usuario": usuarioDict,
                 "email": emailDict            
                 }
-        response = controllerRemoverEmailFastAPI.removerEmail(body = body, removerEmailUC = removerEmailUC)
+        response = controllerRemoverEmailFastAPI(body = body, removerEmailUC = removerEmailUC)
 
         assert response.status_code == 200

@@ -68,7 +68,7 @@ class TestRemoverEmail:
         usuario = self.mockUsuario()
         email = self.mockEmail()
                 
-        removerEmail.removerEmail(usuario, email)
+        removerEmail(usuario, email)
         
         assert email not in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.emails
         assert repositorio.quantidadeEmails(repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)))
@@ -81,7 +81,7 @@ class TestRemoverEmail:
         email = self.mockEmail()
         
         with pytest.raises(ErroUsuarioInvalido):
-            removerEmail.removerEmail(usuario, email)
+            removerEmail(usuario, email)
             
     def test_erro_email_invalido(self):
         repositorio = self.mockRepositorio()
@@ -93,7 +93,7 @@ class TestRemoverEmail:
                       prioridade=1)
                 
         with pytest.raises(ErroEmailInvalido):
-            removerEmail.removerEmail(usuario, email)
+            removerEmail(usuario, email)
             
     def test_erro_erro_manipular_email_faculdade(self):
         repositorio = self.mockRepositorio()
@@ -105,7 +105,7 @@ class TestRemoverEmail:
                       prioridade=1)
                 
         with pytest.raises(ErroManipulacaoEmailFaculdade):
-            removerEmail.removerEmail(usuario, email)
+            removerEmail(usuario, email)
             
     def test_erro_deletar_email_unico(self):
         repositorio = ArmazenamentoUsuarioVolatil()
@@ -134,4 +134,4 @@ class TestRemoverEmail:
                            roles=[Roles.ALUNO])
         cadastrador(usuario)
         with pytest.raises(ErroDeletarEmailUnico):
-            removerEmail.removerEmail(usuario, email)
+            removerEmail(usuario, email)

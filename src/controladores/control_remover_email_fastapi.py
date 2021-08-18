@@ -14,13 +14,13 @@ from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEmail
 
 class ControllerHTTPRemoverEmailFastAPI():
     
-    def removerEmail(self, body: dict, removerEmailUC: UCRemoverEmail):
+    def __call__(self, body: dict, removerEmailUC: UCRemoverEmail):
         
         try:
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             email = Email.criarEmailPorDict(body['email'])
             
-            removerEmailUC.removerEmail(usuario, email)
+            removerEmailUC(usuario, email)
             response = Response(content="Email removido com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:
