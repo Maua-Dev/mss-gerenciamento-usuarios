@@ -1,6 +1,5 @@
 from src.controladores.fastapi.control_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 
@@ -55,25 +54,23 @@ class TestControllerDeletarUsuarioPorEmailFastAPI():
             
     def test_controller_deletar_usuario_por_email_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        deletarUsuarioPorEmailUC = UCDeletarUsuarioPorEmail(repoVolatil)
-        controllerDeletarUsuarioPorEmail = CDeletarUsuarioPorEmailFastAPI()
+        controllerDeletarUsuarioPorEmail = CDeletarUsuarioPorEmailFastAPI(repoVolatil)
         
         body = {
                     "email": "teste@teste.com"
                }
         
-        response = controllerDeletarUsuarioPorEmail(body = body, deletarUsuarioPorEmailUC = deletarUsuarioPorEmailUC)
+        response = controllerDeletarUsuarioPorEmail(body = body)
         assert response.status_code == 200
         assert repoVolatil.usuarioExistePorEmail("teste@teste.com") == False
         
     def test_erro_usuario_inexistente(self):
         repoVolatil = ArmazenamentoUsuarioVolatil()
-        deletarUsuarioPorEmailUC = UCDeletarUsuarioPorEmail(repoVolatil)
-        controllerDeletarUsuarioPorEmail = CDeletarUsuarioPorEmailFastAPI()
+        controllerDeletarUsuarioPorEmail = CDeletarUsuarioPorEmailFastAPI(repoVolatil)
         
         body = {
                     "email": "teste@teste.com"
                }
-        response = controllerDeletarUsuarioPorEmail(body = body, deletarUsuarioPorEmailUC = deletarUsuarioPorEmailUC)
+        response = controllerDeletarUsuarioPorEmail(body = body)
         assert response.body == b"<class 'src.usecases.erros.erros_uc_alteracao_info_cadastro.ErroUsuarioInvalido'>"
         assert response.status_code == 400

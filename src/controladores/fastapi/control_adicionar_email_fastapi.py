@@ -7,14 +7,22 @@ from devmaua.src.models.erros.erro_email import ErroDadosEmailInvalidos
 
 from src.usecases.uc_adicionar_email import UCAdicionarEmail
 
+from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
+
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 
 class ControllerHTTPAdicionarEmailFastAPI():
+
+    repo: IAlteracaoInfosCadastro
+
+    def __init__(self, repo: IAlteracaoInfosCadastro):
+        self.repo = repo
     
-    def __call__(self, body: dict, adicionarEmailUC: UCAdicionarEmail):
+    def __call__(self, body: dict):
         
         try:
+            adicionarEmailUC = UCAdicionarEmail(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             email = Email.criarEmailPorDict(body['email'])
             

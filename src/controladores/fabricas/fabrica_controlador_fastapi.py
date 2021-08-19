@@ -1,4 +1,4 @@
-from src.usecases.uc_factory import UCFactory
+from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 
 from src.controladores.fastapi.control_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
 from src.controladores.fastapi.control_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
@@ -14,40 +14,40 @@ from src.controladores.fastapi.control_cadastrar_usuario import ControllerHTTPCa
 
 
 class FabricaControladorFastAPI:
-    _useCases: UCFactory
+    repo: ArmazenamentoUsuarioVolatil
 
-    def __init__(self, _useCases: UCFactory):
-        self._useCases = _useCases
+    def __init__(self, repo: ArmazenamentoUsuarioVolatil):
+        self.repo = repo
 
     def adicionarEmail(self, body: dict):
-        return ControllerHTTPAdicionarEmailFastAPI()(body, self._useCases.ucAdicionarEmail())
+        return ControllerHTTPAdicionarEmailFastAPI(self.repo)(body)
 
     def removerEmail(self, body: dict):
-        return ControllerHTTPRemoverEmailFastAPI()(body, self._useCases.ucRemoverEmail())
+        return ControllerHTTPRemoverEmailFastAPI(self.repo)(body)
 
     def editarEmail(self, body: dict):
-        return ControllerHTTPEditarEmailFastAPI()(body, self._useCases.ucEditarEmail())
+        return ControllerHTTPEditarEmailFastAPI(self.repo)(body)
 
     def adicionarEndereco(self, body: dict):
-        return ControllerHTTPAdicionarEnderecoFastAPI()(body, self._useCases.ucAdicionarEndereco())
+        return ControllerHTTPAdicionarEnderecoFastAPI(self.repo)(body)
 
     def removerEndereco(self, body: dict):
-        return ControllerHTTPRemoverEnderecoFastAPI()(body, self._useCases.ucRemoverEndereco())
+        return ControllerHTTPRemoverEnderecoFastAPI(self.repo)(body)
 
     def editarEndereco(self, body: dict):
-        return ControllerHTTPEditarEnderecoFastAPI()(body, self._useCases.ucEditarEndereco())
+        return ControllerHTTPEditarEnderecoFastAPI(self.repo)(body)
 
     def adicionarTelefone(self, body: dict):
-        return ControllerHTTPAdicionarTelefoneFastAPI()(body, self._useCases.ucAdicionarTelefone())
+        return ControllerHTTPAdicionarTelefoneFastAPI(self.repo)(body)
 
     def removerTelefone(self, body: dict):
-        return ControllerHTTPRemoverTelefoneFastAPI()(body, self._useCases.ucRemoverTelefone())
+        return ControllerHTTPRemoverTelefoneFastAPI(self.repo)(body)
 
     def editarTelefone(self, body: dict):
-        return ControllerHTTPEditarTelefoneFastAPI()(body, self._useCases.ucEditarTelefone())
+        return ControllerHTTPEditarTelefoneFastAPI(self.repo)(body)
 
     def cadastrarUsuario(self, body: dict):
-        return ControllerHTTPCadastrarUsuario()(body, self._useCases.ucCadastrarUsuario())
+        return ControllerHTTPCadastrarUsuario(self.repo)(body)
 
     def deletarUsuarioPorEmail(self, body: dict):
-        return CDeletarUsuarioPorEmailFastAPI()(body, self._useCases.ucDeletarUsuarioPorEmail())
+        return CDeletarUsuarioPorEmailFastAPI(self.repo)(body)

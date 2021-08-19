@@ -7,13 +7,20 @@ from devmaua.src.models.erros.erro_endereco import ErroDadosEnderecoInvalidos
 
 from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
 
+from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
+
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
 
 
 class ControllerHTTPAdicionarEnderecoFastAPI():
+
+    repo: IAlteracaoInfosCadastro
+
+    def __init__(self, repo: IAlteracaoInfosCadastro):
+        self.repo = repo
     
-    def __call__(self, body: dict, adicionarEnderecoUC: UCAdicionarEndereco):
+    def __call__(self, body: dict):
         """ Estilo do body:
             {
                 "usuario": dict de dicionario,
@@ -21,6 +28,7 @@ class ControllerHTTPAdicionarEnderecoFastAPI():
             }       
         """
         try:
+            adicionarEnderecoUC = UCAdicionarEndereco(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             endereco = Endereco.criarEnderecoPorDict(body['endereco'])
             

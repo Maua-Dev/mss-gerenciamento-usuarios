@@ -7,13 +7,20 @@ from devmaua.src.models.erros.erro_telefone import ErroDadosTelefoneInvalidos
 
 from src.usecases.uc_editar_telefone import UCEditarTelefone
 
+from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
+
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 
 
 class ControllerHTTPEditarTelefoneFastAPI():
+
+    repo: IAlteracaoInfosCadastro
+
+    def __init__(self, repo: IAlteracaoInfosCadastro):
+        self.repo = repo
     
-    def __call__(self, body: dict, editarTelefoneUC: UCEditarTelefone):
+    def __call__(self, body: dict):
         """ Estrutura do body:
             {
                 "usuario": dict de usuario,
@@ -26,6 +33,7 @@ class ControllerHTTPEditarTelefoneFastAPI():
         """
         
         try:
+            editarTelefoneUC = UCEditarTelefone(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             telefone = Telefone.criarTelefonePorDict(body['telefone'])
             

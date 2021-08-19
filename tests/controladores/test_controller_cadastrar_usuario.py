@@ -1,14 +1,10 @@
-
-
 from src.controladores.fastapi.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 
 class TestControllerCadastrarUsuario():
     repoVolatil = ArmazenamentoUsuarioVolatil()
-    cadastrarUsuarioUC = UCCadastrarUsuario(repoVolatil)
-    controllerCadastrarUsuario = ControllerHTTPCadastrarUsuario()
+    controllerCadastrarUsuario = ControllerHTTPCadastrarUsuario(repoVolatil)
 
     def mockUsuario(self):
         return {
@@ -47,7 +43,7 @@ class TestControllerCadastrarUsuario():
 
     def test_controller_cadastrar_usuario(self):
         usuario = self.mockUsuario()
-        response = self.controllerCadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
+        response = self.controllerCadastrarUsuario(body=usuario)
         print(response)
         print(dir(response))
 
@@ -56,7 +52,7 @@ class TestControllerCadastrarUsuario():
     def test_controller_cadastrar_sem_nome(self):
         usuario = self.mockUsuario()
         usuario['nome'] = None
-        response = self.controllerCadastrarUsuario(body=usuario, cadastrarUsuarioUC=self.cadastrarUsuarioUC)
+        response = self.controllerCadastrarUsuario(body=usuario)
 
         assert response.status_code == 400
 

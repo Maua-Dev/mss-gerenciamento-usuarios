@@ -6,8 +6,7 @@ from src.controladores.fabricas.fabrica_controlador_fastapi import FabricaContro
 
 
 repo = ArmazenamentoUsuarioVolatil()
-useCases = UCFactory(repo)
-ctrl = FabricaControladorFastAPI(useCases)
+ctrl = FabricaControladorFastAPI(repo)
 
 app = FastAPI()
 

@@ -7,16 +7,24 @@ from devmaua.src.models.erros.erro_email import ErroDadosEmailInvalidos
 
 from src.usecases.uc_remover_email import UCRemoverEmail
 
+from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
+
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoEmailFaculdade
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEmailUnico
 
 class ControllerHTTPRemoverEmailFastAPI():
+
+    repo: IAlteracaoInfosCadastro
+
+    def __init__(self, repo: IAlteracaoInfosCadastro):
+        self.repo = repo
     
-    def __call__(self, body: dict, removerEmailUC: UCRemoverEmail):
+    def __call__(self, body: dict):
         
         try:
+            removerEmailUC = UCRemoverEmail(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             email = Email.criarEmailPorDict(body['email'])
             

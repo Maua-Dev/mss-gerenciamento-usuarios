@@ -1,6 +1,5 @@
 from src.controladores.fastapi.control_editar_endereco_fastapi import ControllerHTTPEditarEnderecoFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_editar_endereco import UCEditarEndereco
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
@@ -64,8 +63,7 @@ class TestControllerEditarEnderecoFastAPI():
             
     def test_controller_editar_endereco_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        editarEnderecoUC = UCEditarEndereco(repoVolatil)
-        controllerEditarEnderecoFastAPI = ControllerHTTPEditarEnderecoFastAPI()
+        controllerEditarEnderecoFastAPI = ControllerHTTPEditarEnderecoFastAPI(repoVolatil)
         
         usuarioDict = self.mockDictUsuario()
         enderecoDict = self.mockDictEndereco()
@@ -78,6 +76,6 @@ class TestControllerEditarEnderecoFastAPI():
                 "complemento": "Atras de outra rua",
                 "tipo": 2
             }
-        response = controllerEditarEnderecoFastAPI(body = body, editarEnderecoUC = editarEnderecoUC)
+        response = controllerEditarEnderecoFastAPI(body = body)
         
         assert response.status_code == 200

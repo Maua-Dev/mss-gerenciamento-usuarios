@@ -1,6 +1,5 @@
 from src.controladores.fastapi.control_editar_email_fastapi import ControllerHTTPEditarEmailFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_editar_email import UCEditarEmail
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
@@ -67,8 +66,7 @@ class TestControllerEditarEmailFastAPI():
             
     def test_controller_editar_email_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        editarEmailUC = UCEditarEmail(repoVolatil)
-        controllerEditarEmailFastAPI = ControllerHTTPEditarEmailFastAPI()
+        controllerEditarEmailFastAPI = ControllerHTTPEditarEmailFastAPI(repoVolatil)
         
         usuarioDict = self.mockDictUsuario()
         emailDict = self.mockDictEmail()
@@ -79,6 +77,6 @@ class TestControllerEditarEmailFastAPI():
                 "tipo": 3,
                 "prioridade": 3
                 }
-        response = controllerEditarEmailFastAPI(body = body, editarEmailUC = editarEmailUC)
+        response = controllerEditarEmailFastAPI(body = body)
 
         assert response.status_code == 200
