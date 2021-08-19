@@ -1,4 +1,4 @@
-from src.controladores.control_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
+from src.controladores.fastapi.control_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario

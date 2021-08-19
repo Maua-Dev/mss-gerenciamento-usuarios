@@ -1,4 +1,4 @@
-from src.controladores.control_remover_endereco_fastapi import ControllerHTTPRemoverEnderecoFastAPI
+from src.controladores.fastapi.control_remover_endereco_fastapi import ControllerHTTPRemoverEnderecoFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_remover_endereco import UCRemoverEndereco
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario

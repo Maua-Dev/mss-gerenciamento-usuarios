@@ -1,6 +1,6 @@
 
 
-from src.controladores.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
+from src.controladores.fastapi.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 

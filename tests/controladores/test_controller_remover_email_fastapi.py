@@ -1,4 +1,4 @@
-from src.controladores.control_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
+from src.controladores.fastapi.control_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_remover_email import UCRemoverEmail
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
