@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_factory import UCFactory
 from src.controladores.fabricas.fabrica_controlador_fastapi import FabricaControladorFastAPI
 
 

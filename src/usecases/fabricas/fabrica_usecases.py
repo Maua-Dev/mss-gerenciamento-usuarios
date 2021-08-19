@@ -13,41 +13,41 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 
 
-class UCFactory:
+class FabricaUsecases:
     repo: ArmazenamentoUsuarioVolatil
 
     def __init__(self, repo: ArmazenamentoUsuarioVolatil):
         self.repo = repo
 
-    def ucAdicionarEmail(self):
+    def adicionarEmail(self):
         return UCAdicionarEmail(self.repo)
 
-    def ucRemoverEmail(self):
+    def removerEmail(self):
         return UCRemoverEmail(self.repo)
 
-    def ucEditarEmail(self):
+    def editarEmail(self):
         return UCEditarEmail(self.repo)
 
-    def ucAdicionarEndereco(self):
+    def adicionarEndereco(self):
         return UCAdicionarEndereco(self.repo)
 
-    def ucRemoverEndereco(self):
+    def removerEndereco(self):
         return UCRemoverEndereco(self.repo)
 
-    def ucEditarEndereco(self):
+    def editarEndereco(self):
         return UCEditarEndereco(self.repo)
 
-    def ucAdicionarTelefone(self):
+    def adicionarTelefone(self):
         return UCAdicionarTelefone(self.repo)
 
-    def ucRemoverTelefone(self):
+    def removerTelefone(self):
         return UCRemoverTelefone(self.repo)
 
-    def ucEditarTelefone(self):
+    def editarTelefone(self):
         return UCEditarTelefone(self.repo)
 
-    def ucCadastrarUsuario(self):
+    def cadastrarUsuario(self):
         return UCCadastrarUsuario(self.repo)
 
-    def ucDeletarUsuarioPorEmail(self):
+    def deletarUsuarioPorEmail(self):
         return UCDeletarUsuarioPorEmail(self.repo)
