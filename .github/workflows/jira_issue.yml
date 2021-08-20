@@ -13,8 +13,8 @@ jobs:
 
       - name: Exibe titulo e body
         run: |
-          echo Titulo: ${{ github.event.issue.title }}
-          echo body: ${{ github.event.issue.body }}
+          echo Titulo: '${{ github.event.issue.title }}'
+          echo body: '${{ github.event.issue.body }}'
       
       - name: Jira Login
         uses: atlassian/gajira-login@v2.0.0
@@ -30,8 +30,8 @@ jobs:
         with:
           project: ${{ secrets.JIRA_PROJECT_KEY }}
           issuetype: ${{ secrets.JIRA_ISSUE_TYPE }}
-          summary: ${{ github.event.issue.title }}
-          description: ${{ github.event.issue.body }}
+          summary: '${{ github.event.issue.title }}'
+          description: '${{ github.event.issue.body }}'
 
       - name: Comentar o Id da Issue
         uses: peter-evans/create-or-update-comment@a35cf36e5301d70b76f316e867e7788a55a31dae
