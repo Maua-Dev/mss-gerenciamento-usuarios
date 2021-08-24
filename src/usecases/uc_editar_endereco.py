@@ -18,7 +18,7 @@ class UCEditarEndereco():
     def __init__(self, alteracaoInfosCadastro: IAlteracaoInfosCadastro):
         self.alteracaoInfosCadastro = alteracaoInfosCadastro
         
-    def editarEndereco(self, usuario: Usuario, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]):
+    def __call__(self, usuario: Usuario, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]):
         if not(self.alteracaoInfosCadastro.usuarioExiste(usuario)):
             raise ErroUsuarioInvalido
         

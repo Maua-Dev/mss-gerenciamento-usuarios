@@ -64,7 +64,7 @@ class TestAdicionarEndereco:
         usuario = self.mockUsuario()
         endereco = self.mockEndereco()
                 
-        adicionarEndereco.adicionarEndereco(usuario, endereco)
+        adicionarEndereco(usuario, endereco)
         
         assert endereco in armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.enderecos
         assert armazenamentoUsuarioVolatil.quantidadeEnderecos(armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 2
@@ -77,7 +77,7 @@ class TestAdicionarEndereco:
         endereco = self.mockEndereco()
         
         with pytest.raises(ErroUsuarioInvalido):
-            adicionarEndereco.adicionarEndereco(usuario, endereco)
+            adicionarEndereco(usuario, endereco)
             
     def test_erro_telefone_invalido(self):
         armazenamentoUsuarioVolatil = self.mockRepositorio()
@@ -87,6 +87,6 @@ class TestAdicionarEndereco:
         endereco = None
         
         with pytest.raises(ErroEnderecoInvalido):
-            adicionarEndereco.adicionarEndereco(usuario, endereco)
+            adicionarEndereco(usuario, endereco)
             
         

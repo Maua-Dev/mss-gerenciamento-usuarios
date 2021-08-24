@@ -14,7 +14,7 @@ class UCAdicionarTelefone():
     def __init__(self, alteracaoInfosCadastro: IAlteracaoInfosCadastro):
         self.alteracaoInfosCadastro = alteracaoInfosCadastro
         
-    def adicionarTelefone(self, usuario: Usuario, telefone: Telefone):
+    def __call__(self, usuario: Usuario, telefone: Telefone):
         if not(self.alteracaoInfosCadastro.usuarioExiste(usuario)):
             raise ErroUsuarioInvalido
         

@@ -5,27 +5,41 @@ from devmaua.src.models.endereco import Endereco
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_endereco import ErroDadosEnderecoInvalidos
 
-from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
+from src.usecases.uc_editar_endereco import UCEditarEndereco
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
+
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 
 
-class ControllerHTTPAdicionarEnderecoFastAPI():
-    
-    def adicionarEndereco(self, body: dict, adicionarEnderecoUC: UCAdicionarEndereco):
-        """ Estilo do body:
+class ControllerHTTPEditarEnderecoFastAPI():
+
+    repo: IAlteracaoInfosCadastro
+
+    def __init__(self, repo: IAlteracaoInfosCadastro):
+        self.repo = repo
+
+    def __call__(self, body: dict):
+        """ Estrutura do body:
             {
-                "usuario": dict de dicionario,
-                "endereco": dict de endereco
-            }       
+                "usuario": dict de usuario,
+                "endereco": dict de endereco,
+                "logradouro": Optional[str],
+                "numero": Optional[int],
+                "cep": Optional[str],
+                "complemento": Optional[str],
+                "tipo": Optional[TipoEndereco]
+            }
         """
+        
         try:
+            editarEnderecoUC = UCEditarEndereco(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             endereco = Endereco.criarEnderecoPorDict(body['endereco'])
             
-            adicionarEnderecoUC.adicionarEndereco(usuario, endereco)
-            response = Response(content="Endereco adicionado com sucesso", status_code=200)
+            editarEnderecoUC(usuario, endereco, body['logradouro'], body['numero'], body['cep'], body['complemento'], body['tipo'])
+            response = Response(content="Endereco editado com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:
             response = Response(content=str(ErroUsuarioInvalido), status_code=400)
@@ -41,5 +55,5 @@ class ControllerHTTPAdicionarEnderecoFastAPI():
             
         except KeyError:
             response = Response(content=str(KeyError), status_code=400)
-            
+                            
         return response

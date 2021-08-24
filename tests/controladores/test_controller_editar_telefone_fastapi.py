@@ -1,6 +1,5 @@
-from src.controladores.control_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
+from src.controladores.fastapi.control_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_editar_telefone import UCEditarTelefone
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
@@ -63,8 +62,7 @@ class TestControllerEditarTelefoneFastAPI():
             
     def test_controller_editar_telefone_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        editarTelefoneUC = UCEditarTelefone(repoVolatil)
-        controllerEditarTelefoneFastAPI = ControllerHTTPEditarTelefoneFastAPI()
+        controllerEditarTelefoneFastAPI = ControllerHTTPEditarTelefoneFastAPI(repoVolatil)
         
         usuarioDict = self.mockDictUsuario()
         telefoneDict = self.mockDictTelefone()
@@ -76,6 +74,6 @@ class TestControllerEditarTelefoneFastAPI():
                 "numero": '99999-8888',
                 "prioridade": 3
             }
-        response = controllerEditarTelefoneFastAPI.editarTelefone(body = body, editarTelefoneUC = editarTelefoneUC)
+        response = controllerEditarTelefoneFastAPI(body = body)
         
         assert response.status_code == 200

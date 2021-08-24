@@ -1,6 +1,5 @@
-from src.controladores.control_remover_endereco_fastapi import ControllerHTTPRemoverEnderecoFastAPI
+from src.controladores.fastapi.control_remover_endereco_fastapi import ControllerHTTPRemoverEnderecoFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_remover_endereco import UCRemoverEndereco
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
@@ -71,8 +70,7 @@ class TestControllerRemoverEnderecoFastAPI():
             
     def test_controller_remover_endereco_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        removerEnderecoUC = UCRemoverEndereco(repoVolatil)
-        controllerRemoverEnderecoFastAPI = ControllerHTTPRemoverEnderecoFastAPI()
+        controllerRemoverEnderecoFastAPI = ControllerHTTPRemoverEnderecoFastAPI(repoVolatil)
         
         usuarioDict = self.mockDictUsuario()
         enderecoDict = self.mockDictEndereco()
@@ -80,6 +78,6 @@ class TestControllerRemoverEnderecoFastAPI():
                 "usuario": usuarioDict,
                 "endereco": enderecoDict         
                 }
-        response = controllerRemoverEnderecoFastAPI.removerEndereco(body = body, removerEnderecoUC = removerEnderecoUC)
+        response = controllerRemoverEnderecoFastAPI(body = body)
 
         assert response.status_code == 200

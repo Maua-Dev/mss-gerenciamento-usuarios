@@ -1,6 +1,5 @@
-from src.controladores.control_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
+from src.controladores.fastapi.control_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_remover_email import UCRemoverEmail
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
@@ -67,8 +66,7 @@ class TestControllerRemoverEmailFastAPI():
             
     def test_controller_remover_email_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        removerEmailUC = UCRemoverEmail(repoVolatil)
-        controllerRemoverEmailFastAPI = ControllerHTTPRemoverEmailFastAPI()
+        controllerRemoverEmailFastAPI = ControllerHTTPRemoverEmailFastAPI(repoVolatil)
         
         usuarioDict = self.mockDictUsuario()
         emailDict = self.mockDictEmail()
@@ -76,6 +74,6 @@ class TestControllerRemoverEmailFastAPI():
                 "usuario": usuarioDict,
                 "email": emailDict            
                 }
-        response = controllerRemoverEmailFastAPI.removerEmail(body = body, removerEmailUC = removerEmailUC)
+        response = controllerRemoverEmailFastAPI(body = body)
 
         assert response.status_code == 200

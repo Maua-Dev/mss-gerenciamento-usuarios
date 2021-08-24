@@ -5,32 +5,36 @@ from devmaua.src.models.telefone import Telefone
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_telefone import ErroDadosTelefoneInvalidos
 
-from src.usecases.uc_editar_telefone import UCEditarTelefone
+from src.usecases.uc_remover_telefone import UCRemoverTelefone
+
+from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 
+class ControllerHTTPRemoverTelefoneFastAPI():
 
-class ControllerHTTPEditarTelefoneFastAPI():
-    
-    def editarTelefone(self, body: dict, editarTelefoneUC: UCEditarTelefone):
+    repo: IAlteracaoInfosCadastro
+
+    def __init__(self, repo: IAlteracaoInfosCadastro):
+        self.repo = repo
+
+    def __call__(self, body: dict):
         """ Estrutura do body:
             {
                 "usuario": dict de usuario,
-                "telefone": dict de telefone,
-                "tipo": Optional[TipoTelefone],
-                "ddd": Optional[int],
-                "numero": Optional[str],
-                "prioridade": Optional[int]
+                "telefone": dict de telefone
             }
+        
         """
         
         try:
+            removerTelefoneUC = UCRemoverTelefone(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             telefone = Telefone.criarTelefonePorDict(body['telefone'])
             
-            editarTelefoneUC.editarTelefone(usuario, telefone, body['tipo'], body['ddd'], body['numero'], body['prioridade'])
-            response = Response(content="Telefone editado com sucesso", status_code=200)
+            removerTelefoneUC(usuario, telefone)
+            response = Response(content="Telefone removido com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:
             response = Response(content=str(ErroUsuarioInvalido), status_code=400)
@@ -46,5 +50,5 @@ class ControllerHTTPEditarTelefoneFastAPI():
             
         except KeyError:
             response = Response(content=str(KeyError), status_code=400)
-                            
+                        
         return response

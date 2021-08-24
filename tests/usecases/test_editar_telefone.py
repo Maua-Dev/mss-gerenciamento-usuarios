@@ -74,7 +74,7 @@ class TestEditarEmail:
                                      numero = numero,
                                      prioridade = prioridade)
         
-        editorTelefone.editarTelefone(usuario, telefone, tipo, ddd, numero, prioridade)
+        editorTelefone(usuario, telefone, tipo, ddd, numero, prioridade)
         
         assert tel_novo_instanciado in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.telefones
         assert telefone not in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.telefones
@@ -91,7 +91,7 @@ class TestEditarEmail:
         prioridade = 3
         
         with pytest.raises(ErroUsuarioInvalido):
-            editorTelefone.editarTelefone(usuario, telefone, tipo, ddd, numero, prioridade)
+            editorTelefone(usuario, telefone, tipo, ddd, numero, prioridade)
             
     def test_erro_telefone_invalido(self):
         repositorio = self.mockRepositorio()
@@ -107,5 +107,5 @@ class TestEditarEmail:
                                      numero = numero,
                                      prioridade = prioridade)        
         with pytest.raises(ErroTelefoneInvalido):
-            editorTelefone.editarTelefone(usuario, telefone, tipo, ddd, numero, prioridade)
+            editorTelefone(usuario, telefone, tipo, ddd, numero, prioridade)
         

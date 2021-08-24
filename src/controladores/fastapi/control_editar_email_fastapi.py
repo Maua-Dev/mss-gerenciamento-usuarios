@@ -5,21 +5,39 @@ from devmaua.src.models.email import Email
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_email import ErroDadosEmailInvalidos
 
-from src.usecases.uc_adicionar_email import UCAdicionarEmail
+from src.usecases.uc_editar_email import UCEditarEmail
+
+from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoEmailFaculdade
 
-class ControllerHTTPAdicionarEmailFastAPI():
-    
-    def adicionarEmail(self, body: dict, adicionarEmailUC: UCAdicionarEmail):
+class ControllerHTTPEditarEmailFastAPI():
+
+    repo: IAlteracaoInfosCadastro
+
+    def __init__(self, repo: IAlteracaoInfosCadastro):
+        self.repo = repo
+
+    def __call__(self, body: dict):
+        """ Estrutura do body:
+            {
+                "usuario": dict de usuario,
+                "email": dict de email,
+                "emailNovo": Optional[str] (novo email),
+                "tipo": Optional[TipoEmail] (novo tipo),
+                "prioridade": Optional[int] (nova prioridade)
+            }
+        """
         
         try:
+            editarEmailUC = UCEditarEmail(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             email = Email.criarEmailPorDict(body['email'])
             
-            adicionarEmailUC.adicionarEmail(usuario, email)
-            response = Response(content="Email adicionado com sucesso", status_code=200)
+            editarEmailUC(usuario, email, body['emailNovo'], body['tipo'], body['prioridade'])
+            response = Response(content="Email editado com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:
             response = Response(content=str(ErroUsuarioInvalido), status_code=400)
@@ -36,4 +54,7 @@ class ControllerHTTPAdicionarEmailFastAPI():
         except KeyError:
             response = Response(content=str(KeyError), status_code=400)
             
+        except ErroManipulacaoEmailFaculdade:
+            response = Response(content=str(ErroManipulacaoEmailFaculdade), status_code=400)
+                        
         return response

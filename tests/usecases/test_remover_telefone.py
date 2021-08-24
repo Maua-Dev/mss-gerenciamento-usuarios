@@ -70,7 +70,7 @@ class TestRemoverTelefone:
         usuario = self.mockUsuario()
         telefone = self.mockTelefone()
                 
-        removerTelefone.removerTelefone(usuario, telefone)
+        removerTelefone(usuario, telefone)
         
         assert telefone not in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.telefones
         assert repositorio.quantidadeTelefones(repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 1
@@ -83,7 +83,7 @@ class TestRemoverTelefone:
         telefone = self.mockTelefone()
         
         with pytest.raises(ErroUsuarioInvalido):
-            removerTelefone.removerTelefone(usuario, telefone)
+            removerTelefone(usuario, telefone)
             
     def test_erro_telefone_invalido(self):
         repositorio = self.mockRepositorio()
@@ -96,7 +96,7 @@ class TestRemoverTelefone:
                        prioridade=3)
                 
         with pytest.raises(ErroTelefoneInvalido):
-            removerTelefone.removerTelefone(usuario, telefone)
+            removerTelefone(usuario, telefone)
             
     def test_erro_deletar_telefone_unico(self):
         repositorio = ArmazenamentoUsuarioVolatil()
@@ -126,4 +126,4 @@ class TestRemoverTelefone:
         cadastrador(usuario)
         
         with pytest.raises(ErroDeletarTelefoneUnico):
-            removerTelefone.removerTelefone(usuario, tel)
+            removerTelefone(usuario, tel)

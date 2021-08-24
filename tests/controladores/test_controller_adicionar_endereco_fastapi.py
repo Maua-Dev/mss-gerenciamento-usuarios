@@ -1,6 +1,5 @@
-from src.controladores.control_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
+from src.controladores.fastapi.control_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
@@ -63,8 +62,7 @@ class TestControllerAdicionarEnderecoFastAPI():
             
     def test_controller_adicionar_endereco_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        adicionarEnderecoUC = UCAdicionarEndereco(repoVolatil)
-        controllerAdicionarEnderecoFastAPI = ControllerHTTPAdicionarEnderecoFastAPI()
+        controllerAdicionarEnderecoFastAPI = ControllerHTTPAdicionarEnderecoFastAPI(repoVolatil)
         
         usuario = self.mockDictUsuario()
         endereco = self.mockDictEndereco()
@@ -72,51 +70,48 @@ class TestControllerAdicionarEnderecoFastAPI():
                 "usuario": usuario,
                 "endereco": endereco            
                 }
-        response = controllerAdicionarEnderecoFastAPI.adicionarEndereco(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
+        response = controllerAdicionarEnderecoFastAPI(body = body)
 
         assert response.status_code == 200
         
     def test_erro_usuario_inexistente(self):
         repoVolatil = ArmazenamentoUsuarioVolatil()
-        adicionarEnderecoUC = UCAdicionarEndereco(repoVolatil)
-        controllerAdicionarEnderecoFastAPI = ControllerHTTPAdicionarEnderecoFastAPI()
-        
+        controllerAdicionarEnderecoFastAPI = ControllerHTTPAdicionarEnderecoFastAPI(repoVolatil)
+
         usuario = self.mockDictUsuario()
         endereco = self.mockDictEndereco()
         body = {
                 "usuario": usuario,
                 "endereco": endereco            
                 }
-        response = controllerAdicionarEnderecoFastAPI.adicionarEndereco(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
+        response = controllerAdicionarEnderecoFastAPI(body = body)
         assert response.body == b"<class 'src.usecases.erros.erros_uc_alteracao_info_cadastro.ErroUsuarioInvalido'>"
         assert response.status_code == 400
         
     def test_erro_endereco_vazio(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        adicionarEnderecoUC = UCAdicionarEndereco(repoVolatil)
-        controllerAdicionarEnderecoFastAPI = ControllerHTTPAdicionarEnderecoFastAPI()
-        
+        controllerAdicionarEnderecoFastAPI = ControllerHTTPAdicionarEnderecoFastAPI(repoVolatil)
+
         usuario = self.mockDictUsuario()
         endereco = self.mockDictEndereco()
         body = {
                 "usuario": usuario,
                 "endereco": None            
                 }
-        response = controllerAdicionarEnderecoFastAPI.adicionarEndereco(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
+        response = controllerAdicionarEnderecoFastAPI(body = body)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_endereco.ErroDadosEnderecoInvalidos'>"
         assert response.status_code == 400
         
     def test_erro_usuario_vazio(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        adicionarEnderecoUC = UCAdicionarEndereco(repoVolatil)
-        controllerAdicionarEnderecoFastAPI = ControllerHTTPAdicionarEnderecoFastAPI()
-        
+        controllerAdicionarEnderecoFastAPI = ControllerHTTPAdicionarEnderecoFastAPI(repoVolatil)
+
         usuario = self.mockDictUsuario()
         endereco = self.mockDictEndereco()
         body = {
                 "usuario": None,
                 "endereco": endereco            
                 }
-        response = controllerAdicionarEnderecoFastAPI.adicionarEndereco(body = body, adicionarEnderecoUC = adicionarEnderecoUC)
+        response = controllerAdicionarEnderecoFastAPI(body = body)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_usuario.ErroDadosUsuarioInvalidos'>"
         assert response.status_code == 400

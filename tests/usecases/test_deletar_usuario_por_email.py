@@ -69,7 +69,7 @@ class TestUCDeletarUsuarioPorEmail:
                 
         assert self.mockAluno() in repositorio.armazem
                 
-        removedorUsuario.deletarUsuarioPorEmail(email)
+        removedorUsuario(email)
         
         assert repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)) == []
         
@@ -80,4 +80,4 @@ class TestUCDeletarUsuarioPorEmail:
         email = 'teste@teste.com'
         
         with pytest.raises(ErroUsuarioInvalido):
-            removedorUsuario.deletarUsuarioPorEmail(email)
+            removedorUsuario(email)

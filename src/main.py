@@ -1,135 +1,60 @@
 from fastapi import FastAPI
 
-from src.controladores.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
+from src.controladores.fabricas.fabrica_controlador_fastapi import FabricaControladorFastAPI
 
 
-from src.controladores.control_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
-from src.usecases.uc_adicionar_email import UCAdicionarEmail
-
-from src.controladores.control_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
-from src.usecases.uc_remover_email import UCRemoverEmail
-
-from src.controladores.control_editar_email_fastapi import ControllerHTTPEditarEmailFastAPI
-from src.usecases.uc_editar_email import UCEditarEmail
-
-from src.controladores.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
-
-from src.controladores.control_adicionar_telefone_fastapi import ControllerHTTPAdicionarTelefoneFastAPI
-from src.usecases.uc_adicionar_telefone import UCAdicionarTelefone
-
-from src.controladores.control_remover_telefone_fastapi import ControllerHTTPRemoverTelefoneFastAPI
-from src.usecases.uc_remover_telefone import UCRemoverTelefone
-
-from src.controladores.control_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
-from src.usecases.uc_editar_telefone import UCEditarTelefone
-
-from src.controladores.control_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
-from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
-
-from src.controladores.control_remover_endereco_fastapi import ControllerHTTPRemoverEnderecoFastAPI
-from src.usecases.uc_remover_endereco import UCRemoverEndereco
-
-from src.controladores.control_editar_endereco_fastapi import ControllerHTTPEditarEnderecoFastAPI
-from src.usecases.uc_editar_endereco import UCEditarEndereco
-
-from src.controladores.control_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
-from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
-
+repo = ArmazenamentoUsuarioVolatil()
+ctrl = FabricaControladorFastAPI(repo)
 
 app = FastAPI()
-
-armazenamento = ArmazenamentoUsuarioVolatil()
-
-cadastrarUsuarioUC = UCCadastrarUsuario(armazenamento)
-controllerCadastrarUsuario = ControllerHTTPCadastrarUsuario()
-
-
-adicionarEmailUC = UCAdicionarEmail(armazenamento)
-controllerAdicionarEmail = ControllerHTTPAdicionarEmailFastAPI()
-
-removerEmailUC = UCRemoverEmail(armazenamento)
-controllerRemoverEmail = ControllerHTTPRemoverEmailFastAPI()
-
-editarEmailUC = UCEditarEmail(armazenamento)
-controllerEditarEmail = ControllerHTTPEditarEmailFastAPI()
-
-cadastrarUsuarioUC = UCCadastrarUsuario(armazenamento)
-controllerCadastrarUsuario = ControllerHTTPCadastrarUsuario()
-
-adicionarTelefoneUC = UCAdicionarTelefone(armazenamento)
-controllerAdicionarTelefone = ControllerHTTPAdicionarTelefoneFastAPI()
-
-removerTelefoneUC = UCRemoverTelefone(armazenamento)
-controllerRemoverTelefone = ControllerHTTPRemoverTelefoneFastAPI()
-
-editarTelefoneUC = UCEditarTelefone(armazenamento)
-controllerEditarTelefone = ControllerHTTPEditarTelefoneFastAPI()
-
-adicionarEnderecoUC = UCAdicionarEndereco(armazenamento)
-controllerAdicionarEndereco = ControllerHTTPAdicionarEnderecoFastAPI()
-
-removerEnderecoUC = UCRemoverEndereco(armazenamento)
-controllerRemoverEndereco = ControllerHTTPRemoverEnderecoFastAPI()
-
-editarEnderecoUC = UCEditarEndereco(armazenamento)
-controllerEditarEndereco = ControllerHTTPEditarEnderecoFastAPI()
-
-deletarUsuarioPorEmailUC = UCDeletarUsuarioPorEmail(armazenamento)
-controllerDeletarUsuarioPorEmail = CDeletarUsuarioPorEmailFastAPI()
-
 
 @app.get("/")
 async def root():
     return {"mss": "gerenciamento_usuarios",
             "porta": 8080}
 
-
-
 @app.post("/email")
 async def adicionarEmail(request: dict):
-    return controllerAdicionarEmail.adicionarEmail(request, adicionarEmailUC)
+    return ctrl.adicionarEmail(request)
 
 @app.delete("/email")
 async def removerEmail(request: dict):
-    return controllerRemoverEmail.removerEmail(request, removerEmailUC = removerEmailUC)
+    return ctrl.removerEmail(request)
 
 @app.put("/email")
 async def editarEmail(request: dict):
-    return controllerEditarEmail.editarEmail(request, editarEmailUC = editarEmailUC)
+    return ctrl.editarEmail(request)
 
 @app.post("/cadastro/")
 async def cadastro(request: dict):
-    return controllerCadastrarUsuario.cadastrar(request, cadastrarUsuarioUC)
+    return ctrl.cadastrarUsuario(request)
 
 
 @app.post("/telefone")
 async def adicionarTelefone(request: dict):
-    return controllerAdicionarTelefone.adicionarTelefone(request, adicionarTelefoneUC = adicionarTelefoneUC)
+    return ctrl.adicionarTelefone(request)
 
 @app.delete("/telefone")
 async def removerTelefone(request: dict):
-    return controllerRemoverTelefone.removerTelefone(request, removerTelefoneUC = removerTelefoneUC)
+    return ctrl.removerTelefone(request)
 
 @app.put("/telefone")
 async def editarTelefone(request: dict):
-    return controllerEditarTelefone.editarTelefone(request, editarTelefoneUC = editarTelefoneUC)
-
+    return ctrl.editarTelefone(request)
 
 @app.post("/endereco")
 async def adicionarEndereco(request: dict):
-    return controllerAdicionarEndereco.adicionarEndereco(request, adicionarEnderecoUC = adicionarEnderecoUC)
+    return ctrl.adicionarEndereco(request)
 
 @app.delete("/endereco")
 async def removerEndereco(request: dict):
-    return controllerRemoverEndereco.removerEndereco(request, removerEnderecoUC = removerEnderecoUC)
+    return ctrl.removerEndereco(request)
 
 @app.put("/endereco")
 async def editarEndereco(request: dict):
-    return controllerEditarEndereco.editarEndereco(request, editarEnderecoUC = editarEnderecoUC)
+    return ctrl.editarEndereco(request)
 
 @app.delete("/usuario")
 async def deletarUsuarioPorEmail(request: dict):
-    return controllerDeletarUsuarioPorEmail.deletarUsuarioPorEmail(request, deletarUsuarioPorEmailUC = deletarUsuarioPorEmailUC)
+    return ctrl.deletarUsuarioPorEmail(request)

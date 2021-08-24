@@ -75,7 +75,7 @@ class TestEditarEmail:
                                        tipo = tipo,
                                        prioridade = prioridade)
         
-        editorEmail.editarEmail(usuario, email, email_novo, tipo, prioridade)
+        editorEmail(usuario, email, email_novo, tipo, prioridade)
         
         assert email_novo_instanciado in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.emails
         assert email not in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.emails
@@ -91,7 +91,7 @@ class TestEditarEmail:
         prioridade = 2
         
         with pytest.raises(ErroUsuarioInvalido):
-            editorEmail.editarEmail(usuario, email, email_novo, tipo, prioridade)
+            editorEmail(usuario, email, email_novo, tipo, prioridade)
             
     def test_erro_email_invalido(self):
         repositorio = self.mockRepositorio()
@@ -107,7 +107,7 @@ class TestEditarEmail:
         prioridade = 2
         
         with pytest.raises(ErroEmailInvalido):
-            editorEmail.editarEmail(usuario, email, email_novo, tipo, prioridade)
+            editorEmail(usuario, email, email_novo, tipo, prioridade)
         
     def test_erro_editar_email_universitario(self):
         repositorio = self.mockRepositorio()
@@ -123,5 +123,5 @@ class TestEditarEmail:
         prioridade = 2
         
         with pytest.raises(ErroManipulacaoEmailFaculdade):
-            editorEmail.editarEmail(usuario, email, email_novo, tipo, prioridade)
+            editorEmail(usuario, email, email_novo, tipo, prioridade)
         

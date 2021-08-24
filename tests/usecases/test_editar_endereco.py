@@ -76,7 +76,7 @@ class TestEditarEndereco:
                                         complemento = complemento,
                                         tipo = tipo)
         
-        editorEndereco.editarEndereco(usuario, endereco, logradouro, numero, cep, complemento, tipo)
+        editorEndereco(usuario, endereco, logradouro, numero, cep, complemento, tipo)
         
         assert end_novo_instanciado in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.enderecos
         assert endereco not in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.telefones
@@ -95,7 +95,7 @@ class TestEditarEndereco:
         tipo = TipoEndereco.RESIDENCIAL
         
         with pytest.raises(ErroUsuarioInvalido):
-            editorEndereco.editarEndereco(usuario, endereco, logradouro, numero, cep, complemento, tipo)
+            editorEndereco(usuario, endereco, logradouro, numero, cep, complemento, tipo)
         
     def test_erro_endereco_invalido(self):
         repositorio = self.mockRepositorio()
@@ -116,5 +116,5 @@ class TestEditarEndereco:
                                         tipo = tipo)
         
         with pytest.raises(ErroEnderecoInvalido):
-            editorEndereco.editarEndereco(usuario, endereco, logradouro, numero, cep, complemento, tipo)
+            editorEndereco(usuario, endereco, logradouro, numero, cep, complemento, tipo)
         

@@ -70,7 +70,7 @@ class TestRemoverEndereco:
         usuario = self.mockUsuario()
         endereco = self.mockEndereco()
                 
-        removerEndereco.removerEndereco(usuario, endereco)
+        removerEndereco(usuario, endereco)
         
         assert endereco not in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.enderecos
         assert repositorio.quantidadeEnderecos(repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 1
@@ -83,7 +83,7 @@ class TestRemoverEndereco:
         endereco = self.mockEndereco()
         
         with pytest.raises(ErroUsuarioInvalido):
-            removerEndereco.removerEndereco(usuario, endereco)
+            removerEndereco(usuario, endereco)
             
     def test_erro_endereco_invalido(self):
         repositorio = self.mockRepositorio()
@@ -96,7 +96,7 @@ class TestRemoverEndereco:
                        tipo=TipoEndereco.TRABALHO)
                 
         with pytest.raises(ErroEnderecoInvalido):
-            removerEndereco.removerEndereco(usuario, endereco)
+            removerEndereco(usuario, endereco)
             
     def test_erro_deletar_endereco_unico(self):
         repositorio = ArmazenamentoUsuarioVolatil()
@@ -126,4 +126,4 @@ class TestRemoverEndereco:
         cadastrador(usuario)
         
         with pytest.raises(ErroDeletarEnderecoUnico):
-            removerEndereco.removerEndereco(usuario, end)
+            removerEndereco(usuario, end)

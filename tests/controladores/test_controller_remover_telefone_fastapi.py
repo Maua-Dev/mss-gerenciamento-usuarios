@@ -1,6 +1,5 @@
-from src.controladores.control_remover_telefone_fastapi import ControllerHTTPRemoverTelefoneFastAPI
+from src.controladores.fastapi.control_remover_telefone_fastapi import ControllerHTTPRemoverTelefoneFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_remover_telefone import UCRemoverTelefone
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
@@ -69,8 +68,7 @@ class TestControllerRemoverTelefoneFastAPI():
             
     def test_controller_remover_telefone_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        removerTelefoneUC = UCRemoverTelefone(repoVolatil)
-        controllerRemoverTelefoneFastAPI = ControllerHTTPRemoverTelefoneFastAPI()
+        controllerRemoverTelefoneFastAPI = ControllerHTTPRemoverTelefoneFastAPI(repoVolatil)
         
         usuarioDict = self.mockDictUsuario()
         telefoneDict = self.mockDictTelefone()
@@ -78,6 +76,6 @@ class TestControllerRemoverTelefoneFastAPI():
                 "usuario": usuarioDict,
                 "telefone": telefoneDict         
                 }
-        response = controllerRemoverTelefoneFastAPI.removerTelefone(body = body, removerTelefoneUC = removerTelefoneUC)
+        response = controllerRemoverTelefoneFastAPI(body = body)
 
         assert response.status_code == 200

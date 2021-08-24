@@ -10,7 +10,7 @@ class UCDeletarUsuarioPorEmail():
     def __init__(self, deletarUsuario: IDeletarUsuario):
         self.deletarUsuario = deletarUsuario
         
-    def deletarUsuarioPorEmail(self, email: str):
+    def __call__(self, email: str):
         if not(self.deletarUsuario.usuarioExistePorEmail(email)):
             raise ErroUsuarioInvalido
         

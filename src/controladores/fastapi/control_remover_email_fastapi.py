@@ -5,31 +5,31 @@ from devmaua.src.models.email import Email
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_email import ErroDadosEmailInvalidos
 
-from src.usecases.uc_editar_email import UCEditarEmail
+from src.usecases.uc_remover_email import UCRemoverEmail
+
+from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoEmailFaculdade
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEmailUnico
 
-class ControllerHTTPEditarEmailFastAPI():
+class ControllerHTTPRemoverEmailFastAPI():
+
+    repo: IAlteracaoInfosCadastro
+
+    def __init__(self, repo: IAlteracaoInfosCadastro):
+        self.repo = repo
     
-    def editarEmail(self, body: dict, editarEmailUC: UCEditarEmail):
-        """ Estrutura do body:
-            {
-                "usuario": dict de usuario,
-                "email": dict de email,
-                "emailNovo": Optional[str] (novo email),
-                "tipo": Optional[TipoEmail] (novo tipo),
-                "prioridade": Optional[int] (nova prioridade)
-            }
-        """
+    def __call__(self, body: dict):
         
         try:
+            removerEmailUC = UCRemoverEmail(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             email = Email.criarEmailPorDict(body['email'])
             
-            editarEmailUC.editarEmail(usuario, email, body['emailNovo'], body['tipo'], body['prioridade'])
-            response = Response(content="Email editado com sucesso", status_code=200)
+            removerEmailUC(usuario, email)
+            response = Response(content="Email removido com sucesso", status_code=200)
         
         except ErroUsuarioInvalido:
             response = Response(content=str(ErroUsuarioInvalido), status_code=400)
@@ -48,5 +48,8 @@ class ControllerHTTPEditarEmailFastAPI():
             
         except ErroManipulacaoEmailFaculdade:
             response = Response(content=str(ErroManipulacaoEmailFaculdade), status_code=400)
+            
+        except ErroDeletarEmailUnico:
+            response = Response(content=str(ErroDeletarEmailUnico), status_code=400)
                         
         return response

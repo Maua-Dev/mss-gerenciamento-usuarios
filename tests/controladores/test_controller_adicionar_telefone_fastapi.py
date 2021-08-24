@@ -1,6 +1,5 @@
-from src.controladores.control_adicionar_telefone_fastapi import ControllerHTTPAdicionarTelefoneFastAPI
+from src.controladores.fastapi.control_adicionar_telefone_fastapi import ControllerHTTPAdicionarTelefoneFastAPI
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_adicionar_telefone import UCAdicionarTelefone
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
@@ -62,8 +61,7 @@ class TestControllerAdicionarTelefoneFastAPI():
             
     def test_controller_adicionar_telefone_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        adicionarTelefoneUC = UCAdicionarTelefone(repoVolatil)
-        controllerAdicionarTelefoneFastAPI = ControllerHTTPAdicionarTelefoneFastAPI()
+        controllerAdicionarTelefoneFastAPI = ControllerHTTPAdicionarTelefoneFastAPI(repoVolatil)
         
         usuario = self.mockDictUsuario()
         telefone = self.mockDictTelefone()
@@ -71,14 +69,13 @@ class TestControllerAdicionarTelefoneFastAPI():
                 "usuario": usuario,
                 "telefone": telefone            
                 }
-        response = controllerAdicionarTelefoneFastAPI.adicionarTelefone(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
+        response = controllerAdicionarTelefoneFastAPI(body = body)
 
         assert response.status_code == 200
         
     def test_erro_usuario_inexistente(self):
         repoVolatil = ArmazenamentoUsuarioVolatil()
-        adicionarTelefoneUC = UCAdicionarTelefone(repoVolatil)
-        controllerAdicionarTelefoneFastAPI = ControllerHTTPAdicionarTelefoneFastAPI()
+        controllerAdicionarTelefoneFastAPI = ControllerHTTPAdicionarTelefoneFastAPI(repoVolatil)
         
         usuario = self.mockDictUsuario()
         telefone = self.mockDictTelefone()
@@ -86,14 +83,13 @@ class TestControllerAdicionarTelefoneFastAPI():
                 "usuario": usuario,
                 "telefone": telefone            
                 }
-        response = controllerAdicionarTelefoneFastAPI.adicionarTelefone(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
+        response = controllerAdicionarTelefoneFastAPI(body = body)
         assert response.body == b"<class 'src.usecases.erros.erros_uc_alteracao_info_cadastro.ErroUsuarioInvalido'>"
         assert response.status_code == 400
         
     def test_erro_telefone_invalido(self):
         repoVolatil = ArmazenamentoUsuarioVolatil()
-        adicionarTelefoneUC = UCAdicionarTelefone(repoVolatil)
-        controllerAdicionarTelefoneFastAPI = ControllerHTTPAdicionarTelefoneFastAPI()
+        controllerAdicionarTelefoneFastAPI = ControllerHTTPAdicionarTelefoneFastAPI(repoVolatil)
         
         usuario = self.mockDictUsuario()
         telefone = self.mockDictTelefone()
@@ -101,15 +97,14 @@ class TestControllerAdicionarTelefoneFastAPI():
                 "usuario": usuario,
                 "telefone": None            
                 }
-        response = controllerAdicionarTelefoneFastAPI.adicionarTelefone(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
+        response = controllerAdicionarTelefoneFastAPI(body = body)
         
         assert response.body == b"<class 'devmaua.src.models.erros.erro_telefone.ErroDadosTelefoneInvalidos'>"
         assert response.status_code == 400
         
     def test_erro_telefone_vazio(self):
         repoVolatil = ArmazenamentoUsuarioVolatil()
-        adicionarTelefoneUC = UCAdicionarTelefone(repoVolatil)
-        controllerAdicionarTelefoneFastAPI = ControllerHTTPAdicionarTelefoneFastAPI()
+        controllerAdicionarTelefoneFastAPI = ControllerHTTPAdicionarTelefoneFastAPI(repoVolatil)
         
         usuario = self.mockDictUsuario()
         telefone = self.mockDictTelefone()
@@ -117,14 +112,13 @@ class TestControllerAdicionarTelefoneFastAPI():
                 "usuario": usuario,
                 "telefone": None            
                 }
-        response = controllerAdicionarTelefoneFastAPI.adicionarTelefone(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
+        response = controllerAdicionarTelefoneFastAPI(body = body)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_telefone.ErroDadosTelefoneInvalidos'>"
         assert response.status_code == 400
         
     def test_erro_usuario_vazio(self):
         repoVolatil = ArmazenamentoUsuarioVolatil()
-        adicionarTelefoneUC = UCAdicionarTelefone(repoVolatil)
-        controllerAdicionarTelefoneFastAPI = ControllerHTTPAdicionarTelefoneFastAPI()
+        controllerAdicionarTelefoneFastAPI = ControllerHTTPAdicionarTelefoneFastAPI(repoVolatil)
         
         usuario = self.mockDictUsuario()
         telefone = self.mockDictTelefone()
@@ -132,6 +126,6 @@ class TestControllerAdicionarTelefoneFastAPI():
                 "usuario": None,
                 "telefone": telefone            
                 }
-        response = controllerAdicionarTelefoneFastAPI.adicionarTelefone(body = body, adicionarTelefoneUC = adicionarTelefoneUC)
+        response = controllerAdicionarTelefoneFastAPI(body = body)
         assert response.body == b"<class 'devmaua.src.models.erros.erro_usuario.ErroDadosUsuarioInvalidos'>"
         assert response.status_code == 400
