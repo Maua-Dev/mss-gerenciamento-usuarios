@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+import os
+import json
 
 from src.init import Init
 from src.config import *
@@ -11,8 +13,13 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"mss": "gerenciamento_usuarios",
-            "porta": 8080}
+    rotaRaiz = os.path.dirname(__file__)
+    rotaConfig = os.path.join(rotaRaiz, CONFIG.NOME_ARQUIVO_CONFIG.value)
+    with open(rotaConfig) as file:
+        data = json.load(file)
+
+    return {"mss": data[NOME_MSS.MSS.value],
+            "porta": data[PORTA.PORTA.value]}
 
 @app.post("/email")
 async def adicionarEmail(request: dict):

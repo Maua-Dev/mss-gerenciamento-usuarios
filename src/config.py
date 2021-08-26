@@ -32,3 +32,15 @@ class TIPO_CONTROLADOR(Enum):
         return self.value
 
     FASTAPI = 'fastapi'
+
+class NOME_MSS(Enum):
+    def __str__(self):
+        return self.value
+
+    MSS = 'mss'
+
+class PORTA(Enum):
+    def __str__(self):
+        return self.value
+
+    PORTA = 'porta'
