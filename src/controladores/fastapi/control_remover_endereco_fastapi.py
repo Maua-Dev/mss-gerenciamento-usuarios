@@ -12,6 +12,9 @@ from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCad
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 
+from src.controladores.fastapi.enums.status_code import STATUS_CODE
+
+
 class ControllerHTTPRemoverEnderecoFastAPI():
 
     repo: IAlteracaoInfosCadastro
@@ -34,21 +37,21 @@ class ControllerHTTPRemoverEnderecoFastAPI():
             endereco = Endereco.criarEnderecoPorDict(body['endereco'])
             
             removerEnderecoUC(usuario, endereco)
-            response = Response(content="Endereco removido com sucesso", status_code=200)
+            response = Response(content="Endereco removido com sucesso", status_code=STATUS_CODE.OK.value)
         
         except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=400)
+            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.ERRO.value)
             
         except ErroEnderecoInvalido:
-            response = Response(content=str(ErroEnderecoInvalido), status_code=400)
+            response = Response(content=str(ErroEnderecoInvalido), status_code=STATUS_CODE.ERRO.value)
             
         except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=400)
+            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.ERRO.value)
             
         except ErroDadosEnderecoInvalidos:
-            response = Response(content=str(ErroDadosEnderecoInvalidos), status_code=400)
+            response = Response(content=str(ErroDadosEnderecoInvalidos), status_code=STATUS_CODE.ERRO.value)
             
         except KeyError:
-            response = Response(content=str(KeyError), status_code=400)
+            response = Response(content=str(KeyError), status_code=STATUS_CODE.ERRO.value)
                         
         return response
