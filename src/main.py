@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 
-from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.init import Init
+from src.config import *
 from src.controladores.fabricas.fabrica_controlador_fastapi import FabricaControladorFastAPI
 
 
-repo = ArmazenamentoUsuarioVolatil()
-ctrl = FabricaControladorFastAPI(repo)
+ctrl: FabricaControladorFastAPI = Init(_TIPO_REPOSITORIO=TIPO_REPOSITORIO.MOCK, _TIPO_CONTROLADOR=TIPO_CONTROLADOR.FASTAPI)()
 
 app = FastAPI()
 

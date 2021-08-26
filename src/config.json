@@ -1,0 +1,5 @@
+{
+  "deployment_type": "dev",
+  "repository_type": "mock",
+  "controller_type": "fastapi"
+}
