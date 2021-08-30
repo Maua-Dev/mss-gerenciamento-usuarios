@@ -50,12 +50,12 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          targets: ${{ secrets.TARGETS }}
+          targets: ${{ secrets.TARGET }}
 
           working-directory: /home/ubuntu
-          command: echo "teste" > test2.txt
-          comment: Hello world!
-
+          command: sudo docker service update ger
+          comment: atualizar imagem
+          
       # Catch SSM outputs
       - name: Get the outputs
         run: echo "The Command id is ${{ steps.ssm.outputs.command-id }}"
