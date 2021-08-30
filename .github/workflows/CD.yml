@@ -51,7 +51,7 @@ jobs:
         targets: ${{ secrets.TARGETS }}
 
         working-directory: /home/ubuntu
-        command: "docker service update ger" #mudar nome para o mesmo do mss
+        command: "sudo docker service update ger" #mudar nome para o mesmo do mss
         comment: atualizar servico
 
     - name: Get the outputs
