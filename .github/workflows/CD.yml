@@ -51,8 +51,9 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         targets: ${{ secrets.TARGETS }}
 
+        #mudar nome para o mesmo do mss
         working-directory: /home/ubuntu
-        command: "sudo docker service update ger" #mudar nome para o mesmo do mss
+        command: "sudo docker service update ger" 
         comment: atualizar servico
 
     - name: Get the outputs
