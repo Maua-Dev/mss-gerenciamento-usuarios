@@ -35,32 +35,27 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
+  atualizarInstancia:
+    runs-on: ubuntu-latest
 
-#   update-ECS:
-#     needs: [deploy-to-aws]
-#     runs-on: ubuntu-latest
-    
-#     steps:
-#       - uses: actions/checkout@v2
-      
-#       - name: Configure AWS credentials
-#         uses: aws-actions/configure-aws-credentials@v1
-#         with:
-#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#           aws-region: ${{ secrets.AWS_REGION }}
-      
-#       - name: Login to Amazon ECR 
-#         id: login-ecr
-#         uses: aws-actions/amazon-ecr-login@v1
-        
-#       - name: Updates the old container
-#         env:
-#           AWS_CUSTER: ${{  secrets.AWS_CLUSTER  }}
-#           AWS_CLUSTER_SERVICE: ${{ secrets.AWS_CLUSTER_SERVICE }}
-        
-#         run: |
-#           aws ecs update-service --cluster $AWS_CUSTER --service $AWS_CLUSTER_SERVICE --force-new-deployment
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: AWS SSM Send-Command
+      uses: rusrushal13/aws-ssm-send-command@master
+      id: ssm
+      with:
+        aws-region: ${{ secrets.AWS_REGION }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        targets: ${{ secrets.TARGETS }}
+
+        working-directory: /home/ubuntu
+        command: docker service update ger #mudar nome para o mesmo do mss
+        comment: atualizar servico
+
+    - name: Get the outputs
+      run: echo "The Command id is ${{ steps.ssm.outputs.command-id }}"
 
 
 
