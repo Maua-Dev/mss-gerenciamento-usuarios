@@ -8,6 +8,9 @@ from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
+from src.controladores.fastapi.enums.status_code import STATUS_CODE
+
+
 class ControllerHTTPCadastrarUsuario():
 
     repo: IArmazenamento
@@ -21,13 +24,13 @@ class ControllerHTTPCadastrarUsuario():
             cadastrarUsuarioUC = UCCadastrarUsuario(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body)
             cadastrarUsuarioUC(usuario)
-            response = Response(content="Usuario criado com sucesso", status_code=200)
+            response = Response(content="Usuario criado com sucesso", status_code=STATUS_CODE.OK.value)
 
         except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=400)
+            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
 
         except ErroUsuarioExiste:
-            response = Response(content=str(ErroUsuarioExiste), status_code=400)
+            response = Response(content=str(ErroUsuarioExiste), status_code=STATUS_CODE.BAD_REQUEST.value)
 
         return response
 

@@ -1,18 +1,27 @@
 from fastapi import FastAPI
+import os
+import json
 
-from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.init import Init
+from src.models.enums.config import *
 from src.controladores.fabricas.fabrica_controlador_fastapi import FabricaControladorFastAPI
 
 
-repo = ArmazenamentoUsuarioVolatil()
-ctrl = FabricaControladorFastAPI(repo)
+ctrl: FabricaControladorFastAPI = Init(_TIPO_REPOSITORIO=TIPO_REPOSITORIO.MOCK, _TIPO_CONTROLADOR=TIPO_CONTROLADOR.FASTAPI)()
 
 app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"mss": "gerenciamento_usuarios",
-            "porta": 8080}
+    caminhoRaiz = os.path.dirname(__file__)
+    caminhoConfig = os.path.join(caminhoRaiz, CONFIG.NOME_ARQUIVO_CONFIG.value)
+    caminhoConfigController = os.path.join(caminhoRaiz, CONFIG.CAMINHO_CONFIG_CONTROLLER.value)
+    with open(caminhoConfig) as file1, open(caminhoConfigController) as file2:
+        data1 = json.load(file1)
+        data2 = json.load(file2)
+
+    return {"mss": data1[CONFIG.MSS.value],
+            "porta": data2[CONFIG.PORTA.value]}
 
 @app.post("/email")
 async def adicionarEmail(request: dict):

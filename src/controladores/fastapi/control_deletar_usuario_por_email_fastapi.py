@@ -6,6 +6,9 @@ from src.interfaces.interface_deletar_usuario import IDeletarUsuario
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 
+from src.controladores.fastapi.enums.status_code import STATUS_CODE
+
+
 class CDeletarUsuarioPorEmailFastAPI():
 
     repo: IDeletarUsuario
@@ -23,12 +26,12 @@ class CDeletarUsuarioPorEmailFastAPI():
         try:
             deletarUsuarioPorEmailUC = UCDeletarUsuarioPorEmail(self.repo)
             deletarUsuarioPorEmailUC(body['email'])
-            response = Response(content="Usuario deletado com sucesso", status_code=200)
+            response = Response(content="Usuario deletado com sucesso", status_code=STATUS_CODE.OK.value)
             
         except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=400)
+            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except KeyError:
-            response = Response(content=str(KeyError), status_code=400)
+            response = Response(content=str(KeyError), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         return response

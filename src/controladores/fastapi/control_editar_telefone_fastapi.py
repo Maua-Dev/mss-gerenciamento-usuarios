@@ -12,6 +12,8 @@ from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCad
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
 
+from src.controladores.fastapi.enums.status_code import STATUS_CODE
+
 
 class ControllerHTTPEditarTelefoneFastAPI():
 
@@ -38,21 +40,21 @@ class ControllerHTTPEditarTelefoneFastAPI():
             telefone = Telefone.criarTelefonePorDict(body['telefone'])
             
             editarTelefoneUC(usuario, telefone, body['tipo'], body['ddd'], body['numero'], body['prioridade'])
-            response = Response(content="Telefone editado com sucesso", status_code=200)
+            response = Response(content="Telefone editado com sucesso", status_code=STATUS_CODE.OK.value)
         
         except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=400)
+            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except ErroTelefoneInvalido:
-            response = Response(content=str(ErroTelefoneInvalido), status_code=400)
+            response = Response(content=str(ErroTelefoneInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=400)
+            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except ErroDadosTelefoneInvalidos:
-            response = Response(content=str(ErroDadosTelefoneInvalidos), status_code=400)
+            response = Response(content=str(ErroDadosTelefoneInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except KeyError:
-            response = Response(content=str(KeyError), status_code=400)
+            response = Response(content=str(KeyError), status_code=STATUS_CODE.BAD_REQUEST.value)
                             
         return response
