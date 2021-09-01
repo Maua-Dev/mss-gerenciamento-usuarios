@@ -27,10 +27,10 @@ class ControllerHTTPCadastrarUsuario():
             response = Response(content="Usuario criado com sucesso", status_code=STATUS_CODE.OK.value)
 
         except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
 
         except ErroUsuarioExiste:
-            response = Response(content=str(ErroUsuarioExiste), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroUsuarioExiste), status_code=STATUS_CODE.BAD_REQUEST.value)
 
         return response
 

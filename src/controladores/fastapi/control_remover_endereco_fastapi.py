@@ -40,18 +40,18 @@ class ControllerHTTPRemoverEnderecoFastAPI():
             response = Response(content="Endereco removido com sucesso", status_code=STATUS_CODE.OK.value)
         
         except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except ErroEnderecoInvalido:
-            response = Response(content=str(ErroEnderecoInvalido), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroEnderecoInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except ErroDadosEnderecoInvalidos:
-            response = Response(content=str(ErroDadosEnderecoInvalidos), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroDadosEnderecoInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except KeyError:
-            response = Response(content=str(KeyError), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(KeyError), status_code=STATUS_CODE.BAD_REQUEST.value)
                         
         return response

@@ -29,9 +29,9 @@ class CDeletarUsuarioPorEmailFastAPI():
             response = Response(content="Usuario deletado com sucesso", status_code=STATUS_CODE.OK.value)
             
         except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except KeyError:
-            response = Response(content=str(KeyError), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(KeyError), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         return response

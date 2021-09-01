@@ -6,4 +6,4 @@ class STATUS_CODE(Enum):
         return self.value
 
     OK = 200
-    ERRO = 400
+    BAD_REQUEST = 400

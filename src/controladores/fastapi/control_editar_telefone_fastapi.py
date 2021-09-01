@@ -43,18 +43,18 @@ class ControllerHTTPEditarTelefoneFastAPI():
             response = Response(content="Telefone editado com sucesso", status_code=STATUS_CODE.OK.value)
         
         except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except ErroTelefoneInvalido:
-            response = Response(content=str(ErroTelefoneInvalido), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroTelefoneInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except ErroDadosTelefoneInvalidos:
-            response = Response(content=str(ErroDadosTelefoneInvalidos), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(ErroDadosTelefoneInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
             
         except KeyError:
-            response = Response(content=str(KeyError), status_code=STATUS_CODE.ERRO.value)
+            response = Response(content=str(KeyError), status_code=STATUS_CODE.BAD_REQUEST.value)
                             
         return response
