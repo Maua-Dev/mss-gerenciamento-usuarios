@@ -3,7 +3,7 @@ import os
 import json
 
 from src.init import Init
-from src.config import *
+from src.models.enums.config import *
 from src.controladores.fabricas.fabrica_controlador_fastapi import FabricaControladorFastAPI
 
 
