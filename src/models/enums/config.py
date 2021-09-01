@@ -6,7 +6,7 @@ class CONFIG(Enum):
         return self.value
 
     NOME_ARQUIVO_CONFIG = 'config.json'
-    CAMINHO_CONFIG_CONTROLLER = 'controladores/fastapi'
+    CAMINHO_CONFIG_CONTROLLER = 'controladores/fastapi/config.json'
 
     TIPO_DEPLOYMENT = 'deployment_type'
     TIPO_REPOSITORIO = 'repository_type'
