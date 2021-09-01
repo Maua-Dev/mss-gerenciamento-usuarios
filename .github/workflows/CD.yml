@@ -54,7 +54,7 @@ jobs:
           targets: ${{ secrets.TARGETS }}
 
           working-directory: /home/ubuntu
-          command: sudo docker service update ger
+          command: echo "teste" >> teste.txt
           comment: atualizar imagem
           
       # Catch SSM outputs
