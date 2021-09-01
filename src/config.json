@@ -2,6 +2,5 @@
   "deployment_type": "dev",
   "repository_type": "mock",
   "controller_type": "fastapi",
-  "mss": "gerenciamento_usuarios",
-  "porta": 8080
+  "mss": "gerenciamento_usuarios"
 }

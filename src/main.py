@@ -13,13 +13,15 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    rotaRaiz = os.path.dirname(__file__)
-    rotaConfig = os.path.join(rotaRaiz, CONFIG.NOME_ARQUIVO_CONFIG.value)
-    with open(rotaConfig) as file:
-        data = json.load(file)
+    caminhoRaiz = os.path.dirname(__file__)
+    caminhoConfig = os.path.join(caminhoRaiz, CONFIG.NOME_ARQUIVO_CONFIG.value)
+    caminhoConfigController = os.path.join(caminhoRaiz, CONFIG.CAMINHO_CONFIG_CONTROLLER.value)
+    with open(caminhoConfig) as file1, open(caminhoConfigController) as file2:
+        data1 = json.load(file1)
+        data2 = json.load(file2)
 
-    return {"mss": data[NOME_MSS.MSS.value],
-            "porta": data[PORTA.PORTA.value]}
+    return {"mss": data1[CONFIG.MSS.value],
+            "porta": data2[CONFIG.PORTA.value]}
 
 @app.post("/email")
 async def adicionarEmail(request: dict):
