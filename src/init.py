@@ -4,6 +4,7 @@ import os
 from src.controladores.fabricas.fabrica_controlador_fastapi import FabricaControladorFastAPI
 from src.config import *
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.models.erros.erros import *
 
 
 class Init:
@@ -33,11 +34,11 @@ class Init:
         if self.tipoRepositorio == TIPO_REPOSITORIO.MOCK.value:
             repo = ArmazenamentoUsuarioVolatil()
         else:
-            raise Exception('Tipo de repositorio invalido')
+            raise ErroRepositorioInvalido
 
         if self.tipoControlador == TIPO_CONTROLADOR.FASTAPI.value:
             ctrl = FabricaControladorFastAPI(repo)
         else:
-            raise Exception('Tipo de controlador invalido')
+            raise ErroControladorInvalido
 
         return ctrl
