@@ -1,7 +1,7 @@
 import json
 import os
 
-from src.controladores.fabricas.fabrica_controlador_fastapi import FabricaControladorFastAPI
+from src.fabricas import FabricaControladorFastAPI
 from src.models.enums.config import *
 from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.models.erros.erros import *

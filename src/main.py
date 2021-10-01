@@ -4,7 +4,7 @@ import json
 
 from src.init import Init
 from src.models.enums.config import *
-from src.controladores.fabricas.fabrica_controlador_fastapi import FabricaControladorFastAPI
+from src.fabricas import FabricaControladorFastAPI
 
 
 ctrl: FabricaControladorFastAPI = Init(_TIPO_REPOSITORIO=TIPO_REPOSITORIO.MOCK, _TIPO_CONTROLADOR=TIPO_CONTROLADOR.FASTAPI)()
