@@ -1,5 +1,5 @@
 from src.controladores.fastapi.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
-from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 
 
 class TestControllerCadastrarUsuario():

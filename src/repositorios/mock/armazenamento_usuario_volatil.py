@@ -1,11 +1,7 @@
 from devmaua.src.models.ra import RA
 from devmaua.src.models.usuario import Usuario
 
-
-from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
-from src.interfaces.interface_gerenciamento_usuarios import IArmazenamento
-from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
-from src.interfaces.interface_deletar_usuario import IDeletarUsuario
+from src.interfaces.IRepoUsuario import IArmazenamento
 
 from devmaua.src.models.telefone import Telefone        
 from devmaua.src.models.email import Email
@@ -20,7 +16,7 @@ from devmaua.src.enum.roles import Roles
 from typing import Optional
 from datetime import date
 
-class ArmazenamentoUsuarioVolatil(IArmazenamento, IAlteracaoInfosCadastro, IDeletarUsuario):
+class ArmazenamentoUsuarioVolatil(IArmazenamento):
 
     armazem: list[Usuario]
 

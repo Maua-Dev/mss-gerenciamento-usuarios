@@ -1,4 +1,8 @@
-from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from fastapi import FastAPI
+
+from src.interfaces.IRepoUsuario import IArmazenamento
+from src.config.enums.fastapi import *
+from src.config.proj_config import ProjConfig
 
 from src.controladores.fastapi.control_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
 from src.controladores.fastapi.control_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
@@ -13,11 +17,31 @@ from src.controladores.fastapi.control_deletar_usuario_por_email_fastapi import 
 from src.controladores.fastapi.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
 
 
-class FabricaControladorFastAPI:
-    repo: ArmazenamentoUsuarioVolatil
+class FabricaControladorFastapi:
+    repo: IArmazenamento
 
-    def __init__(self, repo: ArmazenamentoUsuarioVolatil):
+    __config__: dict
+
+    protocolo: str
+    host: str
+    porta: str
+    root: str
+    url: str
+
+    app: FastAPI
+
+    def __init__(self, repo: IArmazenamento):
         self.repo = repo
+
+        self.__config__ = ProjConfig.getFastapi()
+
+        self.protocolo = self.__config__[KEY.PROTOCOLO.value]
+        self.host = self.__config__[KEY.HOST.value]
+        self.porta = self.__config__[KEY.PORTA.value]
+        self.root = self.__config__[KEY.ROOT.value]
+        self.url = f'{self.protocolo}://{self.host}:{self.porta}{self.root}'
+
+        self.app = FastAPI()
 
     def adicionarEmail(self, body: dict):
         return ControllerHTTPAdicionarEmailFastAPI(self.repo)(body)

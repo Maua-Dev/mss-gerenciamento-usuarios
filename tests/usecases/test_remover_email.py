@@ -12,7 +12,7 @@ from devmaua.src.enum.tipo_email import TipoEmail
 from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
-from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_remover_email import UCRemoverEmail

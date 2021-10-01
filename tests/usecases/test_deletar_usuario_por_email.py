@@ -15,7 +15,7 @@ from devmaua.src.models.telefone import Telefone
 from devmaua.src.models.endereco import Endereco
 from devmaua.src.models.ra import RA
 
-from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail

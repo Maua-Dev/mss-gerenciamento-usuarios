@@ -7,7 +7,7 @@ from devmaua.src.models.erros.erro_endereco import ErroDadosEnderecoInvalidos
 
 from src.usecases.uc_remover_endereco import UCRemoverEndereco
 
-from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
+from src.interfaces.IRepoUsuario import IArmazenamento
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
@@ -17,9 +17,9 @@ from src.controladores.fastapi.enums.status_code import STATUS_CODE
 
 class ControllerHTTPRemoverEnderecoFastAPI():
 
-    repo: IAlteracaoInfosCadastro
+    repo: IArmazenamento
 
-    def __init__(self, repo: IAlteracaoInfosCadastro):
+    def __init__(self, repo: IArmazenamento):
         self.repo = repo
 
     def __call__(self, body: dict):
