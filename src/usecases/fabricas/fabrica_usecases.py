@@ -1,4 +1,4 @@
-from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 
 from src.usecases.uc_adicionar_email import UCAdicionarEmail
 from src.usecases.uc_remover_email import UCRemoverEmail

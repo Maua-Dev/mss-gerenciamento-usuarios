@@ -1,44 +1,26 @@
-import json
-import os
-
-from src.controladores.fabricas.fabrica_controlador_fastapi import FabricaControladorFastAPI
-from src.models.enums.config import *
-from src.repositorios.volatil.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.models.erros.erros import *
+from src.config.proj_config import ProjConfig
+from src.config.erros.deployment import *
+from src.config.enums.deployment import *
+from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.fabricas.controladores.fastapi.fabrica_controlador_fastapi import FabricaControladorFastapi
 
 
 class Init:
-    tipoRepositorio: str
-    tipoControlador: str
-    rotaRaiz: str
-    rotaConfig: str
-
-    def __init__(self, _TIPO_REPOSITORIO: TIPO_REPOSITORIO = None, _TIPO_CONTROLADOR: TIPO_CONTROLADOR = None):
-        self.rotaRaiz = os.path.dirname(__file__)
-        self.rotaConfig = os.path.join(self.rotaRaiz, CONFIG.NOME_ARQUIVO_CONFIG.value)
-        with open(self.rotaConfig) as file:
-            data = json.load(file)
-
-        if _TIPO_REPOSITORIO == None:
-            self.tipoRepositorio = data[CONFIG.TIPO_REPOSITORIO.value]
-        else:
-            self.tipoRepositorio = _TIPO_REPOSITORIO.value
-
-        if _TIPO_CONTROLADOR == None:
-            self.tipoControlador = data[CONFIG.TIPO_CONTROLADOR.value]
-        else:
-            self.tipoControlador = _TIPO_CONTROLADOR.value
-
-    def __call__(self, *args, **kwargs):
-
-        if self.tipoRepositorio == TIPO_REPOSITORIO.MOCK.value:
+    def __call__(
+            self,
+            tipo_repo: REPOSITORIO = ProjConfig.getDeployment()[KEY.TIPO_REPOSITORIO.value],
+            tipo_ctrl: CONTROLADOR = ProjConfig.getDeployment()[KEY.TIPO_CONTROLADOR.value]
+    ):
+        # Instanciando tipo de REPOSITORIO
+        if tipo_repo == REPOSITORIO.MOCK.value:
             repo = ArmazenamentoUsuarioVolatil()
         else:
-            raise ErroRepositorioInvalido
+            raise ErroDeployment1()
 
-        if self.tipoControlador == TIPO_CONTROLADOR.FASTAPI.value:
-            ctrl = FabricaControladorFastAPI(repo)
+        # Instanciando tipo de CONTROLER
+        if tipo_ctrl == CONTROLADOR.FASTAPI.value:
+            ctrl = FabricaControladorFastapi(repo)
         else:
-            raise ErroControladorInvalido
+            raise ErroDeployment2()
 
-        return ctrl
+        return repo, ctrl

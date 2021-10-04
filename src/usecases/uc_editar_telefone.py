@@ -3,7 +3,7 @@ from devmaua.src.models.usuario import Usuario
 
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
-from src.interfaces.interface_alteracao_infos_cadastro import IAlteracaoInfosCadastro
+from src.interfaces.IRepoUsuario import IArmazenamento
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
@@ -13,9 +13,9 @@ from typing import Optional
 
 class UCEditarTelefone():
     
-    alteracaoInfosCadastro: IAlteracaoInfosCadastro
+    alteracaoInfosCadastro: IArmazenamento
     
-    def __init__(self, alteracaoInfosCadastro: IAlteracaoInfosCadastro):
+    def __init__(self, alteracaoInfosCadastro: IArmazenamento):
         self.alteracaoInfosCadastro = alteracaoInfosCadastro
         
     def __call__(self, usuario: Usuario, telefone: Telefone, tipo: Optional[TipoTelefone], ddd: Optional[int], numero: Optional[str], prioridade: Optional[int]):
