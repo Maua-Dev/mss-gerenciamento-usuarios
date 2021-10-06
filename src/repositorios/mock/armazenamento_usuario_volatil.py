@@ -16,7 +16,23 @@ from devmaua.src.enum.roles import Roles
 from typing import Optional
 from datetime import date
 
+
 class ArmazenamentoUsuarioVolatil(IArmazenamento):
+
+    def getUsuarioPorRA(self, ra: RA):
+        pass
+
+    def getUsuarioPorIdProfessor(self, id: str):
+        pass
+
+    def getUsuarioPorUserId(self, id: str):
+        pass
+
+    def getUsuarioPorEmail(self, email: Email):
+        pass
+
+    def getUsuarioPorTelefone(self, telefone: Telefone):
+        pass
 
     armazem: list[Usuario]
 
@@ -32,15 +48,6 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento):
 
     def cadastrarUsuario(self, usuario: Usuario):
         self.armazem.append(usuario)
-
-
-    def getUsuario(self, ra: RA):
-        pass
-
-
-    def logarUsuario(self, login: str, senha: str):
-        pass
-
     
     def adicionarTelefone(self, usuario: Usuario, telefone: Telefone):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]

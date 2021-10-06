@@ -14,22 +14,43 @@ from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_email import TipoEmail
 
 
-
-
 class IArmazenamento(ABC):
     """"
     Interface com os métodos necessários para o gerenciamento de usuários
     """
+
+# ================ Getters ================
     @abstractmethod
-    def getUsuario(self, ra: RA):
+    def getUsuarioPorRA(self, ra: RA):
         pass
+
+    @abstractmethod
+    def getUsuarioPorIdProfessor(self, id:  str):
+        pass
+
+# User id não é propriedade de <class Usuario>, dependeria se fosse usada uma db relacional
+    @abstractmethod
+    def getUsuarioPorUserId(self, id: str):
+        pass
+
+    @abstractmethod
+    def getUsuarioPorEmail(self, email: Email):
+        """ Getter com email principal """
+        pass
+
+    @abstractmethod
+    def getUsuarioPorTelefone(self, telefone: Telefone):
+        """ getter com telefone principal """
+        pass
+
+    @abstractmethod
+    def getUsuarioPorNomeENascimento(self, nome: str, nascimento: date):
+        """ Busca um usuario pelo nome e data de nascimento """
+        pass
+# =========================================
 
     @abstractmethod
     def cadastrarUsuario(self, usuario: Usuario):
-        pass
-
-    @abstractmethod
-    def logarUsuario(self, login: str, senha: str):
         pass
 
     @abstractmethod
@@ -114,7 +135,4 @@ class IArmazenamento(ABC):
         """ Retorna se um usuario existe """
         pass
 
-    @abstractmethod
-    def getUsuarioPorNomeENascimento(self, nome: str, nascimento: date):
-        """ Busca um usuario pelo nome e data de nascimento """
-        pass
+
