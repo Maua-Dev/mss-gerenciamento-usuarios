@@ -64,3 +64,15 @@ async def editarEndereco(request: dict):
 @roteador.delete("/usuario")
 async def deletarUsuarioPorEmail(request: dict):
     return _ctrl.deletarUsuarioPorEmail(request)
+
+@roteador.get("/usuario/{userId}")
+async def getUsuarioPorUserId(userId: int):
+    return _ctrl.getUsuarioPorUserId(userId)
+
+@roteador.get("/usuario/email/{email}")
+async def getUsuarioPorEmail(email: str):
+    return _ctrl.getUsuarioPorEmail(email)
+
+@roteador.get("/usuario/telefone/{ddd}/{numero}")
+async def getUsuarioPorTelefone(ddd: int, numero: str):
+    return _ctrl.getUsuarioPorTelefone(ddd, numero)
