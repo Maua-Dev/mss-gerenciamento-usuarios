@@ -4,7 +4,7 @@ from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsu
 from devmaua.src.models.usuario import Usuario
 import tests.mock_objetos as mo
 from src.repositorios.erros.erros_armazem_volatil import ErroUsuarioNaoEncontrado
-from devmaua.src.models.telefone import Telefone
+
 
 class TestArmazenamentoVolatil:
     armazenamento: ArmazenamentoUsuarioVolatil
