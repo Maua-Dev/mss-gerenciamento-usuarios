@@ -16,28 +16,44 @@ from devmaua.src.enum.roles import Roles
 from typing import Optional
 from datetime import date
 
+from src.repositorios.erros.erros_armazem_volatil import ErroUsuarioNaoEncontrado
+
 
 class ArmazenamentoUsuarioVolatil(IArmazenamento):
+    armazem: list[Usuario]
 
+    def __init__(self):
+        self.armazem = []
+
+    # TODO get usuario e idProf: não temos como linkar com <class Usuario> como está agora
     def getUsuarioPorRA(self, ra: RA):
         pass
 
     def getUsuarioPorIdProfessor(self, id: str):
         pass
 
-    def getUsuarioPorUserId(self, id: str):
-        pass
+    def getUsuarioPorUserId(self, id: int):
+        try:
+            print(self.armazem)
+            print(len(self.armazem))
+            return self.armazem[id]
+        except Exception as e:
+            print(e)
+            raise ErroUsuarioNaoEncontrado
 
-    def getUsuarioPorEmail(self, email: Email):
-        pass
+    def getUsuarioPorEmail(self, email: str):
+        for u in self.armazem:
+            for e in u.contato.emails:
+                if e.email == email:
+                    return u
+        raise ErroUsuarioNaoEncontrado
 
-    def getUsuarioPorTelefone(self, telefone: Telefone):
-        pass
-
-    armazem: list[Usuario]
-
-    def __init__(self):
-        self.armazem = []
+    def getUsuarioPorTelefone(self, ddd: int, numero: str):
+        for u in self.armazem:
+            for t in u.contato.telefones:
+                if t.numero == numero and t.ddd == ddd:
+                    return u
+        raise ErroUsuarioNaoEncontrado
 
 
     def usuarioExiste(self, outro_usuario: Usuario):
