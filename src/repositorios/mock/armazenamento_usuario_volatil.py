@@ -29,16 +29,13 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento):
     def getUsuarioPorRA(self, ra: RA):
         pass
 
-    def getUsuarioPorIdProfessor(self, id: str):
+    def getUsuarioPorIdProfessor(self, profId: str):
         pass
 
-    def getUsuarioPorUserId(self, id: int):
+    def getUsuarioPorUserId(self, userId: int):
         try:
-            print(self.armazem)
-            print(len(self.armazem))
-            return self.armazem[id]
+            return self.armazem[userId]
         except Exception as e:
-            print(e)
             raise ErroUsuarioNaoEncontrado
 
     def getUsuarioPorEmail(self, email: str):
