@@ -1,4 +1,4 @@
-from src.controladores.fastapi.control_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
+from src.controladores.fastapi.c_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 

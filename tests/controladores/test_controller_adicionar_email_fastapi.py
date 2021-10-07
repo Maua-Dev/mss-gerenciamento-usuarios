@@ -1,4 +1,4 @@
-from src.controladores.fastapi.control_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
+from src.controladores.fastapi.c_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 

@@ -1,4 +1,4 @@
-from src.controladores.fastapi.control_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
+from src.controladores.fastapi.c_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 

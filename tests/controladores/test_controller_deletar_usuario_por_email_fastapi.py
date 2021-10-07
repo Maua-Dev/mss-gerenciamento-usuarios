@@ -1,4 +1,4 @@
-from src.controladores.fastapi.control_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
+from src.controladores.fastapi.c_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
