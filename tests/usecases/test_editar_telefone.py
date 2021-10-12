@@ -18,7 +18,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.usecases.uc_editar_telefone import UCEditarTelefone
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
 
 class TestEditarEmail:
@@ -90,7 +90,7 @@ class TestEditarEmail:
         ddd = 12
         prioridade = 3
         
-        with pytest.raises(ErroUsuarioInvalido):
+        with pytest.raises(ErroUsuarioNaoExiste):
             editorTelefone(usuario, telefone, tipo, ddd, numero, prioridade)
             
     def test_erro_telefone_invalido(self):

@@ -18,7 +18,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.usecases.uc_remover_email import UCRemoverEmail
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoEmailFaculdade
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEmailUnico
 
@@ -80,7 +80,7 @@ class TestRemoverEmail:
         usuario = self.mockUsuario()
         email = self.mockEmail()
         
-        with pytest.raises(ErroUsuarioInvalido):
+        with pytest.raises(ErroUsuarioNaoExiste):
             removerEmail(usuario, email)
             
     def test_erro_email_invalido(self):

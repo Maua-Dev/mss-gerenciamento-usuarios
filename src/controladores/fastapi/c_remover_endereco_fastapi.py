@@ -10,17 +10,19 @@ from src.usecases.uc_remover_endereco import UCRemoverEndereco
 from src.interfaces.IRepoUsuario import IArmazenamento
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
-from src.controladores.fastapi.enums.status_code import STATUS_CODE
+from http import HTTPStatus
+import logging
 
 
-class ControllerHTTPRemoverEnderecoFastAPI():
-
+class ControllerHTTPRemoverEnderecoFastAPI:
     repo: IArmazenamento
+    uc: UCRemoverEndereco
 
     def __init__(self, repo: IArmazenamento):
         self.repo = repo
+        self.uc = UCRemoverEndereco(self.repo)
 
     def __call__(self, body: dict):
         """ Estrutura do body:
@@ -32,26 +34,19 @@ class ControllerHTTPRemoverEnderecoFastAPI():
         """
         
         try:
-            removerEnderecoUC = UCRemoverEndereco(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             endereco = Endereco.criarEnderecoPorDict(body['endereco'])
             
-            removerEnderecoUC(usuario, endereco)
-            response = Response(content="Endereco removido com sucesso", status_code=STATUS_CODE.OK.value)
+            self.uc(usuario, endereco)
+
+            return Response(content="Endereco removido com sucesso", status_code=HTTPStatus.OK)
         
-        except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
+        except ErroUsuarioNaoExiste as e:
+            return Response(content=str(e), status_code=HTTPStatus.NOT_FOUND)
             
-        except ErroEnderecoInvalido:
-            response = Response(content=str(ErroEnderecoInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroDadosEnderecoInvalidos:
-            response = Response(content=str(ErroDadosEnderecoInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except KeyError:
-            response = Response(content=str(KeyError), status_code=STATUS_CODE.BAD_REQUEST.value)
-                        
-        return response
+        except (ErroEnderecoInvalido, ErroDadosUsuarioInvalidos, ErroDadosEnderecoInvalidos, KeyError) as e:
+            return Response(content=str(e), status_code=HTTPStatus.BAD_REQUEST)
+
+        except Exception as e:
+            logging.exception("Erro inesperado")
+            return Response(content="Erro inesperado", status_code=HTTPStatus.INTERNAL_SERVER_ERROR)

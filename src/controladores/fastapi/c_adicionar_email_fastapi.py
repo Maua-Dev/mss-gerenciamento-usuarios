@@ -10,40 +10,40 @@ from src.usecases.uc_adicionar_email import UCAdicionarEmail
 from src.interfaces.IRepoUsuario import IArmazenamento
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
+from http import HTTPStatus
+import logging
 
-from src.controladores.fastapi.enums.status_code import STATUS_CODE
 
-class ControllerHTTPAdicionarEmailFastAPI():
+class ControllerHTTPAdicionarEmailFastAPI:
 
     repo: IArmazenamento
+    uc: UCAdicionarEmail
 
     def __init__(self, repo: IArmazenamento):
         self.repo = repo
+        self.uc = UCAdicionarEmail(self.repo)
     
     def __call__(self, body: dict):
-        
+        """ Estilo do body:
+            {
+                "usuario": dict de dicionario,
+                "email": dict de email
+            }
+        """
         try:
-            adicionarEmailUC = UCAdicionarEmail(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             email = Email.criarEmailPorDict(body['email'])
             
-            adicionarEmailUC(usuario, email)
-            response = Response(content="Email adicionado com sucesso", status_code=STATUS_CODE.OK.value)
+            self.uc(usuario, email)
+            return Response(content="Email adicionado com sucesso", status_code=HTTPStatus.OK)
+
+        except ErroUsuarioNaoExiste as e:
+            return Response(content=str(e), status_code=HTTPStatus.NOT_FOUND)
         
-        except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroEmailInvalido:
-            response = Response(content=str(ErroEmailInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroDadosEmailInvalidos:
-            response = Response(content=str(ErroDadosEmailInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except KeyError:
-            response = Response(content=str(KeyError), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        return response
+        except (ErroEmailInvalido, ErroDadosUsuarioInvalidos, ErroDadosEmailInvalidos, KeyError) as e:
+            return Response(content=str(e), status_code=HTTPStatus.BAD_REQUEST)
+
+        except Exception as e:
+            logging.exception("Erro inesperado")
+            return Response(content="Erro inesperado", status_code=HTTPStatus.INTERNAL_SERVER_ERROR)

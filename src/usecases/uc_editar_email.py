@@ -6,7 +6,7 @@ from devmaua.src.enum.tipo_email import TipoEmail
 from src.interfaces.IRepoUsuario import IArmazenamento
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoEmailFaculdade
 
 from typing import Optional
@@ -21,7 +21,7 @@ class UCEditarEmail():
         
     def __call__(self, usuario: Usuario, email: Email, email_novo: Optional[str], tipo: Optional[TipoEmail], prioridade: Optional[int]):
         if not(self.alteracaoInfosCadastro.usuarioExiste(usuario)):
-            raise ErroUsuarioInvalido
+            raise ErroUsuarioNaoExiste
         
         if email == None or email not in usuario.contato.emails:
             raise ErroEmailInvalido

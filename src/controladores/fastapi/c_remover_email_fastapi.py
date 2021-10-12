@@ -10,49 +10,40 @@ from src.usecases.uc_remover_email import UCRemoverEmail
 from src.interfaces.IRepoUsuario import IArmazenamento
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoEmailFaculdade
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEmailUnico
 
-from src.controladores.fastapi.enums.status_code import STATUS_CODE
+from http import HTTPStatus
+import logging
 
 
-class ControllerHTTPRemoverEmailFastAPI():
-
+class ControllerHTTPRemoverEmailFastAPI:
     repo: IArmazenamento
+    uc: UCRemoverEmail
 
     def __init__(self, repo: IArmazenamento):
         self.repo = repo
-    
+        self.uc = UCRemoverEmail(self.repo)
+
     def __call__(self, body: dict):
         
         try:
-            removerEmailUC = UCRemoverEmail(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             email = Email.criarEmailPorDict(body['email'])
             
-            removerEmailUC(usuario, email)
-            response = Response(content="Email removido com sucesso", status_code=STATUS_CODE.OK.value)
+            self.uc(usuario, email)
+
+            return Response(content="Email removido com sucesso", status_code=HTTPStatus.OK)
         
-        except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
+        except ErroUsuarioNaoExiste as e:
+            return Response(content=str(e), status_code=HTTPStatus.NOT_FOUND)
             
-        except ErroEmailInvalido:
-            response = Response(content=str(ErroEmailInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroDadosEmailInvalidos:
-            response = Response(content=str(ErroDadosEmailInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except KeyError:
-            response = Response(content=str(KeyError), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroManipulacaoEmailFaculdade:
-            response = Response(content=str(ErroManipulacaoEmailFaculdade), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroDeletarEmailUnico:
-            response = Response(content=str(ErroDeletarEmailUnico), status_code=STATUS_CODE.BAD_REQUEST.value)
+        except (ErroEmailInvalido, ErroDadosUsuarioInvalidos, ErroDadosEmailInvalidos, KeyError,
+                ErroManipulacaoEmailFaculdade, ErroDeletarEmailUnico) as e:
+
+            return Response(content=str(e), status_code=HTTPStatus.BAD_REQUEST)
                         
-        return response
+        except Exception as e:
+            logging.exception("Erro inesperado")
+            return Response(content="Erro inesperado", status_code=HTTPStatus.INTERNAL_SERVER_ERROR)

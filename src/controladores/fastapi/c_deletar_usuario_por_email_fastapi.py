@@ -4,17 +4,19 @@ from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 
 from src.interfaces.IRepoUsuario import IArmazenamento
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
-from src.controladores.fastapi.enums.status_code import STATUS_CODE
+from http import HTTPStatus
+import logging
 
 
-class CDeletarUsuarioPorEmailFastAPI():
-
+class CDeletarUsuarioPorEmailFastAPI:
     repo: IArmazenamento
+    uc: UCDeletarUsuarioPorEmail
 
     def __init__(self, repo: IArmazenamento):
         self.repo = repo
+        self.uc = UCDeletarUsuarioPorEmail(self.repo)
     
     def __call__(self, body: dict):
         """ Estilo do body:
@@ -24,14 +26,16 @@ class CDeletarUsuarioPorEmailFastAPI():
         """
         
         try:
-            deletarUsuarioPorEmailUC = UCDeletarUsuarioPorEmail(self.repo)
-            deletarUsuarioPorEmailUC(body['email'])
-            response = Response(content="Usuario deletado com sucesso", status_code=STATUS_CODE.OK.value)
-            
-        except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except KeyError:
-            response = Response(content=str(KeyError), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        return response
+            self.uc(body['email'])
+
+            return Response(content="Usuario deletado com sucesso", status_code=HTTPStatus.OK)
+
+        except ErroUsuarioNaoExiste as e:
+            return Response(content=str(e), status_code=HTTPStatus.NOT_FOUND)
+
+        except KeyError as e:
+            return Response(content=str(e), status_code=HTTPStatus.BAD_REQUEST)
+
+        except Exception as e:
+            logging.exception("Erro inesperado")
+            return Response(content="Erro inesperado", status_code=HTTPStatus.INTERNAL_SERVER_ERROR)

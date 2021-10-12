@@ -18,7 +18,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.usecases.uc_adicionar_telefone import UCAdicionarTelefone
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
 class TestAdicionarTelefone:
     
@@ -75,7 +75,7 @@ class TestAdicionarTelefone:
         usuario = self.mockUsuario()
         telefone = self.mockTelefone()
         
-        with pytest.raises(ErroUsuarioInvalido):
+        with pytest.raises(ErroUsuarioNaoExiste):
             addEmail(usuario, telefone)
             
     def test_erro_telefone_invalido(self):

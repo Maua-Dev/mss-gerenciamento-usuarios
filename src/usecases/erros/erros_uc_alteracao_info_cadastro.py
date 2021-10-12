@@ -1,4 +1,4 @@
-class ErroUsuarioInvalido(Exception):
+class ErroUsuarioNaoExiste(Exception):
     def __init__(self):
         super().__init__("Usuario nao existe!")
         

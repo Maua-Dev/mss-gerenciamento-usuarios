@@ -20,7 +20,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
 class TestUCDeletarUsuarioPorEmail:
     
@@ -79,5 +79,5 @@ class TestUCDeletarUsuarioPorEmail:
         
         email = 'teste@teste.com'
         
-        with pytest.raises(ErroUsuarioInvalido):
+        with pytest.raises(ErroUsuarioNaoExiste):
             removedorUsuario(email)

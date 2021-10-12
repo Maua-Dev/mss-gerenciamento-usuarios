@@ -1,5 +1,5 @@
 from src.interfaces.IRepoUsuario import IArmazenamento
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
 
 class UCGetPorEmail:
@@ -14,4 +14,4 @@ class UCGetPorEmail:
         try:
             return self.usuarioRepo.getUsuarioPorEmail(email)
         except:
-            raise ErroUsuarioInvalido
+            raise ErroUsuarioNaoExiste
