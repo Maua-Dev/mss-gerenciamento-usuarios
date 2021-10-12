@@ -10,6 +10,9 @@ WORKDIR /app
 
 RUN apk update
 RUN apk add git
+RUN apk add python3-dev
+RUN python3 -m venv venv
+RUN source venv/bin/activate
 RUN pip install -r requirements.txt
 
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]
+CMD ["python3", "src.main"]

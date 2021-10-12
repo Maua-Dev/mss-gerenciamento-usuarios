@@ -1,6 +1,6 @@
 {
   "protocolo": "http",
-  "host": "localhost",
+  "host": "0.0.0.0",
   "porta": 8080,
   "root": "/"
 }
