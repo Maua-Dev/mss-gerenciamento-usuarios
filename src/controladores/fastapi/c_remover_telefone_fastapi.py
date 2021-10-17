@@ -1,4 +1,4 @@
-from fastapi import Response
+from fastapi import Response, status
 
 from devmaua.src.models.usuario import Usuario
 from devmaua.src.models.telefone import Telefone
@@ -12,7 +12,6 @@ from src.interfaces.IRepoUsuario import IArmazenamento
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
-from http import HTTPStatus
 import logging
 
 
@@ -38,14 +37,14 @@ class ControllerHTTPRemoverTelefoneFastAPI:
             telefone = Telefone.criarTelefonePorDict(body['telefone'])
             
             self.uc(usuario, telefone)
-            return Response(content="Telefone removido com sucesso", status_code=HTTPStatus.OK)
+            return Response(content="Telefone removido com sucesso", status_code=status.HTTP_200_OK)
         
         except ErroUsuarioNaoExiste as e:
-            return Response(content=str(e), status_code=HTTPStatus.NOT_FOUND)
+            return Response(content=str(e), status_code=status.HTTP_404_NOT_FOUND)
             
         except (ErroTelefoneInvalido, ErroDadosUsuarioInvalidos, ErroDadosTelefoneInvalidos, KeyError) as e:
-            return Response(content=str(e), status_code=HTTPStatus.BAD_REQUEST)
+            return Response(content=str(e), status_code=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
             logging.exception("Erro inesperado")
-            return Response(content="Erro inesperado", status_code=HTTPStatus.INTERNAL_SERVER_ERROR)
+            return Response(content="Erro inesperado", status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
