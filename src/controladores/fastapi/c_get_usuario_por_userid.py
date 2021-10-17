@@ -1,5 +1,5 @@
 from src.interfaces.IRepoUsuario import IArmazenamento
-from src.usecases.uc_get_por_userid import UCGetPorUserId
+from src.usecases.uc_get_usuario_por_userid import UCGetUsuarioPorUserId
 from fastapi import Response, status
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_usecase import ErroIdInvalido, ErroInesperado
@@ -8,13 +8,13 @@ from fastapi.encoders import jsonable_encoder
 import logging
 
 
-class CHttpGetPorUserIdFastAPI:
+class CHttpGetUsuarioPorUserIdFastAPI:
     repo: IArmazenamento
-    uc: UCGetPorUserId
+    uc: UCGetUsuarioPorUserId
 
     def __init__(self, repo: IArmazenamento):
         self.repo = repo
-        self.uc = UCGetPorUserId(self.repo)
+        self.uc = UCGetUsuarioPorUserId(self.repo)
 
     def __call__(self, userId: int):
 

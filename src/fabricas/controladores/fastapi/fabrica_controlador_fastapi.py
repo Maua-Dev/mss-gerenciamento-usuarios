@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from src.controladores.fastapi.c_get_por_userid import CHttpGetPorUserIdFastAPI
+from src.controladores.fastapi.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
 from src.interfaces.IRepoUsuario import IArmazenamento
 from src.config.enums.fastapi import *
 from src.config.proj_config import ProjConfig
@@ -16,8 +16,8 @@ from src.controladores.fastapi.c_remover_telefone_fastapi import ControllerHTTPR
 from src.controladores.fastapi.c_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
 from src.controladores.fastapi.c_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
 from src.controladores.fastapi.c_cadastrar_usuario import ControllerHTTPCadastrarUsuario
-from src.controladores.fastapi.c_get_por_email import CHttpGetPorEmailFastAPI
-from src.controladores.fastapi.c_get_por_telefone import CHttpGetPorTelefoneFastAPI
+from src.controladores.fastapi.c_get_usuario_por_email import CHttpGetUsuarioPorEmailFastAPI
+from src.controladores.fastapi.c_get_usuario_por_telefone import CHttpGetUsuarioPorTelefoneFastAPI
 
 
 class FabricaControladorFastapi:
@@ -80,10 +80,10 @@ class FabricaControladorFastapi:
         return CDeletarUsuarioPorEmailFastAPI(self.repo)(body)
 
     def getUsuarioPorUserId(self, userId: int):
-        return CHttpGetPorUserIdFastAPI(self.repo)(userId)
+        return CHttpGetUsuarioPorUserIdFastAPI(self.repo)(userId)
 
     def getUsuarioPorEmail(self, email: str):
-        return CHttpGetPorEmailFastAPI(self.repo)(email)
+        return CHttpGetUsuarioPorEmailFastAPI(self.repo)(email)
 
     def getUsuarioPorTelefone(self, ddd: int, numero: str):
-        return CHttpGetPorTelefoneFastAPI(self.repo)(ddd, numero)
+        return CHttpGetUsuarioPorTelefoneFastAPI(self.repo)(ddd, numero)

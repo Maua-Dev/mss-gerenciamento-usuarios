@@ -1,6 +1,6 @@
 from src.interfaces.IRepoUsuario import IArmazenamento
 from src.usecases.erros.erros_usecase import ErroInesperado
-from src.usecases.uc_get_por_email import UCGetPorEmail
+from src.usecases.uc_get_usuario_por_telefone import UCGetUsuarioPorTelefone
 from fastapi import Response, status
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from fastapi.responses import JSONResponse
@@ -8,18 +8,18 @@ from fastapi.encoders import jsonable_encoder
 import logging
 
 
-class CHttpGetPorEmailFastAPI:
+class CHttpGetUsuarioPorTelefoneFastAPI:
     repo: IArmazenamento
-    uc: UCGetPorEmail
+    uc: UCGetUsuarioPorTelefone
 
     def __init__(self, repo: IArmazenamento):
         self.repo = repo
-        self.uc = UCGetPorEmail(self.repo)
+        self.uc = UCGetUsuarioPorTelefone(self.repo)
 
-    def __call__(self, email: str):
+    def __call__(self, ddd: int, numero: str):
 
         try:
-            user = self.uc(email)
+            user = self.uc(ddd, numero)
             content = jsonable_encoder(user.__dict__)
 
             return JSONResponse(content=content, status_code=status.HTTP_200_OK)

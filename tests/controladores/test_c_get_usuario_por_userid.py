@@ -1,7 +1,7 @@
 from devmaua.src.models.usuario import Usuario
 
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.controladores.fastapi.c_get_por_userid import CHttpGetPorUserIdFastAPI
+from src.controladores.fastapi.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
 import tests.mock_objetos as mo
 import json
 import pytest
@@ -14,7 +14,7 @@ class TestCGetPorUserId:
 
     repo: ArmazenamentoUsuarioVolatil
     usuario: Usuario
-    c: CHttpGetPorUserIdFastAPI
+    c: CHttpGetUsuarioPorUserIdFastAPI
 
     @pytest.fixture(autouse=True)
     def rodaAntesDepoisDosTestes(self):
@@ -23,7 +23,7 @@ class TestCGetPorUserId:
         self.repo = ArmazenamentoUsuarioVolatil()
         self.usuario = mo.mockUsuario()
         self.repo.cadastrarUsuario(self.usuario)
-        self.c = CHttpGetPorUserIdFastAPI(self.repo)
+        self.c = CHttpGetUsuarioPorUserIdFastAPI(self.repo)
 
         yield
 

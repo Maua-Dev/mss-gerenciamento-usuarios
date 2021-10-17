@@ -4,13 +4,13 @@ from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsu
 from devmaua.src.models.usuario import Usuario
 import tests.mock_objetos as mo
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
-from src.usecases.uc_get_por_email import UCGetPorEmail
+from src.usecases.uc_get_usuario_por_email import UCGetUsuarioPorEmail
 
 
 class TestUCGetPorEmail:
     armazenamento: ArmazenamentoUsuarioVolatil
     usuario: Usuario
-    uc: UCGetPorEmail
+    uc: UCGetUsuarioPorEmail
 
     @pytest.fixture(autouse=True)
     def rodaAntesDepoisDosTestes(self):
@@ -19,7 +19,7 @@ class TestUCGetPorEmail:
         self.armazenamento = ArmazenamentoUsuarioVolatil()
         self.usuario = mo.mockUsuario()
         self.armazenamento.cadastrarUsuario(self.usuario)
-        self.uc = UCGetPorEmail(self.armazenamento)
+        self.uc = UCGetUsuarioPorEmail(self.armazenamento)
 
         yield
 
