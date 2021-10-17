@@ -5,6 +5,7 @@ from devmaua.src.models.endereco import Endereco
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_endereco import ErroDadosEnderecoInvalidos
 
+from src.usecases.erros.erros_usecase import ErroInesperado
 from src.usecases.uc_editar_endereco import UCEditarEndereco
 
 from src.interfaces.IRepoUsuario import IArmazenamento
@@ -51,5 +52,5 @@ class ControllerHTTPEditarEnderecoFastAPI:
             return Response(content=str(e), status_code=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
-            logging.exception("Erro inesperado")
-            return Response(content="Erro inesperado", status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logging.exception(str(ErroInesperado()))
+            return Response(content=str(ErroInesperado()), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)

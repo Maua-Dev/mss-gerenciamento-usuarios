@@ -1,4 +1,5 @@
 from src.interfaces.IRepoUsuario import IArmazenamento
+from src.usecases.erros.erros_usecase import ErroInesperado
 from src.usecases.uc_get_por_telefone import UCGetPorTelefone
 from fastapi import Response, status
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
@@ -27,6 +28,6 @@ class CHttpGetPorTelefoneFastAPI:
             return Response(content=str(e), status_code=status.HTTP_404_NOT_FOUND)
 
         except Exception as e:
-            logging.exception("Erro inesperado")
-            return Response(content="Erro inesperado", status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logging.exception(str(ErroInesperado()))
+            return Response(content=str(ErroInesperado()), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

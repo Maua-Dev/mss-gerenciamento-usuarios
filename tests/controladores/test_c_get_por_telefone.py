@@ -6,6 +6,8 @@ import tests.mock_objetos as mo
 import json
 import pytest
 
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
+
 
 class TestCGetPorTelefone:
 
@@ -37,10 +39,10 @@ class TestCGetPorTelefone:
 
     def testErroUsuarioInvalidoErroDDD(self):
         res = self.c(13, "99999-9999")
-        assert "Usuario nao existe!" == res.body.decode()
+        assert str(ErroUsuarioNaoExiste()) == res.body.decode()
         assert res.status_code == 404
 
     def testErroUsuarioInvalidoErroNumero(self):
         res = self.c(11, "99299-9999")
-        assert "Usuario nao existe!" == res.body.decode()
+        assert str(ErroUsuarioNaoExiste()) == res.body.decode()
         assert res.status_code == 404

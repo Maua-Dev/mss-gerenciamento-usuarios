@@ -2,7 +2,7 @@ from src.interfaces.IRepoUsuario import IArmazenamento
 from src.usecases.uc_get_por_userid import UCGetPorUserId
 from fastapi import Response, status
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_usecase import ErroIdInvalido
+from src.usecases.erros.erros_usecase import ErroIdInvalido, ErroInesperado
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import logging
@@ -31,6 +31,6 @@ class CHttpGetPorUserIdFastAPI:
             return Response(content=str(e), status_code=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
-            logging.exception("Erro inesperado")
-            return Response(content="Erro inesperado", status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logging.exception(str(ErroInesperado()))
+            return Response(content=str(ErroInesperado()), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

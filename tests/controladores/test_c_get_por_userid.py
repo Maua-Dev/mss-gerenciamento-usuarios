@@ -6,6 +6,9 @@ import tests.mock_objetos as mo
 import json
 import pytest
 
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_usecase import ErroIdInvalido
+
 
 class TestCGetPorUserId:
 
@@ -37,10 +40,10 @@ class TestCGetPorUserId:
 
     def testErroUsuarioInvalido(self):
         res = self.c(1)
-        assert "Usuario nao existe!" == res.body.decode()
+        assert str(ErroUsuarioNaoExiste()) == res.body.decode()
         assert res.status_code == 404
 
     def testErroIdInvalido(self):
         res = self.c(-1)
-        assert "Id inválido" == res.body.decode()
+        assert str(ErroIdInvalido()) == res.body.decode()
         assert res.status_code == 400
