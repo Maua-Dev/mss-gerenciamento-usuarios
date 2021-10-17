@@ -4,6 +4,7 @@ from src.controladores.fastapi.c_get_usuario_por_userid import CHttpGetUsuarioPo
 from src.interfaces.IRepoUsuario import IArmazenamento
 from src.config.enums.fastapi import *
 from src.config.proj_config import ProjConfig
+from src.controladores.fastapi.roteadores.roteador import Roteador
 
 from src.controladores.fastapi.c_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
 from src.controladores.fastapi.c_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
@@ -45,6 +46,7 @@ class FabricaControladorFastapi:
         self.url = f'{self.protocolo}://{self.host}:{self.porta}{self.root}'
 
         self.app = FastAPI()
+        self.app.include_router(Roteador(self))
 
     def adicionarEmail(self, body: dict):
         return ControllerHTTPAdicionarEmailFastAPI(self.repo)(body)
