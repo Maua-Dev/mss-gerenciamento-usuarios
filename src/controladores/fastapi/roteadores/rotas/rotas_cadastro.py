@@ -10,3 +10,4 @@ class RotasCadastro(APIRouter):
         @self.post("")
         async def cadastro(request: dict):
             return _ctrl.cadastrarUsuario(request)
+

@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import JSONResponse
 
 from src.interfaces.IRepoUsuario import IArmazenamento
 from src.config.enums.fastapi import *
@@ -17,6 +19,7 @@ from src.controladores.fastapi.control_editar_telefone_fastapi import Controller
 from src.controladores.fastapi.control_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
 from src.controladores.fastapi.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
 
+from src.controladores.fastapi.middleware.middleware import add_redirect_auth
 
 class FabricaControladorFastapi:
     repo: IArmazenamento
@@ -43,7 +46,10 @@ class FabricaControladorFastapi:
         self.url = f'{self.protocolo}://{self.host}:{self.porta}{self.root}'
 
         self.app = FastAPI()
+
+        self.app.add_middleware(BaseHTTPMiddleware, dispatch=add_redirect_auth)
         self.app.include_router(Roteador(self))
+
 
     def adicionarEmail(self, body: dict):
         return ControllerHTTPAdicionarEmailFastAPI(self.repo)(body)
@@ -77,3 +83,6 @@ class FabricaControladorFastapi:
 
     def deletarUsuarioPorEmail(self, body: dict):
         return CDeletarUsuarioPorEmailFastAPI(self.repo)(body)
+
+
+
