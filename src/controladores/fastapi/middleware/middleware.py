@@ -1,9 +1,5 @@
 from fastapi import Request, Response
-import httpx
-import asyncio
-
-from starlette.responses import JSONResponse
-
+import requests
 
 async def add_redirect_auth(request: Request, call_next):
     bearer = request.headers['Authorization']  # Pegamoso header
@@ -19,10 +15,8 @@ async def add_redirect_auth(request: Request, call_next):
     return response
 
 
-
 async def _enviaParaValidar(token: str):
-    async with httpx.AsyncClient() as client:
-        task = await client.get("http://localhost:8000/validar", headers={"Authorization": "Bearer " + token})
-        return task
+    task = requests.get("http://localhost:8000/validar", headers={"Authorization": "Bearer " + token})
+    return task
 
 
