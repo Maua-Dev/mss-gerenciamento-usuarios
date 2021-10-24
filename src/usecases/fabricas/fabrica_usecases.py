@@ -1,6 +1,7 @@
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 
 from src.usecases.uc_adicionar_email import UCAdicionarEmail
+from src.usecases.uc_get_usuario_por_telefone import UCGetUsuarioPorTelefone
 from src.usecases.uc_remover_email import UCRemoverEmail
 from src.usecases.uc_editar_email import UCEditarEmail
 from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
@@ -11,6 +12,8 @@ from src.usecases.uc_remover_telefone import UCRemoverTelefone
 from src.usecases.uc_editar_telefone import UCEditarTelefone
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
+from src.usecases.uc_get_usuario_por_userid import UCGetUsuarioPorUserId
+from src.usecases.uc_get_usuario_por_email import UCGetUsuarioPorEmail
 
 
 class FabricaUsecases:
@@ -51,3 +54,12 @@ class FabricaUsecases:
 
     def deletarUsuarioPorEmail(self):
         return UCDeletarUsuarioPorEmail(self.repo)
+
+    def getUsuarioPorUserId(self):
+        return UCGetUsuarioPorUserId(self.repo)
+
+    def getUsuarioPorEmail(self):
+        return UCGetUsuarioPorEmail(self.repo)
+
+    def getUsuarioPorTelefone(self):
+        return UCGetUsuarioPorTelefone(self.repo)

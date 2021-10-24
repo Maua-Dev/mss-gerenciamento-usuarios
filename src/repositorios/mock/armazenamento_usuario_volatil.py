@@ -16,12 +16,43 @@ from devmaua.src.enum.roles import Roles
 from typing import Optional
 from datetime import date
 
-class ArmazenamentoUsuarioVolatil(IArmazenamento):
+from src.repositorios.erros.erros_armazem_volatil import ErroUsuarioNaoEncontrado
 
+
+class ArmazenamentoUsuarioVolatil(IArmazenamento):
     armazem: list[Usuario]
 
     def __init__(self):
         self.armazem = []
+
+    # TODO get usuario e idProf: não temos como linkar com <class Usuario> como está agora
+    def getUsuarioPorRA(self, ra: RA):
+        pass
+
+    def getUsuarioPorIdProfessor(self, profId: str):
+        pass
+
+    def getUsuarioPorUserId(self, userId: int):
+        try:
+            return self.armazem[userId]
+        # uso de Exception só pois é mock. Se formos mudar não importa a Exception que for dar no repo, só importa que deu algo no repo
+        #Pode ser só retornado um null dependendo da implementação do que for ser usado no normal (com db). Por isso não acho necessário se preocupar com isso
+        except Exception as e:
+            raise ErroUsuarioNaoEncontrado
+
+    def getUsuarioPorEmail(self, email: str):
+        for u in self.armazem:
+            for e in u.contato.emails:
+                if e.email == email:
+                    return u
+        raise ErroUsuarioNaoEncontrado
+
+    def getUsuarioPorTelefone(self, ddd: int, numero: str):
+        for u in self.armazem:
+            for t in u.contato.telefones:
+                if t.numero == numero and t.ddd == ddd:
+                    return u
+        raise ErroUsuarioNaoEncontrado
 
 
     def usuarioExiste(self, outro_usuario: Usuario):
@@ -32,15 +63,6 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento):
 
     def cadastrarUsuario(self, usuario: Usuario):
         self.armazem.append(usuario)
-
-
-    def getUsuario(self, ra: RA):
-        pass
-
-
-    def logarUsuario(self, login: str, senha: str):
-        pass
-
     
     def adicionarTelefone(self, usuario: Usuario, telefone: Telefone):
         u = [u for u in self.armazem if (u.nome == usuario.nome and u.nascimento == usuario.nascimento)]

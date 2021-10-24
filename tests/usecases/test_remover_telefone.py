@@ -18,7 +18,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.usecases.uc_remover_telefone import UCRemoverTelefone
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarTelefoneUnico
 
 
@@ -82,7 +82,7 @@ class TestRemoverTelefone:
         usuario = self.mockUsuario()
         telefone = self.mockTelefone()
         
-        with pytest.raises(ErroUsuarioInvalido):
+        with pytest.raises(ErroUsuarioNaoExiste):
             removerTelefone(usuario, telefone)
             
     def test_erro_telefone_invalido(self):

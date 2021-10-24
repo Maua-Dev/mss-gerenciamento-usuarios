@@ -17,7 +17,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
 
 
@@ -76,7 +76,7 @@ class TestAdicionarEndereco:
         usuario = self.mockUsuario()
         endereco = self.mockEndereco()
         
-        with pytest.raises(ErroUsuarioInvalido):
+        with pytest.raises(ErroUsuarioNaoExiste):
             adicionarEndereco(usuario, endereco)
             
     def test_erro_telefone_invalido(self):

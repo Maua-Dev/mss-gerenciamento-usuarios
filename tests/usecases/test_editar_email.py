@@ -18,7 +18,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 from src.usecases.uc_editar_email import UCEditarEmail
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoEmailFaculdade
 
 
@@ -90,7 +90,7 @@ class TestEditarEmail:
         tipo = None
         prioridade = 2
         
-        with pytest.raises(ErroUsuarioInvalido):
+        with pytest.raises(ErroUsuarioNaoExiste):
             editorEmail(usuario, email, email_novo, tipo, prioridade)
             
     def test_erro_email_invalido(self):

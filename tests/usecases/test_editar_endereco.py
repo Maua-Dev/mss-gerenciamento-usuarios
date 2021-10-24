@@ -17,7 +17,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_editar_endereco import UCEditarEndereco
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
 
 
@@ -94,7 +94,7 @@ class TestEditarEndereco:
         complemento = 'atras da rua tal'
         tipo = TipoEndereco.RESIDENCIAL
         
-        with pytest.raises(ErroUsuarioInvalido):
+        with pytest.raises(ErroUsuarioNaoExiste):
             editorEndereco(usuario, endereco, logradouro, numero, cep, complemento, tipo)
         
     def test_erro_endereco_invalido(self):

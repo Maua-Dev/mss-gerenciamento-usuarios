@@ -4,7 +4,7 @@ from devmaua.src.models.usuario import Usuario
 from src.interfaces.IRepoUsuario import IArmazenamento
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
 
 class UCAdicionarEmail():
@@ -16,7 +16,7 @@ class UCAdicionarEmail():
         
     def __call__(self, usuario: Usuario, email: Email):
         if not(self.alteracaoInfosCadastro.usuarioExiste(usuario)):
-            raise ErroUsuarioInvalido
+            raise ErroUsuarioNaoExiste
         
         if email == None:
             raise ErroEmailInvalido

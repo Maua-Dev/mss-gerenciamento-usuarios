@@ -1,21 +1,24 @@
 from fastapi import FastAPI
 
+from src.controladores.fastapi.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
 from src.interfaces.IRepoUsuario import IArmazenamento
 from src.config.enums.fastapi import *
 from src.config.proj_config import ProjConfig
 from src.controladores.fastapi.roteadores.roteador import Roteador
 
-from src.controladores.fastapi.control_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
-from src.controladores.fastapi.control_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
-from src.controladores.fastapi.control_editar_email_fastapi import ControllerHTTPEditarEmailFastAPI
-from src.controladores.fastapi.control_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
-from src.controladores.fastapi.control_remover_endereco_fastapi import ControllerHTTPRemoverEnderecoFastAPI
-from src.controladores.fastapi.control_editar_endereco_fastapi import ControllerHTTPEditarEnderecoFastAPI
-from src.controladores.fastapi.control_adicionar_telefone_fastapi import ControllerHTTPAdicionarTelefoneFastAPI
-from src.controladores.fastapi.control_remover_telefone_fastapi import ControllerHTTPRemoverTelefoneFastAPI
-from src.controladores.fastapi.control_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
-from src.controladores.fastapi.control_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
-from src.controladores.fastapi.control_cadastrar_usuario import ControllerHTTPCadastrarUsuario
+from src.controladores.fastapi.c_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
+from src.controladores.fastapi.c_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
+from src.controladores.fastapi.c_editar_email_fastapi import ControllerHTTPEditarEmailFastAPI
+from src.controladores.fastapi.c_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
+from src.controladores.fastapi.c_remover_endereco_fastapi import ControllerHTTPRemoverEnderecoFastAPI
+from src.controladores.fastapi.c_editar_endereco_fastapi import ControllerHTTPEditarEnderecoFastAPI
+from src.controladores.fastapi.c_adicionar_telefone_fastapi import ControllerHTTPAdicionarTelefoneFastAPI
+from src.controladores.fastapi.c_remover_telefone_fastapi import ControllerHTTPRemoverTelefoneFastAPI
+from src.controladores.fastapi.c_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
+from src.controladores.fastapi.c_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
+from src.controladores.fastapi.c_cadastrar_usuario import ControllerHTTPCadastrarUsuario
+from src.controladores.fastapi.c_get_usuario_por_email import CHttpGetUsuarioPorEmailFastAPI
+from src.controladores.fastapi.c_get_usuario_por_telefone import CHttpGetUsuarioPorTelefoneFastAPI
 
 
 class FabricaControladorFastapi:
@@ -77,3 +80,12 @@ class FabricaControladorFastapi:
 
     def deletarUsuarioPorEmail(self, body: dict):
         return CDeletarUsuarioPorEmailFastAPI(self.repo)(body)
+
+    def getUsuarioPorUserId(self, userId: int):
+        return CHttpGetUsuarioPorUserIdFastAPI(self.repo)(userId)
+
+    def getUsuarioPorEmail(self, email: str):
+        return CHttpGetUsuarioPorEmailFastAPI(self.repo)(email)
+
+    def getUsuarioPorTelefone(self, ddd: int, numero: str):
+        return CHttpGetUsuarioPorTelefoneFastAPI(self.repo)(ddd, numero)

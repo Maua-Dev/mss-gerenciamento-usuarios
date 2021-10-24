@@ -14,22 +14,47 @@ from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_email import TipoEmail
 
 
-
-
 class IArmazenamento(ABC):
     """"
     Interface com os métodos necessários para o gerenciamento de usuários
     """
+
+# ================ Getters ================
     @abstractmethod
-    def getUsuario(self, ra: RA):
+    def getUsuarioPorRA(self, ra: RA):
         pass
+
+    @abstractmethod
+    def getUsuarioPorIdProfessor(self, id:  str):
+        pass
+
+# User id não é propriedade de <class Usuario>, dependeria se fosse usada uma db relacional
+    @abstractmethod
+    def getUsuarioPorUserId(self, id: int):
+        pass
+
+# <class Email> não foi usada pois email é um identificador único-> só precisamos que o Email.email seja imputado
+    @abstractmethod
+    def getUsuarioPorEmail(self, email: str):
+        """ Getter com email principal """
+        pass
+
+# <class Telefone> possui informações não necessárias. DDD e número são as únicas informações necessárias
+# Do jeito que está não conseguimos aproveitar a validação de pydantic pq prioridade e tipo sao obrigatorios
+    #TODO: considerar alterar model telefone -> O que define um telefone nao é prioridade e tipo (nao tem validacao disso)
+    @abstractmethod
+    def getUsuarioPorTelefone(self, ddd: int, numero: str):
+        """ getter com telefone principal - A requisição precisa conter DDD e número de telefone"""
+        pass
+
+    @abstractmethod
+    def getUsuarioPorNomeENascimento(self, nome: str, nascimento: date):
+        """ Busca um usuario pelo nome e data de nascimento """
+        pass
+# =========================================
 
     @abstractmethod
     def cadastrarUsuario(self, usuario: Usuario):
-        pass
-
-    @abstractmethod
-    def logarUsuario(self, login: str, senha: str):
         pass
 
     @abstractmethod
@@ -114,7 +139,4 @@ class IArmazenamento(ABC):
         """ Retorna se um usuario existe """
         pass
 
-    @abstractmethod
-    def getUsuarioPorNomeENascimento(self, nome: str, nascimento: date):
-        """ Busca um usuario pelo nome e data de nascimento """
-        pass
+

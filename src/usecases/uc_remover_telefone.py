@@ -4,7 +4,7 @@ from devmaua.src.models.usuario import Usuario
 from src.interfaces.IRepoUsuario import IArmazenamento
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarTelefoneUnico
 
 
@@ -17,7 +17,7 @@ class UCRemoverTelefone():
         
     def __call__(self, usuario: Usuario, telefone: Telefone):
         if not(self.alteracaoInfosCadastro.usuarioExiste(usuario)):
-            raise ErroUsuarioInvalido
+            raise ErroUsuarioNaoExiste
         
         if telefone == None or telefone not in usuario.contato.telefones:
             raise ErroTelefoneInvalido
