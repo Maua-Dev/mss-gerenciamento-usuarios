@@ -2,8 +2,9 @@ from src.controladores.fastapi.c_deletar_usuario_por_email_fastapi import CDelet
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
-
 from devmaua.src.models.usuario import Usuario
+
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
 
 class TestControllerDeletarUsuarioPorEmailFastAPI():
@@ -72,5 +73,5 @@ class TestControllerDeletarUsuarioPorEmailFastAPI():
                     "email": "teste@teste.com"
                }
         response = controllerDeletarUsuarioPorEmail(body = body)
-        assert response.body == b"<class 'src.usecases.erros.erros_uc_alteracao_info_cadastro.ErroUsuarioInvalido'>"
-        assert response.status_code == 400
+        assert response.body.decode() == str(ErroUsuarioNaoExiste())
+        assert response.status_code == 404

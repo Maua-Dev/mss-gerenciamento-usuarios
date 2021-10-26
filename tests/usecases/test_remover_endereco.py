@@ -17,7 +17,7 @@ from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.uc_remover_endereco import UCRemoverEndereco
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEnderecoUnico
 
@@ -82,7 +82,7 @@ class TestRemoverEndereco:
         usuario = self.mockUsuario()
         endereco = self.mockEndereco()
         
-        with pytest.raises(ErroUsuarioInvalido):
+        with pytest.raises(ErroUsuarioNaoExiste):
             removerEndereco(usuario, endereco)
             
     def test_erro_endereco_invalido(self):

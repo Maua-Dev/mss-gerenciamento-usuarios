@@ -1,38 +1,35 @@
-from devmaua.src.models.usuario import Usuario
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.usuario import Usuario
-from fastapi import Response
+from fastapi import Response, status
 
 from src.interfaces.IRepoUsuario import IArmazenamento
 
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
+from src.usecases.erros.erros_usecase import ErroInesperado
 
-from src.controladores.fastapi.enums.status_code import STATUS_CODE
+import logging
 
 
-class ControllerHTTPCadastrarUsuario():
-
+class ControllerHTTPCadastrarUsuario:
     repo: IArmazenamento
+    uc: UCCadastrarUsuario
 
     def __init__(self, repo: IArmazenamento):
         self.repo = repo
+        self.uc = UCCadastrarUsuario(self.repo)
 
     def __call__(self, body: dict):
 
         try:
-            cadastrarUsuarioUC = UCCadastrarUsuario(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body)
-            cadastrarUsuarioUC(usuario)
-            response = Response(content="Usuario criado com sucesso", status_code=STATUS_CODE.OK.value)
+            self.uc(usuario)
 
-        except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
+            return Response(content="Usuário criado com sucesso", status_code=status.HTTP_200_OK)
 
-        except ErroUsuarioExiste:
-            response = Response(content=str(ErroUsuarioExiste), status_code=STATUS_CODE.BAD_REQUEST.value)
+        except (ErroDadosUsuarioInvalidos, ErroUsuarioExiste) as e:
+            return Response(content=str(e), status_code=status.HTTP_400_BAD_REQUEST)
 
-        return response
-
-
-
+        except Exception as e:
+            logging.exception(str(ErroInesperado()))
+            return Response(content=str(ErroInesperado()), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)

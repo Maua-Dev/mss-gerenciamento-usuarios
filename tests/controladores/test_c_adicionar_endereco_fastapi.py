@@ -1,5 +1,9 @@
+from devmaua.src.models.erros.erro_endereco import ErroDadosEnderecoInvalidos
+from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
+
 from src.controladores.fastapi.c_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
@@ -85,8 +89,8 @@ class TestControllerAdicionarEnderecoFastAPI():
                 "endereco": endereco            
                 }
         response = controllerAdicionarEnderecoFastAPI(body = body)
-        assert response.body == b"<class 'src.usecases.erros.erros_uc_alteracao_info_cadastro.ErroUsuarioInvalido'>"
-        assert response.status_code == 400
+        assert response.body.decode() == str(ErroUsuarioNaoExiste())
+        assert response.status_code == 404
         
     def test_erro_endereco_vazio(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
@@ -99,7 +103,7 @@ class TestControllerAdicionarEnderecoFastAPI():
                 "endereco": None            
                 }
         response = controllerAdicionarEnderecoFastAPI(body = body)
-        assert response.body == b"<class 'devmaua.src.models.erros.erro_endereco.ErroDadosEnderecoInvalidos'>"
+        assert response.body.decode() == str(ErroDadosEnderecoInvalidos())
         assert response.status_code == 400
         
     def test_erro_usuario_vazio(self):
@@ -113,5 +117,5 @@ class TestControllerAdicionarEnderecoFastAPI():
                 "endereco": endereco            
                 }
         response = controllerAdicionarEnderecoFastAPI(body = body)
-        assert response.body == b"<class 'devmaua.src.models.erros.erro_usuario.ErroDadosUsuarioInvalidos'>"
+        assert response.body.decode() == str(ErroDadosUsuarioInvalidos())
         assert response.status_code == 400

@@ -1,3 +1,4 @@
+
 # This is a basic workflow to help you get started with Actions
 
 name: CD
@@ -11,6 +12,8 @@ jobs:
   deploy-to-aws:
 
     runs-on: ubuntu-latest
+    outputs:
+        registry: ${{ steps.login-ecr.outputs.registry }}
     steps:
       - uses: actions/checkout@v2
       
@@ -66,10 +69,10 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          targets: ${{ secrets.TARGETS }}
+          targets: '[{ "Key": "tag:Tipo", "Values": ["Cluster"] }]'
 
-          working-directory: /home/ubuntu
-          command: sudo docker pull ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}; sudo docker service update --force ger; docker exec $(docker ps -q -f name=ger) uvicorn src.main:app --host 0.0.0.0 --port 8081
+          working-directory: /home/ubuntu/mauaDevMss
+          command: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }};docker stack deploy --compose-file compose.yml --with-registry-auth stack
           comment: atualizar imagem
           
           
@@ -77,3 +80,6 @@ jobs:
       # Catch SSM outputs
       - name: Get the outputs
         run: echo "The Command id is ${{ steps.ssm.outputs.command-id }}"
+
+
+

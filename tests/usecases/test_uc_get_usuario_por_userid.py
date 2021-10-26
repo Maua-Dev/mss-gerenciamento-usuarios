@@ -3,15 +3,15 @@ import pytest
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from devmaua.src.models.usuario import Usuario
 import tests.mock_objetos as mo
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_usecase import ErroIdInvalido
-from src.usecases.uc_get_por_userid import UCGetPorUserId
+from src.usecases.uc_get_usuario_por_userid import UCGetUsuarioPorUserId
 
 
 class TestUCGetPorUserId:
     armazenamento: ArmazenamentoUsuarioVolatil
     usuario: Usuario
-    uc: UCGetPorUserId
+    uc: UCGetUsuarioPorUserId
 
     @pytest.fixture(autouse=True)
     def rodaAntesDepoisDosTestes(self):
@@ -20,7 +20,7 @@ class TestUCGetPorUserId:
         self.armazenamento = ArmazenamentoUsuarioVolatil()
         self.usuario = mo.mockUsuario()
         self.armazenamento.cadastrarUsuario(self.usuario)
-        self.uc = UCGetPorUserId(self.armazenamento)
+        self.uc = UCGetUsuarioPorUserId(self.armazenamento)
 
         yield
 
@@ -30,7 +30,7 @@ class TestUCGetPorUserId:
         assert self.uc(0) == self.usuario
 
     def testErroUsuarioInvalido(self):
-        with pytest.raises(ErroUsuarioInvalido):
+        with pytest.raises(ErroUsuarioNaoExiste):
             self.uc(1)
 
     def testErroIdInvalido(self):

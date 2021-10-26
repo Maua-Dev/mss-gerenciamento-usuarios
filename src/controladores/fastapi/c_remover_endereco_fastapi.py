@@ -1,26 +1,28 @@
-from fastapi import Response
+from fastapi import Response, status
 
 from devmaua.src.models.usuario import Usuario
 from devmaua.src.models.endereco import Endereco
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_endereco import ErroDadosEnderecoInvalidos
 
+from src.usecases.erros.erros_usecase import ErroInesperado
 from src.usecases.uc_remover_endereco import UCRemoverEndereco
 
 from src.interfaces.IRepoUsuario import IArmazenamento
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
-from src.controladores.fastapi.enums.status_code import STATUS_CODE
+import logging
 
 
-class ControllerHTTPRemoverEnderecoFastAPI():
-
+class ControllerHTTPRemoverEnderecoFastAPI:
     repo: IArmazenamento
+    uc: UCRemoverEndereco
 
     def __init__(self, repo: IArmazenamento):
         self.repo = repo
+        self.uc = UCRemoverEndereco(self.repo)
 
     def __call__(self, body: dict):
         """ Estrutura do body:
@@ -32,26 +34,19 @@ class ControllerHTTPRemoverEnderecoFastAPI():
         """
         
         try:
-            removerEnderecoUC = UCRemoverEndereco(self.repo)
             usuario = Usuario.criarUsuarioPorDict(body['usuario'])
             endereco = Endereco.criarEnderecoPorDict(body['endereco'])
             
-            removerEnderecoUC(usuario, endereco)
-            response = Response(content="Endereco removido com sucesso", status_code=STATUS_CODE.OK.value)
+            self.uc(usuario, endereco)
+
+            return Response(content="Endereco removido com sucesso", status_code=status.HTTP_200_OK)
         
-        except ErroUsuarioInvalido:
-            response = Response(content=str(ErroUsuarioInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
+        except ErroUsuarioNaoExiste as e:
+            return Response(content=str(e), status_code=status.HTTP_404_NOT_FOUND)
             
-        except ErroEnderecoInvalido:
-            response = Response(content=str(ErroEnderecoInvalido), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroDadosUsuarioInvalidos:
-            response = Response(content=str(ErroDadosUsuarioInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except ErroDadosEnderecoInvalidos:
-            response = Response(content=str(ErroDadosEnderecoInvalidos), status_code=STATUS_CODE.BAD_REQUEST.value)
-            
-        except KeyError:
-            response = Response(content=str(KeyError), status_code=STATUS_CODE.BAD_REQUEST.value)
-                        
-        return response
+        except (ErroEnderecoInvalido, ErroDadosUsuarioInvalidos, ErroDadosEnderecoInvalidos, KeyError) as e:
+            return Response(content=str(e), status_code=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            logging.exception(str(ErroInesperado()))
+            return Response(content=str(ErroInesperado()), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)

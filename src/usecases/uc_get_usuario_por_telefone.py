@@ -1,8 +1,8 @@
 from src.interfaces.IRepoUsuario import IArmazenamento
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
 
-class UCGetPorTelefone:
+class UCGetUsuarioPorTelefone:
     usuarioRepo: IArmazenamento
 
     def __init__(self, usuarioRepo: IArmazenamento):
@@ -13,4 +13,4 @@ class UCGetPorTelefone:
         try:
             return self.usuarioRepo.getUsuarioPorTelefone(ddd, numero)
         except:
-            raise ErroUsuarioInvalido
+            raise ErroUsuarioNaoExiste

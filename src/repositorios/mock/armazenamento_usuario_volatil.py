@@ -35,6 +35,8 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento):
     def getUsuarioPorUserId(self, userId: int):
         try:
             return self.armazem[userId]
+        # uso de Exception só pois é mock. Se formos mudar não importa a Exception que for dar no repo, só importa que deu algo no repo
+        #Pode ser só retornado um null dependendo da implementação do que for ser usado no normal (com db). Por isso não acho necessário se preocupar com isso
         except Exception as e:
             raise ErroUsuarioNaoEncontrado
 
