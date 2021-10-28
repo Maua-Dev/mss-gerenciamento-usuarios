@@ -7,7 +7,7 @@ from devmaua.src.models.erros.erro_email import ErroDadosEmailInvalidos
 
 from src.usecases.uc_adicionar_email import UCAdicionarEmail
 
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
@@ -18,10 +18,10 @@ import logging
 
 class ControllerHTTPAdicionarEmailFastAPI:
 
-    repo: IArmazenamento
+    repo: IArmazenamentoUsuario
     uc: UCAdicionarEmail
 
-    def __init__(self, repo: IArmazenamento):
+    def __init__(self, repo: IArmazenamentoUsuario):
         self.repo = repo
         self.uc = UCAdicionarEmail(self.repo)
     

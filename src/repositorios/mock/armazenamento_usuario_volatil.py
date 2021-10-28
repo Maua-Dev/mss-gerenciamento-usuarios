@@ -1,7 +1,7 @@
 from devmaua.src.models.ra import RA
 from devmaua.src.models.usuario import Usuario
 
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
 from devmaua.src.models.telefone import Telefone        
 from devmaua.src.models.email import Email
@@ -19,7 +19,7 @@ from datetime import date
 from src.repositorios.erros.erros_armazem_volatil import ErroUsuarioNaoEncontrado
 
 
-class ArmazenamentoUsuarioVolatil(IArmazenamento):
+class ArmazenamentoUsuarioVolatil(IArmazenamentoUsuario):
     armazem: list[Usuario]
 
     def __init__(self):

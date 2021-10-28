@@ -8,7 +8,7 @@ from devmaua.src.models.erros.erro_telefone import ErroDadosTelefoneInvalidos
 from src.usecases.erros.erros_usecase import ErroInesperado
 from src.usecases.uc_editar_telefone import UCEditarTelefone
 
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
@@ -17,10 +17,10 @@ import logging
 
 
 class ControllerHTTPEditarTelefoneFastAPI:
-    repo: IArmazenamento
+    repo: IArmazenamentoUsuario
     uc: UCEditarTelefone
 
-    def __init__(self, repo: IArmazenamento):
+    def __init__(self, repo: IArmazenamentoUsuario):
         self.repo = repo
         self.uc = UCEditarTelefone(self.repo)
     

@@ -14,7 +14,8 @@ from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_email import TipoEmail
 
 
-class IArmazenamento(ABC):
+class IArmazenamentoUsuario(ABC):
+
     """"
     Interface com os métodos necessários para o gerenciamento de usuários
     """
@@ -55,10 +56,6 @@ class IArmazenamento(ABC):
 
     @abstractmethod
     def cadastrarUsuario(self, usuario: Usuario):
-        pass
-
-    @abstractmethod
-    def usuarioExiste(self, usuario_outro: Usuario):
         pass
 
     @abstractmethod

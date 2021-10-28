@@ -1,14 +1,14 @@
 from devmaua.src.models.usuario import Usuario
 
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 
 
 class UCCadastrarUsuario():
 
-    usuariosRepo: IArmazenamento
+    usuariosRepo: IArmazenamentoUsuario
 
-    def __init__(self, usuariosRepo: IArmazenamento):
+    def __init__(self, usuariosRepo: IArmazenamentoUsuario):
         self.usuariosRepo = usuariosRepo
 
     def __call__(self, usuario: Usuario):

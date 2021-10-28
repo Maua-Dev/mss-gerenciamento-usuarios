@@ -2,7 +2,7 @@ from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.usuario import Usuario
 from fastapi import Response, status
 
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
@@ -12,10 +12,10 @@ import logging
 
 
 class ControllerHTTPCadastrarUsuario:
-    repo: IArmazenamento
+    repo: IArmazenamentoUsuario
     uc: UCCadastrarUsuario
 
-    def __init__(self, repo: IArmazenamento):
+    def __init__(self, repo: IArmazenamentoUsuario):
         self.repo = repo
         self.uc = UCCadastrarUsuario(self.repo)
 

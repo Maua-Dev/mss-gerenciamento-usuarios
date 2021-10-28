@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from src.controladores.fastapi.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 from src.config.enums.fastapi import *
 from src.config.proj_config import ProjConfig
 from src.controladores.fastapi.roteadores.roteador import Roteador
@@ -22,7 +22,7 @@ from src.controladores.fastapi.c_get_usuario_por_telefone import CHttpGetUsuario
 
 
 class FabricaControladorFastapi:
-    repo: IArmazenamento
+    repo: IArmazenamentoUsuario
 
     __config__: dict
 
@@ -34,7 +34,7 @@ class FabricaControladorFastapi:
 
     app: FastAPI
 
-    def __init__(self, repo: IArmazenamento):
+    def __init__(self, repo: IArmazenamentoUsuario):
         self.repo = repo
 
         self.__config__ = ProjConfig.getFastapi()

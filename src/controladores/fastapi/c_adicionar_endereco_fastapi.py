@@ -7,7 +7,7 @@ from devmaua.src.models.erros.erro_endereco import ErroDadosEnderecoInvalidos
 
 from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
 
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
@@ -17,10 +17,10 @@ import logging
 
 
 class ControllerHTTPAdicionarEnderecoFastAPI:
-    repo: IArmazenamento
+    repo: IArmazenamentoUsuario
     uc: UCAdicionarEndereco
 
-    def __init__(self, repo: IArmazenamento):
+    def __init__(self, repo: IArmazenamentoUsuario):
         self.repo = repo
         self.uc = UCAdicionarEndereco(self.repo)
     

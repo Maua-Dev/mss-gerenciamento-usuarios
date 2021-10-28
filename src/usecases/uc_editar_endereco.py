@@ -3,7 +3,7 @@ from devmaua.src.models.usuario import Usuario
 
 from devmaua.src.enum.tipo_endereco import TipoEndereco
 
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
@@ -13,9 +13,9 @@ from typing import Optional
 
 class UCEditarEndereco():
     
-    alteracaoInfosCadastro: IArmazenamento
+    alteracaoInfosCadastro: IArmazenamentoUsuario
     
-    def __init__(self, alteracaoInfosCadastro: IArmazenamento):
+    def __init__(self, alteracaoInfosCadastro: IArmazenamentoUsuario):
         self.alteracaoInfosCadastro = alteracaoInfosCadastro
         
     def __call__(self, usuario: Usuario, endereco: Endereco, logradouro: Optional[str], numero: Optional[int], cep: Optional[str], complemento: Optional[str], tipo: Optional[TipoEndereco]):

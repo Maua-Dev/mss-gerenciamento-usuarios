@@ -1,4 +1,4 @@
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 from src.usecases.erros.erros_usecase import ErroInesperado
 from src.usecases.uc_get_usuario_por_email import UCGetUsuarioPorEmail
 from fastapi import Response, status
@@ -9,10 +9,10 @@ import logging
 
 
 class CHttpGetUsuarioPorEmailFastAPI:
-    repo: IArmazenamento
+    repo: IArmazenamentoUsuario
     uc: UCGetUsuarioPorEmail
 
-    def __init__(self, repo: IArmazenamento):
+    def __init__(self, repo: IArmazenamentoUsuario):
         self.repo = repo
         self.uc = UCGetUsuarioPorEmail(self.repo)
 

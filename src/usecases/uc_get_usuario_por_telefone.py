@@ -1,11 +1,11 @@
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
 
 class UCGetUsuarioPorTelefone:
-    usuarioRepo: IArmazenamento
+    usuarioRepo: IArmazenamentoUsuario
 
-    def __init__(self, usuarioRepo: IArmazenamento):
+    def __init__(self, usuarioRepo: IArmazenamentoUsuario):
         self.usuarioRepo = usuarioRepo
 
     def __call__(self, ddd: int, numero: str):

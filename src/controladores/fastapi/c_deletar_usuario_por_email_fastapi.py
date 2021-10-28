@@ -3,7 +3,7 @@ from fastapi import Response, status
 from src.usecases.erros.erros_usecase import ErroInesperado
 from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
@@ -11,10 +11,10 @@ import logging
 
 
 class CDeletarUsuarioPorEmailFastAPI:
-    repo: IArmazenamento
+    repo: IArmazenamentoUsuario
     uc: UCDeletarUsuarioPorEmail
 
-    def __init__(self, repo: IArmazenamento):
+    def __init__(self, repo: IArmazenamentoUsuario):
         self.repo = repo
         self.uc = UCDeletarUsuarioPorEmail(self.repo)
     

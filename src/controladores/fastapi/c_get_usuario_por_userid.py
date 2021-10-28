@@ -1,4 +1,4 @@
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 from src.usecases.uc_get_usuario_por_userid import UCGetUsuarioPorUserId
 from fastapi import Response, status
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
@@ -9,10 +9,10 @@ import logging
 
 
 class CHttpGetUsuarioPorUserIdFastAPI:
-    repo: IArmazenamento
+    repo: IArmazenamentoUsuario
     uc: UCGetUsuarioPorUserId
 
-    def __init__(self, repo: IArmazenamento):
+    def __init__(self, repo: IArmazenamentoUsuario):
         self.repo = repo
         self.uc = UCGetUsuarioPorUserId(self.repo)
 
