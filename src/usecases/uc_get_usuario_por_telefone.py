@@ -1,3 +1,5 @@
+from devmaua.src.models.usuario import Usuario
+
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
@@ -8,7 +10,7 @@ class UCGetUsuarioPorTelefone:
     def __init__(self, usuarioRepo: IArmazenamentoUsuario):
         self.usuarioRepo = usuarioRepo
 
-    def __call__(self, ddd: int, numero: str):
+    def __call__(self, ddd: int, numero: str) -> Usuario:
         #Erro é re-levantado pois repo pode ser alterado
         try:
             return self.usuarioRepo.getUsuarioPorTelefone(ddd, numero)

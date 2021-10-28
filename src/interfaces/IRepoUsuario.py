@@ -31,12 +31,12 @@ class IArmazenamentoUsuario(ABC):
 
 # User id não é propriedade de <class Usuario>, dependeria se fosse usada uma db relacional
     @abstractmethod
-    def getUsuarioPorUserId(self, id: int):
+    def getUsuarioPorUserId(self, id: int) -> Usuario:
         pass
 
 # <class Email> não foi usada pois email é um identificador único-> só precisamos que o Email.email seja imputado
     @abstractmethod
-    def getUsuarioPorEmail(self, email: str):
+    def getUsuarioPorEmail(self, email: str) -> Usuario:
         """ Getter com email principal """
         pass
 
@@ -44,7 +44,7 @@ class IArmazenamentoUsuario(ABC):
 # Do jeito que está não conseguimos aproveitar a validação de pydantic pq prioridade e tipo sao obrigatorios
     #TODO: considerar alterar model telefone -> O que define um telefone nao é prioridade e tipo (nao tem validacao disso)
     @abstractmethod
-    def getUsuarioPorTelefone(self, ddd: int, numero: str):
+    def getUsuarioPorTelefone(self, ddd: int, numero: str) -> Usuario:
         """ getter com telefone principal - A requisição precisa conter DDD e número de telefone"""
         pass
 

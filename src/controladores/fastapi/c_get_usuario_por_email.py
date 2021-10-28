@@ -28,6 +28,6 @@ class CHttpGetUsuarioPorEmailFastAPI:
             return Response(content=str(e), status_code=status.HTTP_404_NOT_FOUND)
 
         except Exception as e:
-            logging.exception(str(ErroInesperado()))
+            logging.exception(f"{str(ErroInesperado())}:{str(e)}")
             return Response(content=str(ErroInesperado()), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

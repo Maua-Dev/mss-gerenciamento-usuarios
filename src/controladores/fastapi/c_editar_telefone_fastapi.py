@@ -25,6 +25,7 @@ class ControllerHTTPEditarTelefoneFastAPI:
         self.uc = UCEditarTelefone(self.repo)
     
     def __call__(self, body: dict):
+
         """ Estrutura do body:
             {
                 "usuario": dict de usuario,
@@ -51,5 +52,5 @@ class ControllerHTTPEditarTelefoneFastAPI:
             return Response(content=str(e), status_code=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
-            logging.exception(str(ErroInesperado()))
+            logging.exception(f"{str(ErroInesperado())}:{str(e)}")
             return Response(content=str(ErroInesperado()), status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
