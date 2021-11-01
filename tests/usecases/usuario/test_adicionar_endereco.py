@@ -13,14 +13,15 @@ from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
+from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
-from src.usecases.uc_adicionar_telefone import UCAdicionarTelefone
+from src.usecases.usuario.uc_adicionar_endereco import UCAdicionarEndereco
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
 
-class TestAdicionarTelefone:
+
+class TestAdicionarEndereco:
     
     def mockUsuario(self) -> Usuario:
         email = Email(email='teste@teste.com',
@@ -43,11 +44,11 @@ class TestAdicionarTelefone:
                            nascimento= datetime.date(1999, 2, 23),
                            roles=[Roles.ALUNO])
         
-    def mockTelefone(self) -> Telefone:
-        return Telefone(tipo=TipoTelefone.TRABALHO,
-                       numero='2222-2222',
-                       ddd=11,
-                       prioridade=3)
+    def mockEndereco(self) -> Endereco:
+        return Endereco(logradouro='outra rua',
+                       numero=210,
+                       cep='00000-098',
+                       tipo=TipoEndereco.TRABALHO)
         
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
         armazenamentoUsuarioVolatil = ArmazenamentoUsuarioVolatil()
@@ -56,36 +57,36 @@ class TestAdicionarTelefone:
         cadastrador(usuario)
         return armazenamentoUsuarioVolatil
         
-    def test_adicionar_telefone(self):
+    def test_adicionar_endereco(self):
         armazenamentoUsuarioVolatil = self.mockRepositorio()
-        addEmail = UCAdicionarTelefone(armazenamentoUsuarioVolatil)
+        adicionarEndereco = UCAdicionarEndereco(armazenamentoUsuarioVolatil)
         
         usuario = self.mockUsuario()
-        telefone = self.mockTelefone()
+        endereco = self.mockEndereco()
                 
-        addEmail(usuario, telefone)
+        adicionarEndereco(usuario, endereco)
         
-        assert telefone in armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.telefones
-        assert armazenamentoUsuarioVolatil.quantidadeTelefones(armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 2
+        assert endereco in armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.enderecos
+        assert armazenamentoUsuarioVolatil.quantidadeEnderecos(armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 2
         
     def test_erro_usuario_inexistente(self):
         armazenamentoUsuarioVolatil = ArmazenamentoUsuarioVolatil()
-        addEmail = UCAdicionarTelefone(armazenamentoUsuarioVolatil)
+        adicionarEndereco = UCAdicionarEndereco(armazenamentoUsuarioVolatil)
         
         usuario = self.mockUsuario()
-        telefone = self.mockTelefone()
+        endereco = self.mockEndereco()
         
         with pytest.raises(ErroUsuarioNaoExiste):
-            addEmail(usuario, telefone)
+            adicionarEndereco(usuario, endereco)
             
     def test_erro_telefone_invalido(self):
         armazenamentoUsuarioVolatil = self.mockRepositorio()
-        addEmail = UCAdicionarTelefone(armazenamentoUsuarioVolatil)
+        adicionarEndereco = UCAdicionarEndereco(armazenamentoUsuarioVolatil)
         
         usuario = self.mockUsuario()
-        telefone = None
+        endereco = None
         
-        with pytest.raises(ErroTelefoneInvalido):
-            addEmail(usuario, telefone)
-        
+        with pytest.raises(ErroEnderecoInvalido):
+            adicionarEndereco(usuario, endereco)
+            
         

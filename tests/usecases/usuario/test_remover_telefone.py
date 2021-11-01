@@ -13,9 +13,9 @@ from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
+from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
-from src.usecases.uc_remover_telefone import UCRemoverTelefone
+from src.usecases.usuario.uc_remover_telefone import UCRemoverTelefone
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste

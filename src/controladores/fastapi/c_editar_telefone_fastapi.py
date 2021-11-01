@@ -6,7 +6,7 @@ from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_telefone import ErroDadosTelefoneInvalidos
 
 from src.usecases.erros.erros_usecase import ErroInesperado
-from src.usecases.uc_editar_telefone import UCEditarTelefone
+from src.usecases.usuario.uc_editar_telefone import UCEditarTelefone
 
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 

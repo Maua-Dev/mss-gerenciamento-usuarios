@@ -13,15 +13,14 @@ from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
+from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
-from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
+from src.usecases.usuario.uc_adicionar_email import UCAdicionarEmail
 
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
 
-
-class TestAdicionarEndereco:
+class TestAdicionarEmail:
     
     def mockUsuario(self) -> Usuario:
         email = Email(email='teste@teste.com',
@@ -44,49 +43,48 @@ class TestAdicionarEndereco:
                            nascimento= datetime.date(1999, 2, 23),
                            roles=[Roles.ALUNO])
         
-    def mockEndereco(self) -> Endereco:
-        return Endereco(logradouro='outra rua',
-                       numero=210,
-                       cep='00000-098',
-                       tipo=TipoEndereco.TRABALHO)
+    def mockEmail(self) -> Email:
+        return Email(email='email@adicionado.com',
+                      tipo=TipoEmail.TRABALHO,
+                      prioridade=2)
         
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
-        armazenamentoUsuarioVolatil = ArmazenamentoUsuarioVolatil()
-        cadastrador = UCCadastrarUsuario(armazenamentoUsuarioVolatil)
+        repositorio = ArmazenamentoUsuarioVolatil()
+        cadastrador = UCCadastrarUsuario(repositorio)
         usuario = self.mockUsuario()
         cadastrador(usuario)
-        return armazenamentoUsuarioVolatil
+        return repositorio
         
-    def test_adicionar_endereco(self):
-        armazenamentoUsuarioVolatil = self.mockRepositorio()
-        adicionarEndereco = UCAdicionarEndereco(armazenamentoUsuarioVolatil)
+    def test_adicionar_email(self):
+        repositorio = self.mockRepositorio()
+        addEmail = UCAdicionarEmail(repositorio)
         
         usuario = self.mockUsuario()
-        endereco = self.mockEndereco()
+        email_novo = self.mockEmail()
                 
-        adicionarEndereco(usuario, endereco)
+        addEmail(usuario, email_novo)
         
-        assert endereco in armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.enderecos
-        assert armazenamentoUsuarioVolatil.quantidadeEnderecos(armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 2
+        assert email_novo in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.emails
+        assert repositorio.quantidadeEmails(repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 2
         
     def test_erro_usuario_inexistente(self):
-        armazenamentoUsuarioVolatil = ArmazenamentoUsuarioVolatil()
-        adicionarEndereco = UCAdicionarEndereco(armazenamentoUsuarioVolatil)
+        repositorio = ArmazenamentoUsuarioVolatil()
+        addEmail = UCAdicionarEmail(repositorio)
         
         usuario = self.mockUsuario()
-        endereco = self.mockEndereco()
+        email_novo = self.mockEmail()
         
         with pytest.raises(ErroUsuarioNaoExiste):
-            adicionarEndereco(usuario, endereco)
+            addEmail(usuario, email_novo)
             
-    def test_erro_telefone_invalido(self):
-        armazenamentoUsuarioVolatil = self.mockRepositorio()
-        adicionarEndereco = UCAdicionarEndereco(armazenamentoUsuarioVolatil)
+    def test_erro_email_invalido(self):
+        repositorio = self.mockRepositorio()
+        addEmail = UCAdicionarEmail(repositorio)
         
         usuario = self.mockUsuario()
-        endereco = None
+        email_novo = None
         
-        with pytest.raises(ErroEnderecoInvalido):
-            adicionarEndereco(usuario, endereco)
-            
+        with pytest.raises(ErroEmailInvalido):
+            addEmail(usuario, email_novo)
+        
         

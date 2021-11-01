@@ -5,7 +5,7 @@ from devmaua.src.models.telefone import Telefone
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_telefone import ErroDadosTelefoneInvalidos
 
-from src.usecases.uc_adicionar_telefone import UCAdicionarTelefone
+from src.usecases.usuario.uc_adicionar_telefone import UCAdicionarTelefone
 
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 

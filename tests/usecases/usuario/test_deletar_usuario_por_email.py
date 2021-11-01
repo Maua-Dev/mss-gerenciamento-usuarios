@@ -16,9 +16,9 @@ from devmaua.src.models.endereco import Endereco
 from devmaua.src.models.ra import RA
 
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
+from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
-from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
+from src.usecases.usuario.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 

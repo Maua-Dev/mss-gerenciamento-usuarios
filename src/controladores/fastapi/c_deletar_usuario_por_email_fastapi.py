@@ -1,7 +1,7 @@
 from fastapi import Response, status
 
 from src.usecases.erros.erros_usecase import ErroInesperado
-from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
+from src.usecases.usuario.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 

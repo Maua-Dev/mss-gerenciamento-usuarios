@@ -13,48 +13,46 @@ from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
+from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
-from src.usecases.uc_remover_endereco import UCRemoverEndereco
+from src.usecases.usuario.uc_remover_email import UCRemoverEmail
 
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEnderecoUnico
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoEmailFaculdade
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEmailUnico
 
-
-class TestRemoverEndereco:
+class TestRemoverEmail:
     
     def mockUsuario(self) -> Usuario:
-        email = Email(email='email@principal.com',
+        email1 = Email(email='email@principal.com',
                       tipo=TipoEmail.UNIVERSITARIO,
                       prioridade=1)
+        email2 = Email(email='teste@teste.com',
+                      tipo=TipoEmail.PRIVADO,
+                      prioridade=1)
         
-        end1 = Endereco(logradouro='rua de tal',
+        end = Endereco(logradouro='rua de tal',
                        numero=20,
                        cep='00000-000',
                        tipo=TipoEndereco.RESIDENCIAL)
-        end2 = Endereco(logradouro='outra rua',
-                       numero=210,
-                       cep='00000-098',
-                       tipo=TipoEndereco.TRABALHO)
         tel = Telefone(tipo=TipoTelefone.PRIVADO,
                        numero='99999-9999',
                        ddd=11,
                        prioridade=3)
-        contato = Contato(emails=[email],
+        contato = Contato(emails=[email1, email2],
                           telefones=[tel],
-                          enderecos=[end1, end2])
+                          enderecos=[end])
 
         return Usuario(nome='jorge do teste',
                            contato=contato,
                            nascimento= datetime.date(1999, 2, 23),
                            roles=[Roles.ALUNO])
         
-    def mockEndereco(self) -> Endereco:
-        return Endereco(logradouro='outra rua',
-                       numero=210,
-                       cep='00000-098',
-                       tipo=TipoEndereco.TRABALHO)
+    def mockEmail(self) -> Email:
+        return Email(email='teste@teste.com',
+                      tipo=TipoEmail.PRIVADO,
+                      prioridade=1)
         
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
         repositorio = ArmazenamentoUsuarioVolatil()
@@ -63,45 +61,56 @@ class TestRemoverEndereco:
         cadastrador(usuario)
         return repositorio
     
-    def test_remover_endereco(self):
+    def test_remover_email(self):
         repositorio = self.mockRepositorio()
-        removerEndereco = UCRemoverEndereco(repositorio)
+        removerEmail = UCRemoverEmail(repositorio)
         
         usuario = self.mockUsuario()
-        endereco = self.mockEndereco()
+        email = self.mockEmail()
                 
-        removerEndereco(usuario, endereco)
+        removerEmail(usuario, email)
         
-        assert endereco not in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.enderecos
-        assert repositorio.quantidadeEnderecos(repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 1
+        assert email not in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.emails
+        assert repositorio.quantidadeEmails(repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)))
         
     def teste_erro_usuario_invalido(self):
         repositorio = ArmazenamentoUsuarioVolatil()
-        removerEndereco = UCRemoverEndereco(repositorio)
+        removerEmail = UCRemoverEmail(repositorio)
         
         usuario = self.mockUsuario()
-        endereco = self.mockEndereco()
+        email = self.mockEmail()
         
         with pytest.raises(ErroUsuarioNaoExiste):
-            removerEndereco(usuario, endereco)
+            removerEmail(usuario, email)
             
-    def test_erro_endereco_invalido(self):
+    def test_erro_email_invalido(self):
         repositorio = self.mockRepositorio()
-        removerEndereco = UCRemoverEndereco(repositorio)
+        removerEmail = UCRemoverEmail(repositorio)
         
         usuario = self.mockUsuario()
-        endereco = Endereco(logradouro='outra rua errada',
-                       numero=210,
-                       cep='00000-098',
-                       tipo=TipoEndereco.TRABALHO)
+        email = Email(email='teste@teste1.com',
+                      tipo=TipoEmail.PRIVADO,
+                      prioridade=1)
                 
-        with pytest.raises(ErroEnderecoInvalido):
-            removerEndereco(usuario, endereco)
+        with pytest.raises(ErroEmailInvalido):
+            removerEmail(usuario, email)
             
-    def test_erro_deletar_endereco_unico(self):
+    def test_erro_erro_manipular_email_faculdade(self):
+        repositorio = self.mockRepositorio()
+        removerEmail = UCRemoverEmail(repositorio)
+        
+        usuario = self.mockUsuario()
+        email = Email(email='email@principal.com',
+                      tipo=TipoEmail.UNIVERSITARIO,
+                      prioridade=1)
+                
+        with pytest.raises(ErroManipulacaoEmailFaculdade):
+            removerEmail(usuario, email)
+            
+    def test_erro_deletar_email_unico(self):
         repositorio = ArmazenamentoUsuarioVolatil()
         cadastrador = UCCadastrarUsuario(repositorio)
-        removerEndereco = UCRemoverEndereco(repositorio)
+        removerEmail = UCRemoverEmail(repositorio)
         
         email = Email(email='teste@teste.com',
                       tipo=TipoEmail.PRIVADO,
@@ -124,6 +133,5 @@ class TestRemoverEndereco:
                            nascimento= datetime.date(1999, 2, 23),
                            roles=[Roles.ALUNO])
         cadastrador(usuario)
-        
-        with pytest.raises(ErroDeletarEnderecoUnico):
-            removerEndereco(usuario, end)
+        with pytest.raises(ErroDeletarEmailUnico):
+            removerEmail(usuario, email)

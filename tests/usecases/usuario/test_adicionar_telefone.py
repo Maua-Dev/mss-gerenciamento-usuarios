@@ -13,14 +13,14 @@ from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_telefone import TipoTelefone
 
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
+from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
-from src.usecases.uc_adicionar_email import UCAdicionarEmail
+from src.usecases.usuario.uc_adicionar_telefone import UCAdicionarTelefone
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
 
-class TestAdicionarEmail:
+class TestAdicionarTelefone:
     
     def mockUsuario(self) -> Usuario:
         email = Email(email='teste@teste.com',
@@ -43,48 +43,49 @@ class TestAdicionarEmail:
                            nascimento= datetime.date(1999, 2, 23),
                            roles=[Roles.ALUNO])
         
-    def mockEmail(self) -> Email:
-        return Email(email='email@adicionado.com',
-                      tipo=TipoEmail.TRABALHO,
-                      prioridade=2)
+    def mockTelefone(self) -> Telefone:
+        return Telefone(tipo=TipoTelefone.TRABALHO,
+                       numero='2222-2222',
+                       ddd=11,
+                       prioridade=3)
         
     def mockRepositorio(self) -> ArmazenamentoUsuarioVolatil:
-        repositorio = ArmazenamentoUsuarioVolatil()
-        cadastrador = UCCadastrarUsuario(repositorio)
+        armazenamentoUsuarioVolatil = ArmazenamentoUsuarioVolatil()
+        cadastrador = UCCadastrarUsuario(armazenamentoUsuarioVolatil)
         usuario = self.mockUsuario()
         cadastrador(usuario)
-        return repositorio
+        return armazenamentoUsuarioVolatil
         
-    def test_adicionar_email(self):
-        repositorio = self.mockRepositorio()
-        addEmail = UCAdicionarEmail(repositorio)
+    def test_adicionar_telefone(self):
+        armazenamentoUsuarioVolatil = self.mockRepositorio()
+        addEmail = UCAdicionarTelefone(armazenamentoUsuarioVolatil)
         
         usuario = self.mockUsuario()
-        email_novo = self.mockEmail()
+        telefone = self.mockTelefone()
                 
-        addEmail(usuario, email_novo)
+        addEmail(usuario, telefone)
         
-        assert email_novo in repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.emails
-        assert repositorio.quantidadeEmails(repositorio.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 2
+        assert telefone in armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23)).contato.telefones
+        assert armazenamentoUsuarioVolatil.quantidadeTelefones(armazenamentoUsuarioVolatil.getUsuarioPorNomeENascimento('Jorge Do Teste', datetime.date(1999, 2, 23))) == 2
         
     def test_erro_usuario_inexistente(self):
-        repositorio = ArmazenamentoUsuarioVolatil()
-        addEmail = UCAdicionarEmail(repositorio)
+        armazenamentoUsuarioVolatil = ArmazenamentoUsuarioVolatil()
+        addEmail = UCAdicionarTelefone(armazenamentoUsuarioVolatil)
         
         usuario = self.mockUsuario()
-        email_novo = self.mockEmail()
+        telefone = self.mockTelefone()
         
         with pytest.raises(ErroUsuarioNaoExiste):
-            addEmail(usuario, email_novo)
+            addEmail(usuario, telefone)
             
-    def test_erro_email_invalido(self):
-        repositorio = self.mockRepositorio()
-        addEmail = UCAdicionarEmail(repositorio)
+    def test_erro_telefone_invalido(self):
+        armazenamentoUsuarioVolatil = self.mockRepositorio()
+        addEmail = UCAdicionarTelefone(armazenamentoUsuarioVolatil)
         
         usuario = self.mockUsuario()
-        email_novo = None
+        telefone = None
         
-        with pytest.raises(ErroEmailInvalido):
-            addEmail(usuario, email_novo)
+        with pytest.raises(ErroTelefoneInvalido):
+            addEmail(usuario, telefone)
         
         

@@ -1,6 +1,6 @@
 from src.controladores.fastapi.c_remover_telefone_fastapi import ControllerHTTPRemoverTelefoneFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
+from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
 

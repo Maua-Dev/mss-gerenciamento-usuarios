@@ -5,7 +5,7 @@ from devmaua.src.models.email import Email
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_email import ErroDadosEmailInvalidos
 
-from src.usecases.uc_adicionar_email import UCAdicionarEmail
+from src.usecases.usuario.uc_adicionar_email import UCAdicionarEmail
 
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
