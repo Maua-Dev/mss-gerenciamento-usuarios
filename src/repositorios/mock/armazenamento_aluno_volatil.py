@@ -1,10 +1,14 @@
+from typing import List
+
 from devmaua.src.models.aluno import Aluno
+from devmaua.src.models.ra import RA
 
-from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
+from src.interfaces.IRepoAluno import IArmazenamentoAluno
+from src.repositorios.erros.erros_armazem_volatil import ErroAlunoNaoEncontrado
 
 
-class ArmazenamentoAlunoVolatil():
-    armazem: list[Aluno]
+class ArmazenamentoAlunoVolatil(IArmazenamentoAluno):
+    armazem: List[Aluno]
 
     def __init__(self):
         self.armazem = []
@@ -12,4 +16,17 @@ class ArmazenamentoAlunoVolatil():
     def cadastrarAluno(self, aluno: Aluno):
         self.armazem.append(aluno)
 
+    def deletarAlunoPorEmail(self, email: str):
+        for a in self.armazem:
+            for e in a.contato.emails:
+                print(e)
+                if e.email == email:
+                    self.armazem.remove(a)
+                    return True
+        return False
 
+    def getAlunoPorRA(self, ra: RA) -> Aluno:
+        for a in self.armazem:
+            if a.ra == ra:
+                return a
+        raise ErroAlunoNaoEncontrado

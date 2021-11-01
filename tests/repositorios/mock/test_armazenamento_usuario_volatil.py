@@ -6,7 +6,7 @@ import tests.mock_objetos as mo
 from src.repositorios.erros.erros_armazem_volatil import ErroUsuarioNaoEncontrado
 
 
-class TestArmazenamentoVolatil:
+class TestArmazenamentoUsuarioVolatil:
     armazenamento: ArmazenamentoUsuarioVolatil
     usuario: Usuario
 

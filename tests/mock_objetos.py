@@ -1,6 +1,11 @@
+from devmaua.src.enum.codigo_disciplina import CodigoDisciplina
+from devmaua.src.enum.nome_curso import NomeCurso
+from devmaua.src.enum.periodo import Periodo
+from devmaua.src.models.aluno import Aluno
 from devmaua.src.models.contato import Contato
 from devmaua.src.models.email import Email
 from devmaua.src.models.endereco import Endereco
+from devmaua.src.models.ra import RA
 from devmaua.src.models.telefone import Telefone
 from devmaua.src.models.usuario import Usuario
 
@@ -54,3 +59,29 @@ def mockTelefone() -> Telefone:
                     numero='2222-2222',
                     ddd=11,
                     prioridade=3)
+
+# ===== MOCK ALUNO ======
+
+def mockRA() -> RA:
+    return RA(ano="18", numero="01234", digito="0")
+
+# Considerar que Usuário já foi cadastrado
+def mockAluno() -> Aluno:
+    u = mockUsuario()
+    nome = u.nome
+    contato = u.contato
+    nascimento = u.nascimento
+
+    ra = mockRA()
+    curso = NomeCurso.ENGENHARIA_DA_COMPUTACAO
+    serie = 4
+    disciplinas = [CodigoDisciplina.ECM251]
+    periodo = Periodo.DIURNO
+    listaDPs = []
+    hasDP = False
+    roles = u.roles
+
+    return Aluno(
+        nome=nome, contato=contato, nascimento=nascimento, roles=roles,
+        ra=ra, curso=curso, serie=serie, disciplinas=disciplinas, listaDPs=listaDPs, periodo=periodo, hasDP=hasDP
+    )
