@@ -5,13 +5,13 @@ from devmaua.src.models.telefone import Telefone
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_telefone import ErroDadosTelefoneInvalidos
 
-from src.usecases.erros.erros_usecase import ErroInesperado
+from src.usecases.erros.erros_usecase_usuario import ErroInesperado
 from src.usecases.usuario.uc_remover_telefone import UCRemoverTelefone
 
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroTelefoneInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
 
 import logging
 

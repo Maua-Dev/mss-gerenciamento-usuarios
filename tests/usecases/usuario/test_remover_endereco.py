@@ -17,9 +17,9 @@ from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.usuario.uc_remover_endereco import UCRemoverEndereco
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarEnderecoUnico
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroEnderecoInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroDeletarEnderecoUnico
 
 
 class TestRemoverEndereco:

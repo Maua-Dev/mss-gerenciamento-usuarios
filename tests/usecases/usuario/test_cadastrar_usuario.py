@@ -11,7 +11,7 @@ from devmaua.src.models.usuario import Usuario
 
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
-from src.usecases.erros.erros_usecase import ErroUsuarioExiste
+from src.usecases.erros.erros_usecase_usuario import ErroUsuarioExiste
 
 
 

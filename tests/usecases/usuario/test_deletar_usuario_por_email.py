@@ -20,7 +20,7 @@ from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.usuario.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
 
 class TestUCDeletarUsuarioPorEmail:
     

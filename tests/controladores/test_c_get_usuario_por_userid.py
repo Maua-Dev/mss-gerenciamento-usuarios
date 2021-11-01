@@ -6,8 +6,8 @@ import tests.mock_objetos as mo
 import json
 import pytest
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_usecase import ErroIdInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_usecase_usuario import ErroIdInvalido
 
 
 class TestCGetPorUserId:

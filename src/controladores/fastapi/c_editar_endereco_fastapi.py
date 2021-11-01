@@ -5,13 +5,13 @@ from devmaua.src.models.endereco import Endereco
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_endereco import ErroDadosEnderecoInvalidos
 
-from src.usecases.erros.erros_usecase import ErroInesperado
+from src.usecases.erros.erros_usecase_usuario import ErroInesperado
 from src.usecases.usuario.uc_editar_endereco import UCEditarEndereco
 
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroEnderecoInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
 
 import logging
 

@@ -3,7 +3,7 @@ from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 
 from src.controladores.fastapi.c_adicionar_telefone_fastapi import ControllerHTTPAdicionarTelefoneFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
 from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario

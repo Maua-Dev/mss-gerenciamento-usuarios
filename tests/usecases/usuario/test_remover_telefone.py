@@ -17,9 +17,9 @@ from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.usuario.uc_remover_telefone import UCRemoverTelefone
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroTelefoneInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroDeletarTelefoneUnico
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroTelefoneInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroDeletarTelefoneUnico
 
 
 class TestRemoverTelefone:

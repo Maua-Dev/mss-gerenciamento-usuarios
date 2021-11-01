@@ -3,8 +3,8 @@ from devmaua.src.models.usuario import Usuario
 
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEnderecoInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroEnderecoInvalido
 
 
 class UCAdicionarEndereco():

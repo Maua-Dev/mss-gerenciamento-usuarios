@@ -17,9 +17,9 @@ from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.usuario.uc_editar_email import UCEditarEmail
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroEmailInvalido
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_uc_alteracao_info_cadastro import ErroManipulacaoEmailFaculdade
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroEmailInvalido
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
+from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroManipulacaoEmailFaculdade
 
 
 class TestEditarEmail:
