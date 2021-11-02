@@ -57,29 +57,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       
-      - name: Login to Amazon ECR 
-
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: AWS SSM Send-Command
-        uses: rusrushal13/aws-ssm-send-command@master
-        id: ssm 
-        with:
-          aws-region: ${{ secrets.AWS_REGION }}
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          targets: '[{ "Key": "tag:Tipo", "Values": ["Cluster"] }]'
-
-          working-directory: /home/ubuntu/mauaDevMss
-          command: aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }};docker stack deploy --compose-file compose.yml --with-registry-auth stack
-          comment: atualizar imagem
+      - name: Updates Cluster
+        run: aws ecs update-service --cluster MauaDevMss --service ${{ github.event.repository.name }}-service --force-new-deployment
           
           
-          
-      # Catch SSM outputs
-      - name: Get the outputs
-        run: echo "The Command id is ${{ steps.ssm.outputs.command-id }}"
+
 
 
 
