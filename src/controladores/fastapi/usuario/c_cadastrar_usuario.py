@@ -2,7 +2,7 @@ from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.usuario import Usuario
 from fastapi import Response, status
 
-from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
+from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario

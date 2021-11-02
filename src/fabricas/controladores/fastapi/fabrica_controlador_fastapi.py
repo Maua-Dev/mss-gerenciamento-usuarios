@@ -7,8 +7,8 @@ from src.controladores.fastapi.aluno.c_cadastrar_aluno import CCadastrarAluno
 from src.controladores.fastapi.aluno.c_deletar_aluno_por_email import CDeletarAlunoPorEmail
 from src.controladores.fastapi.aluno.c_get_aluno_por_ra import CGetAlunoPorRA
 from src.controladores.fastapi.usuario.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
-from src.interfaces.IRepoAluno import IArmazenamentoAluno
-from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
+from src.interfaces.i_repo_aluno import IArmazenamentoAluno
+from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 from src.config.enums.fastapi import *
 from src.config.proj_config import ProjConfig
 from src.controladores.fastapi.roteadores.roteador import Roteador

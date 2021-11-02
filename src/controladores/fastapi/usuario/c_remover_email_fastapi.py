@@ -8,7 +8,7 @@ from devmaua.src.models.erros.erro_email import ErroDadosEmailInvalidos
 from src.usecases.erros.erros_usecase import ErroInesperado
 from src.usecases.usuario.uc_remover_email import UCRemoverEmail
 
-from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
+from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste

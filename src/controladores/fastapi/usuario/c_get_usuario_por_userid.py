@@ -1,4 +1,4 @@
-from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
+from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 from src.usecases.usuario.uc_get_usuario_por_userid import UCGetUsuarioPorUserId
 from fastapi import Response, status
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste

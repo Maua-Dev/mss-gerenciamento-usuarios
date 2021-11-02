@@ -1,7 +1,7 @@
 from devmaua.src.models.ra import RA
 from devmaua.src.models.usuario import Usuario
 
-from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
+from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 
 from devmaua.src.models.telefone import Telefone        
 from devmaua.src.models.email import Email

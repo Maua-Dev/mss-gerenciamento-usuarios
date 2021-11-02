@@ -1,6 +1,6 @@
 from devmaua.src.models.usuario import Usuario
 
-from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
+from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 
 

@@ -3,7 +3,7 @@ from typing import List
 from devmaua.src.models.aluno import Aluno
 from devmaua.src.models.ra import RA
 
-from src.interfaces.IRepoAluno import IArmazenamentoAluno
+from src.interfaces.i_repo_aluno import IArmazenamentoAluno
 from src.repositorios.erros.erros_armazem_volatil import ErroNaoEncontrado
 
 

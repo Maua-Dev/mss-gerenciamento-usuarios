@@ -1,4 +1,4 @@
-from src.interfaces.IRepoAluno import IArmazenamentoAluno
+from src.interfaces.i_repo_aluno import IArmazenamentoAluno
 from src.usecases.erros.erros_uc_aluno import ErroEmailInvalido
 
 

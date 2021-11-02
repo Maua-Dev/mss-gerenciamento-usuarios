@@ -2,7 +2,7 @@ import logging
 from fastapi import Response, status, HTTPException
 
 from devmaua.src.models.aluno import Aluno
-from src.interfaces.IRepoAluno import IArmazenamentoAluno
+from src.interfaces.i_repo_aluno import IArmazenamentoAluno
 from src.usecases.aluno.uc_cadastrar_aluno import UCCadastrarAluno
 from src.usecases.erros.erros_uc_aluno import ErroAlunoJaCadastrado
 from src.usecases.erros.erros_usecase import ErroInesperado

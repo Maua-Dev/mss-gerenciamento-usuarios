@@ -5,7 +5,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi import HTTPException, status
 from fastapi.responses import JSONResponse
 
-from src.interfaces.IRepoAluno import IArmazenamentoAluno
+from src.interfaces.i_repo_aluno import IArmazenamentoAluno
 from src.usecases.aluno.uc_get_aluno_por_ra import UCGetAlunoPorRA
 
 from src.usecases.erros.erros_uc_aluno import ErroAlunoNaoEncontrado

@@ -8,7 +8,7 @@ from devmaua.src.models.erros.erro_endereco import ErroDadosEnderecoInvalidos
 from src.usecases.erros.erros_usecase import ErroInesperado
 from src.usecases.usuario.uc_remover_endereco import UCRemoverEndereco
 
-from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
+from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroEnderecoInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste

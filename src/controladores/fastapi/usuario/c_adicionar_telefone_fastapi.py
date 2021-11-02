@@ -7,7 +7,7 @@ from devmaua.src.models.erros.erro_telefone import ErroDadosTelefoneInvalidos
 
 from src.usecases.usuario.uc_adicionar_telefone import UCAdicionarTelefone
 
-from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
+from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroTelefoneInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste

@@ -1,6 +1,6 @@
 import pytest
 
-from src.interfaces.IRepoAluno import IArmazenamentoAluno
+from src.interfaces.i_repo_aluno import IArmazenamentoAluno
 from src.repositorios.erros.erros_armazem_volatil import ErroNaoEncontrado
 import tests.mock_objetos as mo
 from src.repositorios.mock.armazenamento_aluno_volatil import ArmazenamentoAlunoVolatil

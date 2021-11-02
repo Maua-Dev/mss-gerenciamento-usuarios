@@ -1,6 +1,6 @@
 from devmaua.src.models.aluno import Aluno
 
-from src.interfaces.IRepoAluno import IArmazenamentoAluno
+from src.interfaces.i_repo_aluno import IArmazenamentoAluno
 from src.repositorios.erros.erros_armazem_volatil import ErroNaoEncontrado
 from src.usecases.erros.erros_uc_aluno import ErroAlunoJaCadastrado
 
