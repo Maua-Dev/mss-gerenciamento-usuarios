@@ -101,7 +101,7 @@ def mockProfessor() -> Professor:
     contato = u.contato
     nascimento = u.nascimento
 
-    ID = '0002'
+    ID = mockId()
     troncos = [Tronco.ELETRICA]
     cursos = [NomeCurso.ENGENHARIA_DA_COMPUTACAO]
     disciplinas = [CodigoDisciplina.ECM251]
@@ -115,3 +115,5 @@ def mockProfessor() -> Professor:
 def mockIdDiferente() -> str:
     return '0003'
 
+def mockId() -> str:
+    return '0002'
