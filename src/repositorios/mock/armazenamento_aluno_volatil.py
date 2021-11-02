@@ -4,7 +4,7 @@ from devmaua.src.models.aluno import Aluno
 from devmaua.src.models.ra import RA
 
 from src.interfaces.IRepoAluno import IArmazenamentoAluno
-from src.repositorios.erros.erros_armazem_volatil import ErroAlunoNaoEncontrado
+from src.repositorios.erros.erros_armazem_volatil import ErroNaoEncontrado
 
 
 class ArmazenamentoAlunoVolatil(IArmazenamentoAluno):
@@ -19,7 +19,6 @@ class ArmazenamentoAlunoVolatil(IArmazenamentoAluno):
     def deletarAlunoPorEmail(self, email: str):
         for a in self.armazem:
             for e in a.contato.emails:
-                print(e)
                 if e.email == email:
                     self.armazem.remove(a)
                     return True
@@ -29,4 +28,4 @@ class ArmazenamentoAlunoVolatil(IArmazenamentoAluno):
         for a in self.armazem:
             if a.ra == ra:
                 return a
-        raise ErroAlunoNaoEncontrado
+        raise ErroNaoEncontrado

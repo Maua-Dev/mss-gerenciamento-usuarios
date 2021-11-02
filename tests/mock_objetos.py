@@ -65,6 +65,10 @@ def mockTelefone() -> Telefone:
 def mockRA() -> RA:
     return RA(ano="18", numero="01234", digito="0")
 
+def mockRADiferente() -> RA:
+    return RA(ano="17", numero="01234", digito="0")
+
+
 # Considerar que Usuário já foi cadastrado
 def mockAluno() -> Aluno:
     u = mockUsuario()

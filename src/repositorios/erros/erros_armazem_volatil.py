@@ -4,6 +4,6 @@ class ErroUsuarioNaoEncontrado(Exception):
         super().__init__("O usuário não foi encontrado")
 
 
-class ErroAlunoNaoEncontrado(Exception):
+class ErroNaoEncontrado(Exception):
     def __init__(self):
-        super().__init__("O aluno não foi encontrado")
+        super().__init__("Não encotrado encontrado")

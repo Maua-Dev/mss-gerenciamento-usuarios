@@ -2,7 +2,7 @@ import pytest
 from devmaua.src.models.aluno import Aluno
 from devmaua.src.models.ra import RA
 
-from src.repositorios.erros.erros_armazem_volatil import ErroAlunoNaoEncontrado
+from src.repositorios.erros.erros_armazem_volatil import ErroNaoEncontrado
 from src.repositorios.mock.armazenamento_aluno_volatil import ArmazenamentoAlunoVolatil
 import tests.mock_objetos as mo
 
@@ -44,5 +44,5 @@ class TestArmazenamentoAlunoVolatil:
         assert a == self.aluno
 
     def testGetAlunoPorRAErroAlunoNaoEncontrado(self):
-        with pytest.raises(ErroAlunoNaoEncontrado):
-            self.armazenamento.getAlunoPorRA(RA(ano="17", numero="01234", digito="0"))
+        with pytest.raises(ErroNaoEncontrado):
+            self.armazenamento.getAlunoPorRA(mo.mockRADiferente())

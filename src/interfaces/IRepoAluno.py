@@ -19,10 +19,10 @@ class IArmazenamentoAluno(ABC):
     #TODO Validar se não é melhor fazer por RA
     # ! Classe model <Email> está mal feita, nao podemos usar para validaao de email
     @abstractmethod
-    def deletarAlunoPorEmail(self, email: str):
+    def deletarAlunoPorEmail(self, email: str) -> bool:
         pass
 
     @abstractmethod
-    def getAlunoPorRA(self, ra: RA):
+    def getAlunoPorRA(self, ra: RA) -> Aluno:
         pass
 
