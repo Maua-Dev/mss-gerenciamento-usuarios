@@ -13,3 +13,5 @@ class ErroIdInvalido(Exception):
 class ErroInesperado(Exception):
     def __init__(self):
         super().__init__("Erro inesperado")
+
+

@@ -24,6 +24,6 @@ class TestUCGetAlunoPorRA:
 
         assert a == self.aluno
 
-    def testRodaPadrao(self):
+    def testErroAlunoNaoEncontrado(self):
         with pytest.raises(ErroAlunoNaoEncontrado):
             self.uc(mo.mockRADiferente())
