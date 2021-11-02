@@ -6,7 +6,7 @@ from src.interfaces.i_repo_professor import IArmazenamentoProfessor
 from src.repositorios.erros.erros_armazem_volatil import ErroNaoEncontrado
 
 
-class ArmazenamentoAlunoVolatil(IArmazenamentoProfessor):
+class ArmazenamentoProfessorVolatil(IArmazenamentoProfessor):
     armazem: List[Professor]
 
     def __init__(self):

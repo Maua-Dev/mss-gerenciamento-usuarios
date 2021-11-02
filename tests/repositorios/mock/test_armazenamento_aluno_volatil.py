@@ -1,6 +1,5 @@
 import pytest
 from devmaua.src.models.aluno import Aluno
-from devmaua.src.models.ra import RA
 
 from src.repositorios.erros.erros_armazem_volatil import ErroNaoEncontrado
 from src.repositorios.mock.armazenamento_aluno_volatil import ArmazenamentoAlunoVolatil
@@ -32,7 +31,7 @@ class TestArmazenamentoAlunoVolatil:
 
         assert len(self.armazenamento.armazem) == 0
 
-    def testGetAlunoPorEmailErroAlunoNaoEncontrado(self):
+    def testDeletarAlunoPorEmailErroAlunoNaoEncontrado(self):
         v = self.armazenamento.deletarAlunoPorEmail("emailErrado@mail.com")
         assert not v
 
