@@ -1,13 +1,11 @@
-from src.controladores.fastapi.c_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
+from src.controladores.fastapi.usuario.c_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
 
-
-class TestControllerDeletarUsuarioPorEmailFastAPI():
+class TestControllerRemoverEmailFastAPI():
     
     def mockDictUsuario(self):
         return {
@@ -26,7 +24,13 @@ class TestControllerDeletarUsuarioPorEmailFastAPI():
                         "email": "teste@teste.com",
                         "tipo": 1,
                         "prioridade": 1
+                    },
+                    {
+                        "email": "novo@email.com",
+                        "tipo": 2,
+                        "prioridade": 2
                     }
+    
                 ],
                 "enderecos": [
                     {
@@ -44,6 +48,13 @@ class TestControllerDeletarUsuarioPorEmailFastAPI():
             ]
         }
         
+    def mockDictEmail(self):
+        return {
+                "email": "novo@email.com",
+                "tipo": 2,
+                "prioridade": 2
+                }
+    
     def mockRepositorioComUmUsuario(self) -> ArmazenamentoUsuarioVolatil:
         repositorio = ArmazenamentoUsuarioVolatil()
         cadastrador = UCCadastrarUsuario(repositorio)
@@ -53,25 +64,16 @@ class TestControllerDeletarUsuarioPorEmailFastAPI():
         return repositorio
     
             
-    def test_controller_deletar_usuario_por_email_fastapi(self):
+    def test_controller_remover_email_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        controllerDeletarUsuarioPorEmail = CDeletarUsuarioPorEmailFastAPI(repoVolatil)
+        controllerRemoverEmailFastAPI = ControllerHTTPRemoverEmailFastAPI(repoVolatil)
         
+        usuarioDict = self.mockDictUsuario()
+        emailDict = self.mockDictEmail()
         body = {
-                    "email": "teste@teste.com"
-               }
-        
-        response = controllerDeletarUsuarioPorEmail(body = body)
+                "usuario": usuarioDict,
+                "email": emailDict            
+                }
+        response = controllerRemoverEmailFastAPI(body = body)
+
         assert response.status_code == 200
-        assert repoVolatil.usuarioExistePorEmail("teste@teste.com") == False
-        
-    def test_erro_usuario_inexistente(self):
-        repoVolatil = ArmazenamentoUsuarioVolatil()
-        controllerDeletarUsuarioPorEmail = CDeletarUsuarioPorEmailFastAPI(repoVolatil)
-        
-        body = {
-                    "email": "teste@teste.com"
-               }
-        response = controllerDeletarUsuarioPorEmail(body = body)
-        assert response.body.decode() == str(ErroUsuarioNaoExiste())
-        assert response.status_code == 404

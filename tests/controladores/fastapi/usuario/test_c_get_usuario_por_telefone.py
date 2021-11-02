@@ -1,7 +1,7 @@
 from devmaua.src.models.usuario import Usuario
 
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
-from src.controladores.fastapi.c_get_usuario_por_email import CHttpGetUsuarioPorEmailFastAPI
+from src.controladores.fastapi.usuario.c_get_usuario_por_telefone import CHttpGetUsuarioPorTelefoneFastAPI
 import tests.mock_objetos as mo
 import json
 import pytest
@@ -9,11 +9,11 @@ import pytest
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
 
 
-class TestCGetPorUserId:
+class TestCGetPorTelefone:
 
     repo: ArmazenamentoUsuarioVolatil
     usuario: Usuario
-    c: CHttpGetUsuarioPorEmailFastAPI
+    c: CHttpGetUsuarioPorTelefoneFastAPI
 
     @pytest.fixture(autouse=True)
     def rodaAntesDepoisDosTestes(self):
@@ -22,14 +22,14 @@ class TestCGetPorUserId:
         self.repo = ArmazenamentoUsuarioVolatil()
         self.usuario = mo.mockUsuario()
         self.repo.cadastrarUsuario(self.usuario)
-        self.c = CHttpGetUsuarioPorEmailFastAPI(self.repo)
+        self.c = CHttpGetUsuarioPorTelefoneFastAPI(self.repo)
 
         yield
 
         # Teardown
 
     def testPadraoGetPorEmail(self):
-        res = self.c("teste@teste.com")
+        res = self.c(11, "99999-9999")
         j = json.loads(res.body)
         u = self.usuario
 
@@ -37,7 +37,12 @@ class TestCGetPorUserId:
                str(j["nascimento"]) == str(u.nascimento)
         assert res.status_code == 200
 
-    def testErroUsuarioInvalido(self):
-        res = self.c("teste@teste.com.br")
+    def testErroUsuarioInvalidoErroDDD(self):
+        res = self.c(13, "99999-9999")
+        assert str(ErroUsuarioNaoExiste()) == res.body.decode()
+        assert res.status_code == 404
+
+    def testErroUsuarioInvalidoErroNumero(self):
+        res = self.c(11, "99299-9999")
         assert str(ErroUsuarioNaoExiste()) == res.body.decode()
         assert res.status_code == 404

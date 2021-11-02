@@ -1,11 +1,11 @@
-from src.controladores.fastapi.c_editar_endereco_fastapi import ControllerHTTPEditarEnderecoFastAPI
+from src.controladores.fastapi.usuario.c_editar_email_fastapi import ControllerHTTPEditarEmailFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
 
 
-class TestControllerEditarEnderecoFastAPI():
+class TestControllerEditarEmailFastAPI():
     
     def mockDictUsuario(self):
         return {
@@ -24,6 +24,11 @@ class TestControllerEditarEnderecoFastAPI():
                         "email": "teste@teste.com",
                         "tipo": 1,
                         "prioridade": 1
+                    },
+                    {
+                        "email": "novo@email.com",
+                        "tipo": 2,
+                        "prioridade": 2
                     }
     
                 ],
@@ -43,14 +48,12 @@ class TestControllerEditarEnderecoFastAPI():
             ]
         }
         
-    def mockDictEndereco(self):
+    def mockDictEmail(self):
         return {
-                        "logradouro": "rua de tal",
-                        "numero": 20,
-                        "cep": "00000-000",
-                        "complemento": None,
-                        "tipo": 1
-                    }
+                "email": "novo@email.com",
+                "tipo": 2,
+                "prioridade": 2
+                }
     
     def mockRepositorioComUmUsuario(self) -> ArmazenamentoUsuarioVolatil:
         repositorio = ArmazenamentoUsuarioVolatil()
@@ -61,21 +64,19 @@ class TestControllerEditarEnderecoFastAPI():
         return repositorio
     
             
-    def test_controller_editar_endereco_fastapi(self):
+    def test_controller_editar_email_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        controllerEditarEnderecoFastAPI = ControllerHTTPEditarEnderecoFastAPI(repoVolatil)
+        controllerEditarEmailFastAPI = ControllerHTTPEditarEmailFastAPI(repoVolatil)
         
         usuarioDict = self.mockDictUsuario()
-        enderecoDict = self.mockDictEndereco()
+        emailDict = self.mockDictEmail()
         body = {
                 "usuario": usuarioDict,
-                "endereco": enderecoDict,
-                "logradouro": "rua nova",
-                "numero": 201,
-                "cep": "00000-021",
-                "complemento": "Atras de outra rua",
-                "tipo": 2
-            }
-        response = controllerEditarEnderecoFastAPI(body = body)
-        
+                "email": emailDict,
+                "emailNovo": "email@editado.br",
+                "tipo": 3,
+                "prioridade": 3
+                }
+        response = controllerEditarEmailFastAPI(body = body)
+
         assert response.status_code == 200

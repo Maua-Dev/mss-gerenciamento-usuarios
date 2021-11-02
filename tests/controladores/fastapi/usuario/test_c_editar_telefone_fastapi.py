@@ -1,11 +1,11 @@
-from src.controladores.fastapi.c_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
+from src.controladores.fastapi.usuario.c_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from devmaua.src.models.usuario import Usuario
 
 
-class TestControllerRemoverEmailFastAPI():
+class TestControllerEditarTelefoneFastAPI():
     
     def mockDictUsuario(self):
         return {
@@ -24,11 +24,6 @@ class TestControllerRemoverEmailFastAPI():
                         "email": "teste@teste.com",
                         "tipo": 1,
                         "prioridade": 1
-                    },
-                    {
-                        "email": "novo@email.com",
-                        "tipo": 2,
-                        "prioridade": 2
                     }
     
                 ],
@@ -48,11 +43,12 @@ class TestControllerRemoverEmailFastAPI():
             ]
         }
         
-    def mockDictEmail(self):
+    def mockDictTelefone(self):
         return {
-                "email": "novo@email.com",
-                "tipo": 2,
-                "prioridade": 2
+                    "tipo": 2,
+                    "numero": "99999-9999",
+                    "ddd": 11,
+                    "prioridade": 3
                 }
     
     def mockRepositorioComUmUsuario(self) -> ArmazenamentoUsuarioVolatil:
@@ -64,16 +60,20 @@ class TestControllerRemoverEmailFastAPI():
         return repositorio
     
             
-    def test_controller_remover_email_fastapi(self):
+    def test_controller_editar_telefone_fastapi(self):
         repoVolatil = self.mockRepositorioComUmUsuario()
-        controllerRemoverEmailFastAPI = ControllerHTTPRemoverEmailFastAPI(repoVolatil)
+        controllerEditarTelefoneFastAPI = ControllerHTTPEditarTelefoneFastAPI(repoVolatil)
         
         usuarioDict = self.mockDictUsuario()
-        emailDict = self.mockDictEmail()
+        telefoneDict = self.mockDictTelefone()
         body = {
                 "usuario": usuarioDict,
-                "email": emailDict            
-                }
-        response = controllerRemoverEmailFastAPI(body = body)
-
+                "telefone": telefoneDict,
+                "tipo": 3,
+                "ddd": 12,
+                "numero": '99999-8888',
+                "prioridade": 3
+            }
+        response = controllerEditarTelefoneFastAPI(body = body)
+        
         assert response.status_code == 200

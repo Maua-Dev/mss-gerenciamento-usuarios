@@ -1,7 +1,7 @@
 from devmaua.src.models.erros.erro_email import ErroDadosEmailInvalidos
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 
-from src.controladores.fastapi.c_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
+from src.controladores.fastapi.usuario.c_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
