@@ -153,12 +153,6 @@ class ArmazenamentoUsuarioVolatil(IArmazenamentoUsuario):
             return len(u[0].contato.telefones)
         return []
     
-    def usuarioExiste(self, usuario: Usuario):
-        for u in self.armazem:
-            if u.nome == usuario.nome and u.nascimento == usuario.nascimento:
-                return True
-        return False
-    
     def getUsuarioPorNomeENascimento(self, nome: str, nascimento: date):
         u = [u for u in self.armazem if (u.nome == nome and u.nascimento == nascimento)]
         if u != []:

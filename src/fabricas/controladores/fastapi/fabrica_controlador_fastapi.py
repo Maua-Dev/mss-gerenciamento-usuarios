@@ -1,3 +1,4 @@
+from devmaua.src.models.usuario import Usuario
 from fastapi import FastAPI
 
 from src.controladores.fastapi.usuario.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
@@ -75,7 +76,7 @@ class FabricaControladorFastapi:
     def editarTelefone(self, body: dict):
         return ControllerHTTPEditarTelefoneFastAPI(self.repo)(body)
 
-    def cadastrarUsuario(self, body: dict):
+    def cadastrarUsuario(self, body: Usuario):
         return ControllerHTTPCadastrarUsuario(self.repo)(body)
 
     def deletarUsuarioPorEmail(self, body: dict):
