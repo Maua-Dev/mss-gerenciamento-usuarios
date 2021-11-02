@@ -1,6 +1,4 @@
-from devmaua.src.models.aluno import Aluno
 from devmaua.src.models.ra import RA
-from devmaua.src.models.usuario import Usuario
 from fastapi import APIRouter
 
 

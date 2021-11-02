@@ -5,7 +5,7 @@ from src.controladores.fastapi.http.respostas import ResRoot
 from src.fabricas.controladores.fastapi.fabrica_controlador_fastapi import *
 from src.main import main
 
-(_, _, ctrl) = main()
+(_, _, _, ctrl) = main()
 client = TestClient(ctrl.app)
 
 

@@ -1,4 +1,5 @@
 from devmaua.src.models.aluno import Aluno
+from devmaua.src.models.professor import Professor
 from devmaua.src.models.ra import RA
 from devmaua.src.models.usuario import Usuario
 from fastapi import FastAPI
@@ -6,8 +7,12 @@ from fastapi import FastAPI
 from src.controladores.fastapi.aluno.c_cadastrar_aluno import CCadastrarAluno
 from src.controladores.fastapi.aluno.c_deletar_aluno_por_email import CDeletarAlunoPorEmail
 from src.controladores.fastapi.aluno.c_get_aluno_por_ra import CGetAlunoPorRA
+from src.controladores.fastapi.professor.c_cadastrar_professor import CCadastrarProfessor
+from src.controladores.fastapi.professor.c_deletar_professor_por_email import CDeletarProfessorPorEmail
+from src.controladores.fastapi.professor.c_get_professor_por_id import CGetProfessorPorID
 from src.controladores.fastapi.usuario.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
 from src.interfaces.i_repo_aluno import IArmazenamentoAluno
+from src.interfaces.i_repo_professor import IArmazenamentoProfessor
 from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 from src.config.enums.fastapi import *
 from src.config.proj_config import ProjConfig
@@ -31,6 +36,7 @@ from src.controladores.fastapi.usuario.c_get_usuario_por_telefone import CHttpGe
 class FabricaControladorFastapi:
     repoUsuario: IArmazenamentoUsuario
     repoAluno: IArmazenamentoAluno
+    repoProfessor: IArmazenamentoProfessor
 
     __config__: dict
 
@@ -42,9 +48,10 @@ class FabricaControladorFastapi:
 
     app: FastAPI
 
-    def __init__(self, repoUsuario: IArmazenamentoUsuario, repoAluno: IArmazenamentoAluno):
+    def __init__(self, repoUsuario: IArmazenamentoUsuario, repoAluno: IArmazenamentoAluno, repoProfessor: IArmazenamentoProfessor):
         self.repoUsuario = repoUsuario
         self.repoAluno = repoAluno
+        self.repoProfessor = repoProfessor
 
         self.__config__ = ProjConfig.getFastapi()
 
@@ -109,3 +116,14 @@ class FabricaControladorFastapi:
 
     def getPorRa(self, ra: RA):
         return CGetAlunoPorRA(self.repoAluno)(ra)
+
+# ===== Professor
+
+    def cadastrarProfessor(self, prof: Professor):
+        return CCadastrarProfessor(self.repoProfessor)(prof)
+
+    def deletarProfessorPorEmail(self, email: str):
+        return CDeletarProfessorPorEmail(self.repoProfessor)(email)
+
+    def getProfessorPorId(self, profId: str):
+        return CGetProfessorPorID(self.repoProfessor)(profId)
