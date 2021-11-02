@@ -1,3 +1,4 @@
+import json
 from unittest.mock import patch, Mock
 
 import pytest
@@ -14,11 +15,14 @@ class TestCGetAlunoPorRA:
 
     @patch.object(UCGetAlunoPorRA, '__call__')
     def testRespostaOK(self, mockGet):
+        mockGet.return_value = mo.mockAluno()
 
-        c = CGetAlunoPorRA(Mock())(mo.mockRA())
+        res = CGetAlunoPorRA(Mock())(mo.mockRA())
 
-        assert c.body.decode() == "Email deletado com sucesso"
-        assert c.status_code == 200
+        j = json.loads(res.body)
+
+        assert j["ra"] == mo.mockAluno().ra and j["nome"] == mo.mockAluno().nome
+        assert res.status_code == 200
 
         mockGet.assert_called_once_with(mo.mockRA())
 

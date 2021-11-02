@@ -2,6 +2,7 @@ import uvicorn
 
 from src.init import Init
 
+
 def main():
     (_, _, _ctrl) = Init()()
     return _, _, _ctrl
