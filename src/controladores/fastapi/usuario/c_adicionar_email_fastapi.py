@@ -9,9 +9,8 @@ from src.usecases.usuario.uc_adicionar_email import UCAdicionarEmail
 
 from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_usecase import ErroInesperado
+from src.usecases.erros.erros_usecase import ErroInesperado, ErroEmailInvalido
 
 import logging
 

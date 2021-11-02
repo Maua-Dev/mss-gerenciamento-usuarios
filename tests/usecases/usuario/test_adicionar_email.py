@@ -17,7 +17,7 @@ from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.usuario.uc_adicionar_email import UCAdicionarEmail
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroEmailInvalido
+from src.usecases.erros.erros_usecase import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
 
 class TestAdicionarEmail:

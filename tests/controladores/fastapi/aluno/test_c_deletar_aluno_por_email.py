@@ -6,8 +6,7 @@ from fastapi import HTTPException
 from src.controladores.fastapi.aluno.c_deletar_aluno_por_email import CDeletarAlunoPorEmail
 import tests.mock_objetos as mo
 from src.usecases.aluno.uc_deletar_aluno_por_email import UCDeletarAlunoPorEmail
-from src.usecases.erros.erros_uc_aluno import ErroEmailInvalido
-from src.usecases.erros.erros_usecase import ErroInesperado
+from src.usecases.erros.erros_usecase import ErroInesperado, ErroEmailInvalido
 
 
 class TestCDeletarAlunoPorEmail:

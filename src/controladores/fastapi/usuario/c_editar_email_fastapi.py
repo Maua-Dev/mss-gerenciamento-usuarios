@@ -5,12 +5,11 @@ from devmaua.src.models.email import Email
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_email import ErroDadosEmailInvalidos
 
-from src.usecases.erros.erros_usecase import ErroInesperado
+from src.usecases.erros.erros_usecase import ErroInesperado, ErroEmailInvalido
 from src.usecases.usuario.uc_editar_email import UCEditarEmail
 
 from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroManipulacaoEmailFaculdade
 

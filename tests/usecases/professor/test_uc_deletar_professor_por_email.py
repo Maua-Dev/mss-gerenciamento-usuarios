@@ -1,7 +1,7 @@
 import pytest
 
 from src.repositorios.mock.armazenamento_professor_volatil import ArmazenamentoProfessorVolatil
-from src.usecases.erros.erros_uc_aluno import ErroEmailInvalido
+from src.usecases.erros.erros_usecase import ErroEmailInvalido
 from src.usecases.professor.uc_deletar_professor_por_email import UCDeletarProfessorPorEmail
 from tests import mock_objetos as mo
 

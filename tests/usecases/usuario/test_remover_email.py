@@ -17,7 +17,7 @@ from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
 
 from src.usecases.usuario.uc_remover_email import UCRemoverEmail
 
-from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroEmailInvalido
+from src.usecases.erros.erros_usecase import ErroEmailInvalido
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroManipulacaoEmailFaculdade
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroDeletarEmailUnico

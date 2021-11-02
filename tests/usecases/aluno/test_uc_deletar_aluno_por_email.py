@@ -2,7 +2,7 @@ import pytest
 
 from src.repositorios.mock.armazenamento_aluno_volatil import ArmazenamentoAlunoVolatil
 from src.usecases.aluno.uc_deletar_aluno_por_email import UCDeletarAlunoPorEmail
-from src.usecases.erros.erros_uc_aluno import ErroEmailInvalido
+from src.usecases.erros.erros_usecase import ErroEmailInvalido
 from tests import mock_objetos as mo
 
 class TestUCDeletarAlunoPorEmail:

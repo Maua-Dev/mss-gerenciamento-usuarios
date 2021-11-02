@@ -1,11 +1,8 @@
 class ErroUsuarioNaoExiste(Exception):
     def __init__(self):
         super().__init__("Usuário não existe!")
-        
-class ErroEmailInvalido(Exception):
-    def __init__(self):
-        super().__init__("Email inválido!")
-        
+
+
 class ErroManipulacaoEmailFaculdade(Exception):
     def __init__(self):
         super().__init__("Email da faculdade não pode ser modificado")

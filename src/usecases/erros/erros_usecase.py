@@ -15,3 +15,6 @@ class ErroInesperado(Exception):
         super().__init__("Erro inesperado")
 
 
+class ErroEmailInvalido(Exception):
+    def __init__(self):
+        super().__init__("Email inválido!")

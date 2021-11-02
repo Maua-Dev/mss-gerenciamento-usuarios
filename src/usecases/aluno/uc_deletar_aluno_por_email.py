@@ -1,5 +1,5 @@
 from src.interfaces.i_repo_aluno import IArmazenamentoAluno
-from src.usecases.erros.erros_uc_aluno import ErroEmailInvalido
+from src.usecases.erros.erros_usecase import ErroEmailInvalido
 
 
 class UCDeletarAlunoPorEmail:
