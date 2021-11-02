@@ -10,9 +10,10 @@ class RotasAluno(APIRouter):
 
         super().__init__(prefix="/aluno", responses={404: {"description": "Not found"}})
 
-        @self.delete("")
-        async def deletar(request: str):
-            return _ctrl.deletarAlunoPorEmail(request)
+        @self.delete("/{email}")
+        async def deletar(email: str):
+            #TODO ver se tem jeito melhor --> Refatorando models da para usar <Email>
+            return _ctrl.deletarAlunoPorEmail(email)
 
         @self.get("/ra/{ano}/{numero}/{digito}")
         async def getPorRa(ano: str, numero: str, digito: str):
