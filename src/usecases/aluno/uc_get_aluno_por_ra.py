@@ -16,8 +16,6 @@ class UCGetAlunoPorRA:
         try:
             return self.repo.getAlunoPorRA(ra)
 
-        # Feito dessa forma para não depender de repo -> No controller não usamos repo, pois é mutavel
+        # Feito dessa forma para não depender de repo -> No controller não usamos erro de repo, pois é mutavel
         except ErroNaoEncontrado:
             raise ErroAlunoNaoEncontrado()
-
-
