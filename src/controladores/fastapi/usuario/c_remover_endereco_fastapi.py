@@ -5,7 +5,7 @@ from devmaua.src.models.endereco import Endereco
 from devmaua.src.models.erros.erro_usuario import ErroDadosUsuarioInvalidos
 from devmaua.src.models.erros.erro_endereco import ErroDadosEnderecoInvalidos
 
-from src.usecases.erros.erros_usecase_usuario import ErroInesperado
+from src.usecases.erros.erros_usecase import ErroInesperado
 from src.usecases.usuario.uc_remover_endereco import UCRemoverEndereco
 
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario

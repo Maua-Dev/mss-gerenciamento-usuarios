@@ -4,9 +4,9 @@ from fastapi import Response, status
 
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 
-from src.usecases.erros.erros_usecase_usuario import ErroUsuarioExiste
+from src.usecases.erros.erros_usecase import ErroUsuarioExiste
 from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
-from src.usecases.erros.erros_usecase_usuario import ErroInesperado
+from src.usecases.erros.erros_usecase import ErroInesperado
 
 import logging
 

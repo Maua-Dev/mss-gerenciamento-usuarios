@@ -2,7 +2,7 @@ from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 from src.usecases.usuario.uc_get_usuario_por_userid import UCGetUsuarioPorUserId
 from fastapi import Response, status
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_usecase_usuario import ErroIdInvalido, ErroInesperado
+from src.usecases.erros.erros_usecase import ErroIdInvalido, ErroInesperado
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import logging

@@ -2,7 +2,7 @@ from devmaua.src.models.usuario import Usuario
 
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 from src.usecases.erros.erros_uc_alteracao_info_cadastro_usuario import ErroUsuarioNaoExiste
-from src.usecases.erros.erros_usecase_usuario import ErroIdInvalido
+from src.usecases.erros.erros_usecase import ErroIdInvalido
 
 
 class UCGetUsuarioPorUserId:
