@@ -3,7 +3,7 @@ from unittest.mock import patch, Mock
 import pytest
 from fastapi import HTTPException
 
-from src.controladores.fastapi.c_get_aluno_por_ra import CGetAlunoPorRA
+from src.controladores.fastapi.aluno.c_get_aluno_por_ra import CGetAlunoPorRA
 from src.usecases.aluno.uc_get_aluno_por_ra import UCGetAlunoPorRA
 import tests.mock_objetos as mo
 from src.usecases.erros.erros_uc_aluno import ErroAlunoNaoEncontrado

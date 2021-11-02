@@ -1,7 +1,13 @@
+from devmaua.src.models.aluno import Aluno
+from devmaua.src.models.ra import RA
 from devmaua.src.models.usuario import Usuario
 from fastapi import FastAPI
 
+from src.controladores.fastapi.aluno.c_cadastrar_aluno import CCadastrarAluno
+from src.controladores.fastapi.aluno.c_deletar_aluno_por_email import CDeletarAlunoPorEmail
+from src.controladores.fastapi.aluno.c_get_aluno_por_ra import CGetAlunoPorRA
 from src.controladores.fastapi.usuario.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
+from src.interfaces.IRepoAluno import IArmazenamentoAluno
 from src.interfaces.IRepoUsuario import IArmazenamentoUsuario
 from src.config.enums.fastapi import *
 from src.config.proj_config import ProjConfig
@@ -23,7 +29,8 @@ from src.controladores.fastapi.usuario.c_get_usuario_por_telefone import CHttpGe
 
 
 class FabricaControladorFastapi:
-    repo: IArmazenamentoUsuario
+    repoUsuario: IArmazenamentoUsuario
+    repoAluno: IArmazenamentoAluno
 
     __config__: dict
 
@@ -35,8 +42,9 @@ class FabricaControladorFastapi:
 
     app: FastAPI
 
-    def __init__(self, repo: IArmazenamentoUsuario):
-        self.repo = repo
+    def __init__(self, repoUsuario: IArmazenamentoUsuario, repoAluno: IArmazenamentoAluno):
+        self.repoUsuario = repoUsuario
+        self.repoAluno = repoAluno
 
         self.__config__ = ProjConfig.getFastapi()
 
@@ -50,43 +58,54 @@ class FabricaControladorFastapi:
         self.app.include_router(Roteador(self))
 
     def adicionarEmail(self, body: dict):
-        return ControllerHTTPAdicionarEmailFastAPI(self.repo)(body)
+        return ControllerHTTPAdicionarEmailFastAPI(self.repoUsuario)(body)
 
     def removerEmail(self, body: dict):
-        return ControllerHTTPRemoverEmailFastAPI(self.repo)(body)
+        return ControllerHTTPRemoverEmailFastAPI(self.repoUsuario)(body)
 
     def editarEmail(self, body: dict):
-        return ControllerHTTPEditarEmailFastAPI(self.repo)(body)
+        return ControllerHTTPEditarEmailFastAPI(self.repoUsuario)(body)
 
     def adicionarEndereco(self, body: dict):
-        return ControllerHTTPAdicionarEnderecoFastAPI(self.repo)(body)
+        return ControllerHTTPAdicionarEnderecoFastAPI(self.repoUsuario)(body)
 
     def removerEndereco(self, body: dict):
-        return ControllerHTTPRemoverEnderecoFastAPI(self.repo)(body)
+        return ControllerHTTPRemoverEnderecoFastAPI(self.repoUsuario)(body)
 
     def editarEndereco(self, body: dict):
-        return ControllerHTTPEditarEnderecoFastAPI(self.repo)(body)
+        return ControllerHTTPEditarEnderecoFastAPI(self.repoUsuario)(body)
 
     def adicionarTelefone(self, body: dict):
-        return ControllerHTTPAdicionarTelefoneFastAPI(self.repo)(body)
+        return ControllerHTTPAdicionarTelefoneFastAPI(self.repoUsuario)(body)
 
     def removerTelefone(self, body: dict):
-        return ControllerHTTPRemoverTelefoneFastAPI(self.repo)(body)
+        return ControllerHTTPRemoverTelefoneFastAPI(self.repoUsuario)(body)
 
     def editarTelefone(self, body: dict):
-        return ControllerHTTPEditarTelefoneFastAPI(self.repo)(body)
+        return ControllerHTTPEditarTelefoneFastAPI(self.repoUsuario)(body)
 
     def cadastrarUsuario(self, body: Usuario):
-        return ControllerHTTPCadastrarUsuario(self.repo)(body)
+        return ControllerHTTPCadastrarUsuario(self.repoUsuario)(body)
 
     def deletarUsuarioPorEmail(self, body: dict):
-        return CDeletarUsuarioPorEmailFastAPI(self.repo)(body)
+        return CDeletarUsuarioPorEmailFastAPI(self.repoUsuario)(body)
 
     def getUsuarioPorUserId(self, userId: int):
-        return CHttpGetUsuarioPorUserIdFastAPI(self.repo)(userId)
+        return CHttpGetUsuarioPorUserIdFastAPI(self.repoUsuario)(userId)
 
     def getUsuarioPorEmail(self, email: str):
-        return CHttpGetUsuarioPorEmailFastAPI(self.repo)(email)
+        return CHttpGetUsuarioPorEmailFastAPI(self.repoUsuario)(email)
 
     def getUsuarioPorTelefone(self, ddd: int, numero: str):
-        return CHttpGetUsuarioPorTelefoneFastAPI(self.repo)(ddd, numero)
+        return CHttpGetUsuarioPorTelefoneFastAPI(self.repoUsuario)(ddd, numero)
+
+# ===== Aluno
+
+    def cadastrarAluno(self, aluno: Aluno):
+        return CCadastrarAluno(self.repoAluno)(aluno)
+
+    def deletarAlunoPorEmail(self, email: str):
+        return CDeletarAlunoPorEmail(self.repoAluno)(email)
+
+    def getPorRa(self, ra: RA):
+        return CGetAlunoPorRA(self.repoAluno)(ra)
