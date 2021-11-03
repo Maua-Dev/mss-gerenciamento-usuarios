@@ -92,6 +92,26 @@ def mockAluno() -> Aluno:
         ra=ra, curso=curso, serie=serie, disciplinas=disciplinas, listaDPs=listaDPs, periodo=periodo, hasDP=hasDP
     )
 
+def mockAlunoComDP() -> Aluno:
+    u = mockUsuario()
+    nome = u.nome
+    contato = u.contato
+    nascimento = u.nascimento
+
+    ra = mockRA()
+    curso = NomeCurso.ENGENHARIA_DA_COMPUTACAO
+    serie = 4
+    disciplinas = [CodigoDisciplina.ECM251]
+    periodo = Periodo.DIURNO
+    listaDPs = [CodigoDisciplina.ECM251]
+    hasDP = True
+    roles = u.roles
+
+    return Aluno(
+        nome=nome, contato=contato, nascimento=nascimento, roles=roles,
+        ra=ra, curso=curso, serie=serie, disciplinas=disciplinas, listaDPs=listaDPs, periodo=periodo, hasDP=hasDP
+    )
+
 
 # ===== MOCK PROFESSOR ======
 

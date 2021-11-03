@@ -10,6 +10,6 @@ def substituirValoresAluno(alunoAntigo: Aluno, alunoNovo: Aluno):
     for atr in sub:
         getNovo = getattr(alunoNovo, atr)
         # Se alunoAntigo.atr não None ou vazio
-        if getNovo:
+        if getNovo is not None:
             # alunoAntigo.atr = alunoNovo.atr
             setattr(alunoAntigo, atr, getNovo)
