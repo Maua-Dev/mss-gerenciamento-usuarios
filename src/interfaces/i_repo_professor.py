@@ -25,3 +25,6 @@ class IArmazenamentoProfessor(ABC):
     def getProfessorPorId(self, profId: str) -> Professor:
         pass
 
+    @abstractmethod
+    def editarProfessor(self, professor: Professor) -> bool:
+        pass

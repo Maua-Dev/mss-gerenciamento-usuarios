@@ -69,3 +69,5 @@ class TestEditarModels:
         assert aluno == mo.mockAlunoComDP()
         substituirValoresAluno(aluno, novo)
         assert aluno == novo
+
+#TODO testar para professores - nao dá agora pois enums do models só tem 1 valor

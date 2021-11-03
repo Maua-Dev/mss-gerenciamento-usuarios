@@ -21,5 +21,5 @@ class RotasAluno(APIRouter):
             return _ctrl.getPorRa(ra)
 
         @self.put("")
-        async def deletar(request: Aluno):
-            return _ctrl.editarAlunoPorEmail(request)
+        async def editarAluno(request: Aluno):
+            return _ctrl.editarAluno(request)

@@ -1,3 +1,4 @@
+from devmaua.src.models.professor import Professor
 from fastapi import APIRouter
 
 
@@ -17,3 +18,7 @@ class RotasProfessor(APIRouter):
         async def getPorRa(profId: str):
             # TODO Ta meio zoado isso aqui, pensar em jeito melhor
             return _ctrl.getProfessorPorId(profId)
+
+        @self.put("")
+        async def editarProfessor(request: Professor):
+            return _ctrl.editarProfessor(request)

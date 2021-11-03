@@ -10,6 +10,7 @@ from src.controladores.fastapi.aluno.c_editar_aluno import CEditarAluno
 from src.controladores.fastapi.aluno.c_get_aluno_por_ra import CGetAlunoPorRA
 from src.controladores.fastapi.professor.c_cadastrar_professor import CCadastrarProfessor
 from src.controladores.fastapi.professor.c_deletar_professor_por_email import CDeletarProfessorPorEmail
+from src.controladores.fastapi.professor.c_editar_professor import CEditarProfessor
 from src.controladores.fastapi.professor.c_get_professor_por_id import CGetProfessorPorID
 from src.controladores.fastapi.usuario.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
 from src.interfaces.i_repo_aluno import IArmazenamentoAluno
@@ -118,7 +119,7 @@ class FabricaControladorFastapi:
     def getPorRa(self, ra: RA):
         return CGetAlunoPorRA(self.repoAluno)(ra)
 
-    def editarAlunoPorEmail(self, aluno: Aluno):
+    def editarAluno(self, aluno: Aluno):
         return CEditarAluno(self.repoAluno)(aluno)
 
 # ===== Professor
@@ -132,3 +133,5 @@ class FabricaControladorFastapi:
     def getProfessorPorId(self, profId: str):
         return CGetProfessorPorID(self.repoProfessor)(profId)
 
+    def editarProfessor(self, prof: Professor):
+        return CEditarProfessor(self.repoProfessor)(prof)

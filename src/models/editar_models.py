@@ -1,4 +1,5 @@
 from devmaua.src.models.aluno import Aluno
+from devmaua.src.models.professor import Professor
 
 
 def substituirValoresAluno(alunoAntigo: Aluno, alunoNovo: Aluno):
@@ -9,7 +10,19 @@ def substituirValoresAluno(alunoAntigo: Aluno, alunoNovo: Aluno):
 
     for atr in sub:
         getNovo = getattr(alunoNovo, atr)
-        # Se alunoAntigo.atr não None ou vazio
         if getNovo is not None:
             # alunoAntigo.atr = alunoNovo.atr
             setattr(alunoAntigo, atr, getNovo)
+
+
+def substituirValoresProfessor(profAntigo: Professor, profNovo: Professor):
+    # não substituido: dados usuário, ID, roles
+
+    # atributos a substituir em <Professor>
+    sub = ["troncos", "cursos", "disciplinas"]
+
+    for atr in sub:
+        getNovo = getattr(profNovo, atr)
+        if getNovo is not None:
+            # alunoAntigo.atr = alunoNovo.atr
+            setattr(profAntigo, atr, getNovo)

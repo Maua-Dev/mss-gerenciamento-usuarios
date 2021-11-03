@@ -42,6 +42,17 @@ class TestArmazenamentoProfessorVolatil:
 
         assert p == self.professor
 
-    def testGetAlunoPorRAErroAlunoNaoEncontrado(self):
+    def testGetProfessorPorIDErroProfessorNaoEncontrado(self):
         with pytest.raises(ErroNaoEncontrado):
             self.armazenamento.getProfessorPorId(mo.mockIdDiferente())
+
+#TODO testar para professores - nao dá agora pois enums do models só tem 1 valor
+
+    def testEditarProfessorNaoEncontradoRetornaFalse(self):
+        novo = mo.mockProfessor()
+        novo.ID = mo.mockIdDiferente()
+        # TODO Alterar algo do prof depois quando der
+
+        cond = self.armazenamento.editarProfessor(novo)
+        assert not cond
+        # assert self.armazenamento.armazem[0] == mo.mockProfessor()     # Não atualizou repo
