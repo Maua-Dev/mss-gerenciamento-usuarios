@@ -26,3 +26,6 @@ class IArmazenamentoAluno(ABC):
     def getAlunoPorRA(self, ra: RA) -> Aluno:
         pass
 
+    @abstractmethod
+    def editarAluno(self, aluno: Aluno) -> bool:
+        pass

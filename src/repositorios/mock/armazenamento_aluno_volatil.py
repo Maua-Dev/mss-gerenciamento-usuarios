@@ -4,6 +4,7 @@ from devmaua.src.models.aluno import Aluno
 from devmaua.src.models.ra import RA
 
 from src.interfaces.i_repo_aluno import IArmazenamentoAluno
+from src.models.editar_models import substituirValoresAluno
 from src.repositorios.erros.erros_armazem_volatil import ErroNaoEncontrado
 
 
@@ -29,3 +30,10 @@ class ArmazenamentoAlunoVolatil(IArmazenamentoAluno):
             if a.ra == ra:
                 return a
         raise ErroNaoEncontrado
+
+    def editarAluno(self, aluno: Aluno) -> bool:
+        for i, a in enumerate(self.armazem):
+            if a.ra == aluno.ra:
+                substituirValoresAluno(a, aluno)
+                return True
+        return False
