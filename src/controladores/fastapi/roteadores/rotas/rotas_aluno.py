@@ -1,3 +1,4 @@
+from devmaua.src.models.aluno import Aluno
 from devmaua.src.models.ra import RA
 from fastapi import APIRouter
 
@@ -18,3 +19,7 @@ class RotasAluno(APIRouter):
             #TODO Ta meio zoado isso aqui, pensar em jeito melhor
             ra = RA(ano=ano, numero=numero, digito=digito)
             return _ctrl.getPorRa(ra)
+
+        @self.put("")
+        async def deletar(request: Aluno):
+            return _ctrl.editarAlunoPorEmail(request)

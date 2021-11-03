@@ -6,6 +6,7 @@ from fastapi import FastAPI
 
 from src.controladores.fastapi.aluno.c_cadastrar_aluno import CCadastrarAluno
 from src.controladores.fastapi.aluno.c_deletar_aluno_por_email import CDeletarAlunoPorEmail
+from src.controladores.fastapi.aluno.c_editar_aluno import CEditarAluno
 from src.controladores.fastapi.aluno.c_get_aluno_por_ra import CGetAlunoPorRA
 from src.controladores.fastapi.professor.c_cadastrar_professor import CCadastrarProfessor
 from src.controladores.fastapi.professor.c_deletar_professor_por_email import CDeletarProfessorPorEmail
@@ -117,6 +118,9 @@ class FabricaControladorFastapi:
     def getPorRa(self, ra: RA):
         return CGetAlunoPorRA(self.repoAluno)(ra)
 
+    def editarAlunoPorEmail(self, aluno: Aluno):
+        return CEditarAluno(self.repoAluno)(aluno)
+
 # ===== Professor
 
     def cadastrarProfessor(self, prof: Professor):
@@ -127,3 +131,4 @@ class FabricaControladorFastapi:
 
     def getProfessorPorId(self, profId: str):
         return CGetProfessorPorID(self.repoProfessor)(profId)
+
