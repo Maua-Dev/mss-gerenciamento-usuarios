@@ -8,8 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-
+  testApp:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +31,26 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: true
+
+
+  testContainer:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: docker build -t test .
+    - name: Run
+      run: docker run --name test -d -p 8080:8080 test
+    - name: Get containers running
+      run: docker ps
+    - name: Get logs
+      run: docker logs test
+    - name: Sleep for 5 seconds
+      run: sleep 5s
+    - name: Test main route
+      id: mainRoute
+      run: echo "::set-output name=status::$(curl -o /dev/null -s -w "%{http_code}\n" localhost:8080)"
+    - uses: nick-invision/assert-action@v1
+      with:
+        expected: 200
+        actual:  ${{ steps.mainRoute.outputs.status }}
