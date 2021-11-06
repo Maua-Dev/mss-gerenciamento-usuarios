@@ -1,19 +1,19 @@
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 
-from src.usecases.uc_adicionar_email import UCAdicionarEmail
-from src.usecases.uc_get_usuario_por_telefone import UCGetUsuarioPorTelefone
-from src.usecases.uc_remover_email import UCRemoverEmail
-from src.usecases.uc_editar_email import UCEditarEmail
-from src.usecases.uc_adicionar_endereco import UCAdicionarEndereco
-from src.usecases.uc_remover_endereco import UCRemoverEndereco
-from src.usecases.uc_editar_endereco import UCEditarEndereco
-from src.usecases.uc_adicionar_telefone import UCAdicionarTelefone
-from src.usecases.uc_remover_telefone import UCRemoverTelefone
-from src.usecases.uc_editar_telefone import UCEditarTelefone
-from src.usecases.uc_cadastrar_usuario import UCCadastrarUsuario
-from src.usecases.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
-from src.usecases.uc_get_usuario_por_userid import UCGetUsuarioPorUserId
-from src.usecases.uc_get_usuario_por_email import UCGetUsuarioPorEmail
+from src.usecases.usuario.uc_adicionar_email import UCAdicionarEmail
+from src.usecases.usuario.uc_get_usuario_por_telefone import UCGetUsuarioPorTelefone
+from src.usecases.usuario.uc_remover_email import UCRemoverEmail
+from src.usecases.usuario.uc_editar_email import UCEditarEmail
+from src.usecases.usuario.uc_adicionar_endereco import UCAdicionarEndereco
+from src.usecases.usuario.uc_remover_endereco import UCRemoverEndereco
+from src.usecases.usuario.uc_editar_endereco import UCEditarEndereco
+from src.usecases.usuario.uc_adicionar_telefone import UCAdicionarTelefone
+from src.usecases.usuario.uc_remover_telefone import UCRemoverTelefone
+from src.usecases.usuario.uc_editar_telefone import UCEditarTelefone
+from src.usecases.usuario.uc_cadastrar_usuario import UCCadastrarUsuario
+from src.usecases.usuario.uc_deletar_usuario_por_email import UCDeletarUsuarioPorEmail
+from src.usecases.usuario.uc_get_usuario_por_userid import UCGetUsuarioPorUserId
+from src.usecases.usuario.uc_get_usuario_por_email import UCGetUsuarioPorEmail
 
 
 class FabricaUsecases:

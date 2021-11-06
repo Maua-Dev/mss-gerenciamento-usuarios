@@ -1,6 +1,8 @@
 from src.config.proj_config import ProjConfig
 from src.config.erros.deployment import *
 from src.config.enums.deployment import *
+from src.repositorios.mock.armazenamento_aluno_volatil import ArmazenamentoAlunoVolatil
+from src.repositorios.mock.armazenamento_professor_volatil import ArmazenamentoProfessorVolatil
 from src.repositorios.mock.armazenamento_usuario_volatil import ArmazenamentoUsuarioVolatil
 from src.fabricas.controladores.fastapi.fabrica_controlador_fastapi import FabricaControladorFastapi
 
@@ -13,14 +15,16 @@ class Init:
     ):
         # Instanciando tipo de REPOSITORIO
         if tipo_repo == REPOSITORIO.MOCK.value:
-            repo = ArmazenamentoUsuarioVolatil()
+            repoUsuario = ArmazenamentoUsuarioVolatil()
+            repoAluno = ArmazenamentoAlunoVolatil()
+            repoProfessor = ArmazenamentoProfessorVolatil()
         else:
             raise ErroDeployment1()
 
         # Instanciando tipo de CONTROLER
         if tipo_ctrl == CONTROLADOR.FASTAPI.value:
-            ctrl = FabricaControladorFastapi(repo)
+            ctrl = FabricaControladorFastapi(repoUsuario, repoAluno, repoProfessor)
         else:
             raise ErroDeployment2()
 
-        return repo, ctrl
+        return repoUsuario, repoAluno, repoProfessor, ctrl

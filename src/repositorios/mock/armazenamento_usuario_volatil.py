@@ -1,7 +1,7 @@
 from devmaua.src.models.ra import RA
 from devmaua.src.models.usuario import Usuario
 
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 
 from devmaua.src.models.telefone import Telefone        
 from devmaua.src.models.email import Email
@@ -13,14 +13,14 @@ from devmaua.src.enum.tipo_endereco import TipoEndereco
 from devmaua.src.enum.tipo_email import TipoEmail
 from devmaua.src.enum.roles import Roles
 
-from typing import Optional
+from typing import Optional, List
 from datetime import date
 
 from src.repositorios.erros.erros_armazem_volatil import ErroUsuarioNaoEncontrado
 
 
-class ArmazenamentoUsuarioVolatil(IArmazenamento):
-    armazem: list[Usuario]
+class ArmazenamentoUsuarioVolatil(IArmazenamentoUsuario):
+    armazem: List[Usuario]
 
     def __init__(self):
         self.armazem = []
@@ -32,7 +32,7 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento):
     def getUsuarioPorIdProfessor(self, profId: str):
         pass
 
-    def getUsuarioPorUserId(self, userId: int):
+    def getUsuarioPorUserId(self, userId: int) -> Usuario:
         try:
             return self.armazem[userId]
         # uso de Exception só pois é mock. Se formos mudar não importa a Exception que for dar no repo, só importa que deu algo no repo
@@ -40,22 +40,21 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento):
         except Exception as e:
             raise ErroUsuarioNaoEncontrado
 
-    def getUsuarioPorEmail(self, email: str):
+    def getUsuarioPorEmail(self, email: str) -> Usuario:
         for u in self.armazem:
             for e in u.contato.emails:
                 if e.email == email:
                     return u
         raise ErroUsuarioNaoEncontrado
 
-    def getUsuarioPorTelefone(self, ddd: int, numero: str):
+    def getUsuarioPorTelefone(self, ddd: int, numero: str) -> Usuario:
         for u in self.armazem:
             for t in u.contato.telefones:
                 if t.numero == numero and t.ddd == ddd:
                     return u
         raise ErroUsuarioNaoEncontrado
 
-
-    def usuarioExiste(self, outro_usuario: Usuario):
+    def usuarioExiste(self, outro_usuario: Usuario) -> bool:
         for u in self.armazem:
             if u.nome == outro_usuario.nome and u.nascimento == outro_usuario.nascimento:
                 return True
@@ -153,12 +152,6 @@ class ArmazenamentoUsuarioVolatil(IArmazenamento):
         if u != []:
             return len(u[0].contato.telefones)
         return []
-    
-    def usuarioExiste(self, usuario: Usuario):
-        for u in self.armazem:
-            if u.nome == usuario.nome and u.nascimento == usuario.nascimento:
-                return True
-        return False
     
     def getUsuarioPorNomeENascimento(self, nome: str, nascimento: date):
         u = [u for u in self.armazem if (u.nome == nome and u.nascimento == nascimento)]

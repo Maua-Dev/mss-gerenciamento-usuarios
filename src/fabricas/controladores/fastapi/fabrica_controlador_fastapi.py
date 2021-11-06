@@ -1,28 +1,44 @@
+from devmaua.src.models.aluno import Aluno
+from devmaua.src.models.professor import Professor
+from devmaua.src.models.ra import RA
+from devmaua.src.models.usuario import Usuario
 from fastapi import FastAPI
 
-from src.controladores.fastapi.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
-from src.interfaces.IRepoUsuario import IArmazenamento
+from src.controladores.fastapi.aluno.c_cadastrar_aluno import CCadastrarAluno
+from src.controladores.fastapi.aluno.c_deletar_aluno_por_email import CDeletarAlunoPorEmail
+from src.controladores.fastapi.aluno.c_editar_aluno import CEditarAluno
+from src.controladores.fastapi.aluno.c_get_aluno_por_ra import CGetAlunoPorRA
+from src.controladores.fastapi.professor.c_cadastrar_professor import CCadastrarProfessor
+from src.controladores.fastapi.professor.c_deletar_professor_por_email import CDeletarProfessorPorEmail
+from src.controladores.fastapi.professor.c_editar_professor import CEditarProfessor
+from src.controladores.fastapi.professor.c_get_professor_por_id import CGetProfessorPorID
+from src.controladores.fastapi.usuario.c_get_usuario_por_userid import CHttpGetUsuarioPorUserIdFastAPI
+from src.interfaces.i_repo_aluno import IArmazenamentoAluno
+from src.interfaces.i_repo_professor import IArmazenamentoProfessor
+from src.interfaces.i_repo_usuario import IArmazenamentoUsuario
 from src.config.enums.fastapi import *
 from src.config.proj_config import ProjConfig
 from src.controladores.fastapi.roteadores.roteador import Roteador
 
-from src.controladores.fastapi.c_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
-from src.controladores.fastapi.c_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
-from src.controladores.fastapi.c_editar_email_fastapi import ControllerHTTPEditarEmailFastAPI
-from src.controladores.fastapi.c_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
-from src.controladores.fastapi.c_remover_endereco_fastapi import ControllerHTTPRemoverEnderecoFastAPI
-from src.controladores.fastapi.c_editar_endereco_fastapi import ControllerHTTPEditarEnderecoFastAPI
-from src.controladores.fastapi.c_adicionar_telefone_fastapi import ControllerHTTPAdicionarTelefoneFastAPI
-from src.controladores.fastapi.c_remover_telefone_fastapi import ControllerHTTPRemoverTelefoneFastAPI
-from src.controladores.fastapi.c_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
-from src.controladores.fastapi.c_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
-from src.controladores.fastapi.c_cadastrar_usuario import ControllerHTTPCadastrarUsuario
-from src.controladores.fastapi.c_get_usuario_por_email import CHttpGetUsuarioPorEmailFastAPI
-from src.controladores.fastapi.c_get_usuario_por_telefone import CHttpGetUsuarioPorTelefoneFastAPI
+from src.controladores.fastapi.usuario.c_adicionar_email_fastapi import ControllerHTTPAdicionarEmailFastAPI
+from src.controladores.fastapi.usuario.c_remover_email_fastapi import ControllerHTTPRemoverEmailFastAPI
+from src.controladores.fastapi.usuario.c_editar_email_fastapi import ControllerHTTPEditarEmailFastAPI
+from src.controladores.fastapi.usuario.c_adicionar_endereco_fastapi import ControllerHTTPAdicionarEnderecoFastAPI
+from src.controladores.fastapi.usuario.c_remover_endereco_fastapi import ControllerHTTPRemoverEnderecoFastAPI
+from src.controladores.fastapi.usuario.c_editar_endereco_fastapi import ControllerHTTPEditarEnderecoFastAPI
+from src.controladores.fastapi.usuario.c_adicionar_telefone_fastapi import ControllerHTTPAdicionarTelefoneFastAPI
+from src.controladores.fastapi.usuario.c_remover_telefone_fastapi import ControllerHTTPRemoverTelefoneFastAPI
+from src.controladores.fastapi.usuario.c_editar_telefone_fastapi import ControllerHTTPEditarTelefoneFastAPI
+from src.controladores.fastapi.usuario.c_deletar_usuario_por_email_fastapi import CDeletarUsuarioPorEmailFastAPI
+from src.controladores.fastapi.usuario.c_cadastrar_usuario import ControllerHTTPCadastrarUsuario
+from src.controladores.fastapi.usuario.c_get_usuario_por_email import CHttpGetUsuarioPorEmailFastAPI
+from src.controladores.fastapi.usuario.c_get_usuario_por_telefone import CHttpGetUsuarioPorTelefoneFastAPI
 
 
 class FabricaControladorFastapi:
-    repo: IArmazenamento
+    repoUsuario: IArmazenamentoUsuario
+    repoAluno: IArmazenamentoAluno
+    repoProfessor: IArmazenamentoProfessor
 
     __config__: dict
 
@@ -34,8 +50,10 @@ class FabricaControladorFastapi:
 
     app: FastAPI
 
-    def __init__(self, repo: IArmazenamento):
-        self.repo = repo
+    def __init__(self, repoUsuario: IArmazenamentoUsuario, repoAluno: IArmazenamentoAluno, repoProfessor: IArmazenamentoProfessor):
+        self.repoUsuario = repoUsuario
+        self.repoAluno = repoAluno
+        self.repoProfessor = repoProfessor
 
         self.__config__ = ProjConfig.getFastapi()
 
@@ -49,43 +67,71 @@ class FabricaControladorFastapi:
         self.app.include_router(Roteador(self))
 
     def adicionarEmail(self, body: dict):
-        return ControllerHTTPAdicionarEmailFastAPI(self.repo)(body)
+        return ControllerHTTPAdicionarEmailFastAPI(self.repoUsuario)(body)
 
     def removerEmail(self, body: dict):
-        return ControllerHTTPRemoverEmailFastAPI(self.repo)(body)
+        return ControllerHTTPRemoverEmailFastAPI(self.repoUsuario)(body)
 
     def editarEmail(self, body: dict):
-        return ControllerHTTPEditarEmailFastAPI(self.repo)(body)
+        return ControllerHTTPEditarEmailFastAPI(self.repoUsuario)(body)
 
     def adicionarEndereco(self, body: dict):
-        return ControllerHTTPAdicionarEnderecoFastAPI(self.repo)(body)
+        return ControllerHTTPAdicionarEnderecoFastAPI(self.repoUsuario)(body)
 
     def removerEndereco(self, body: dict):
-        return ControllerHTTPRemoverEnderecoFastAPI(self.repo)(body)
+        return ControllerHTTPRemoverEnderecoFastAPI(self.repoUsuario)(body)
 
     def editarEndereco(self, body: dict):
-        return ControllerHTTPEditarEnderecoFastAPI(self.repo)(body)
+        return ControllerHTTPEditarEnderecoFastAPI(self.repoUsuario)(body)
 
     def adicionarTelefone(self, body: dict):
-        return ControllerHTTPAdicionarTelefoneFastAPI(self.repo)(body)
+        return ControllerHTTPAdicionarTelefoneFastAPI(self.repoUsuario)(body)
 
     def removerTelefone(self, body: dict):
-        return ControllerHTTPRemoverTelefoneFastAPI(self.repo)(body)
+        return ControllerHTTPRemoverTelefoneFastAPI(self.repoUsuario)(body)
 
     def editarTelefone(self, body: dict):
-        return ControllerHTTPEditarTelefoneFastAPI(self.repo)(body)
+        return ControllerHTTPEditarTelefoneFastAPI(self.repoUsuario)(body)
 
-    def cadastrarUsuario(self, body: dict):
-        return ControllerHTTPCadastrarUsuario(self.repo)(body)
+    def cadastrarUsuario(self, body: Usuario):
+        return ControllerHTTPCadastrarUsuario(self.repoUsuario)(body)
 
     def deletarUsuarioPorEmail(self, body: dict):
-        return CDeletarUsuarioPorEmailFastAPI(self.repo)(body)
+        return CDeletarUsuarioPorEmailFastAPI(self.repoUsuario)(body)
 
     def getUsuarioPorUserId(self, userId: int):
-        return CHttpGetUsuarioPorUserIdFastAPI(self.repo)(userId)
+        return CHttpGetUsuarioPorUserIdFastAPI(self.repoUsuario)(userId)
 
     def getUsuarioPorEmail(self, email: str):
-        return CHttpGetUsuarioPorEmailFastAPI(self.repo)(email)
+        return CHttpGetUsuarioPorEmailFastAPI(self.repoUsuario)(email)
 
     def getUsuarioPorTelefone(self, ddd: int, numero: str):
-        return CHttpGetUsuarioPorTelefoneFastAPI(self.repo)(ddd, numero)
+        return CHttpGetUsuarioPorTelefoneFastAPI(self.repoUsuario)(ddd, numero)
+
+# ===== Aluno
+
+    def cadastrarAluno(self, aluno: Aluno):
+        return CCadastrarAluno(self.repoAluno)(aluno)
+
+    def deletarAlunoPorEmail(self, email: str):
+        return CDeletarAlunoPorEmail(self.repoAluno)(email)
+
+    def getPorRa(self, ra: RA):
+        return CGetAlunoPorRA(self.repoAluno)(ra)
+
+    def editarAluno(self, aluno: Aluno):
+        return CEditarAluno(self.repoAluno)(aluno)
+
+# ===== Professor
+
+    def cadastrarProfessor(self, prof: Professor):
+        return CCadastrarProfessor(self.repoProfessor)(prof)
+
+    def deletarProfessorPorEmail(self, email: str):
+        return CDeletarProfessorPorEmail(self.repoProfessor)(email)
+
+    def getProfessorPorId(self, profId: str):
+        return CGetProfessorPorID(self.repoProfessor)(profId)
+
+    def editarProfessor(self, prof: Professor):
+        return CEditarProfessor(self.repoProfessor)(prof)

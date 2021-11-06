@@ -1,8 +1,10 @@
 from fastapi import APIRouter
 
+from .rotas.rotas_aluno import RotasAluno
 from .rotas.rotas_mss_info import RotasMssInfo
 from .rotas.rotas_email import RotasEmail
 from .rotas.rotas_endereco import RotasEndereco
+from .rotas.rotas_professor import RotasProfessor
 from .rotas.rotas_telefone import RotasTelefone
 from .rotas.rotas_cadastro import RotasCadastro
 from .rotas.rotas_usuario import RotasUsuario
@@ -20,6 +22,10 @@ class Roteador(APIRouter):
         self.include_router(RotasTelefone(_ctrl))
         self.include_router(RotasUsuario(_ctrl))
         self.include_router(RotasCadastro(_ctrl))
+        self.include_router(RotasAluno(_ctrl))
+        self.include_router(RotasProfessor(_ctrl))
+
+
 
 
 

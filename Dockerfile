@@ -15,4 +15,5 @@ RUN apk add git
 RUN apk add python3-dev
 RUN pip install -r requirements.txt
 
+
 CMD ["python", "-m", "src.main"]
