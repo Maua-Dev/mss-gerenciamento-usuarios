@@ -6,4 +6,4 @@ class ErroUsuarioNaoEncontrado(Exception):
 
 class ErroNaoEncontrado(Exception):
     def __init__(self):
-        super().__init__("Não encotrado encontrado")
+        super().__init__("Não encotrado")
